@@ -1,0 +1,12 @@
+django>=3.2.8
+channels
+django-cors-headers
+djangorestframework
+django-import-export
+spacy
+gensim
+joblib
+pandas
+sklearn
+python-osc
+pyttsx3

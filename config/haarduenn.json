@@ -1,0 +1,73 @@
+{
+  "max_num_utterances": 100,
+  "first_part" : "dick",
+  "categories": ["praise", "insinuation", "dissence",  "lecture", "concession"],
+  "parts": [
+    {
+      "name": "dick",
+      "category": "praise",
+      "note": 1,
+      "receipts": {
+        "fb_note": 29,
+        "insinuation": 30,
+        "dissence": 31,
+        "lecture": 32,
+        "concession": 33
+      },
+      "limit": 5
+    },
+    {
+      "name": "duenner",
+      "category": "dissence",
+      "note": 2,
+      "receipts": {
+        "fb_note": 29,
+        "insinuation": 30,
+        "dissence": 31,
+        "lecture": 32,
+        "concession": 33
+      },
+      "limit": 5
+    },
+    {
+      "name": "lichte_stellen",
+      "category": "concession",
+      "note": 3,
+      "receipts": {
+        "fb_note": 29,
+        "insinuation": 30,
+        "dissence": 31,
+        "lecture": 32,
+        "concession": 33
+      },
+      "limit": 5
+    },
+    {
+      "name": "straehnen",
+      "category": "insinuation",
+      "note": 4,
+      "receipts": {
+        "fb_note": 29,
+        "insinuation": 30,
+        "dissence": 31,
+        "lecture": 32,
+        "concession": 33
+      },
+      "limit": 5
+    },
+    {
+      "name": "haut",
+      "category": "lecture",
+      "note": 5,
+      "receipts": {
+        "fb_note": 29,
+        "insinuation": 30,
+        "dissence": 31,
+        "lecture": 32,
+        "concession": 33
+      },
+      "limit": 5
+    }
+  ]
+}
+

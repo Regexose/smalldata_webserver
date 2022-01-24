@@ -1,0 +1,40 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://127.0.0.1:8000",
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "node-fetch": "^2.6.1",
+    "p5": "^1.4.0",
+    "react": "^16.8.6",
+    "react-bootstrap": "^1.6.1",
+    "react-dom": "^16.8.6",
+    "react-p5-wrapper": "^2.4.1",
+    "react-scripts": "^3.4.3",
+    "react-select": "^3.0.8",
+    "react-toastify": "^8.0.2",
+    "reactstrap": "^8.0.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

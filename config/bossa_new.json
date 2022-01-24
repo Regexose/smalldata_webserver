@@ -1,0 +1,89 @@
+{
+  "max_num_utterances": 50,
+  "first_part" : "dissence",
+  "categories": ["praise", "insinuation", "dissence",  "lecture", "concession"],
+  "intro_limit": 2,
+  "parts": [
+    {
+      "name": "dissence",
+      "category": "dissence",
+      "note": 2,
+      "fb_note": 29,
+      "limit": 5
+    },
+    {
+      "name": "lecture",
+      "category": "lecture",
+      "note": 3,
+      "fb_note": 30,
+      "limit": 5
+    },
+    {
+      "name": "praise",
+      "category": "praise",
+      "note": 4,
+      "fb_note": 31,
+      "limit": 5
+    },
+    {
+      "name": "insinuation",
+      "category": "insinuation",
+      "note": 5,
+      "fb_note": 32,
+      "limit": 5
+    },
+    {
+      "name": "concession",
+      "category": "concession",
+      "note": 6,
+      "fb_note": 33,
+      "limit": 5
+    }
+  ],
+  "synth_fb":
+  {
+    "reset": {
+        "5": 40,
+        "10": 40,
+        "15": 40,
+        "20" : 30,
+        "25": 30
+      },
+    "insinuation": {
+        "5": 95,
+        "10": 120,
+        "15": 100,
+        "20": 35,
+        "25": 80
+      } ,
+    "dissence": {
+        "5": 95,
+        "10": 110,
+        "15": 100,
+        "20": 80,
+        "25": 80
+      },
+    "praise": {
+        "5": 25,
+        "10": 100,
+        "15": 72,
+        "20": 15,
+        "25": 8
+      },
+    "lecture": {
+        "5": 20,
+        "10": 100,
+        "15": 75,
+        "20": 50,
+        "25": 50
+      },
+    "concession": {
+        "5": 20,
+        "10": 66,
+        "15": 99,
+        "20": 5,
+        "25": 12
+      }
+  }
+}
+
