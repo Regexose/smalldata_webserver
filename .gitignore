@@ -114,3 +114,6 @@ model_data/german.model
 
 # preliminary xlsx-Files
 *.xlsx#
+
+# Ignore the development container's ~ directory
+.homedir
