@@ -52,7 +52,7 @@ RUNTIME_VERSION ?= 3.10.0a3
 # The following example installation commands should work:
 # -	for projects that use Pip: `pip install -r requirements.txt`
 # - for projects that use Poetry: `poetry install --no-dev`
-PACKAGE_INSTALLER ?= pip install -r requirements.txt
+PACKAGE_INSTALLER ?= pip install -r requirements-dev.txt
 
 # Poetry version
 # The configuration installs Poetry by default.
