@@ -46,7 +46,7 @@ SYSTEM_PACKAGES ?=
 # The notation of the version should match the semver notation for which there
 # are official Docker images available, otherwise the DOCKER_BASE_IMAGE
 # variable will have to be modified to pull the appropriate Docker base image.
-RUNTIME_VERSION ?= 3.10.0a3
+RUNTIME_VERSION ?= 3.9.10
 
 # Python dependency installation command
 # The following example installation commands should work:
