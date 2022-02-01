@@ -58,7 +58,7 @@ PACKAGE_INSTALLER ?= pip install -r requirements-dev.txt
 # The configuration installs Poetry by default.
 POETRY_VERSION ?= 1.1.4
 
-PIP_VERSION ?= 21.0.1
+PIP_VERSION ?= 22.0.2
 
 # Version to use for tagging images
 # By default the PROJECT_VERSION and RUNTIME_VERSION are factored into the
