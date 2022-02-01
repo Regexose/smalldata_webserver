@@ -53,7 +53,7 @@ WORKDIR /tmp/${PROJECT}
 # Stage an image with manifested project dependencies
 # Produces an image which has the packages listed within a package manifest
 # installed such that it is equiped to build the application of interest.
-FROM prebuild as build
+FROM prebuild AS build
 
 # Copy Python dependency manifests into temporary working directory
 COPY . /tmp/${PROJECT}/
