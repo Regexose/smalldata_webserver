@@ -161,7 +161,7 @@ else
 		$(DOCKER_ARGS) \
 		--rm -it \
 		--entrypoint=bash \
-		$(DOCKER_IMAGE_NAME):$(DOCKER_IMAGE_TAG)-$(stage)
+		$(DOCKER_IMAGE_NAME):$(stage)
 endif
 
 # Clear local cache and venv directories
