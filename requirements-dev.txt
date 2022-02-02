@@ -13,6 +13,7 @@ constantly==15.1.0
 cryptography==36.0.1
 cymem==2.0.6
 daphne==3.0.2
+de-core-news-sm @ https://github.com/explosion/spacy-models/releases/download/de_core_news_sm-3.2.0/de_core_news_sm-3.2.0-py3-none-any.whl
 defusedxml==0.7.1
 diff-match-patch==20200713
 Django==4.0.1
