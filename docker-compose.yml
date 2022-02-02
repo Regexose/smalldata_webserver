@@ -1,0 +1,36 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  app:
+    # Use the build image as it should have all dependencies installed
+    image: smalldata_webserver:build
+    command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      - HOME=${DOCKER_CONTAINER_HOME_PATH}
+      - PROJECT=${PROJECT_NAME}
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/tmp/${PROJECT_NAME}
+      - .config:/etc/opt/${PROJECT_NAME}
+      - .homedir:${DOCKER_CONTAINER_HOME_PATH}
+      - logvolume01:/var/log
+    depends_on:
+      - db
+    links:
+      - db
+    #stdin_open: true
+    #tty: true
+    working_dir: /tmp/${PROJECT_NAME}
+volumes:
+  logvolume01: {}
