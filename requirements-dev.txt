@@ -21,7 +21,7 @@ django-cors-headers==3.11.0
 django-import-export==2.7.1
 djangorestframework==3.13.1
 et-xmlfile==1.1.0
-gensim==0.10.1
+gensim==4.1.2
 hyperlink==21.0.0
 idna==3.3
 incremental==21.3.0
@@ -30,6 +30,7 @@ joblib==1.1.0
 langcodes==3.3.0
 MarkupPy==1.14
 MarkupSafe==2.0.1
+maxentropy==0.3.0
 murmurhash==1.0.6
 numpy==1.22.1
 odfpy==1.4.1
