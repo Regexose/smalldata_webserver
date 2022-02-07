@@ -19,12 +19,12 @@ from asgiref.sync import async_to_sync
 sys.path.append(path.abspath(path.dirname(__file__) + '/../..'))  # hack top make sure webserver can be imported
 sys.path.reverse()  # hack to make sure the project's config is used instead of a config from the package 'odf'
 
-from classification.Classifier_max import Classifier
+from classification import loader
 from sound.UDPClient import MusicClient
 from smalldata_webserver.config import settings
 
 
-clf = Classifier(settings.DATA_DIR)
+clf = loader.load_model(settings.model_config)
 #   Client for a simple Feedback from Ableton Live
 song_client = MusicClient(settings.ips['song_server'], settings.SONG_SERVER_PORT)
 display_client = MusicClient(settings.ips['audience'], settings.AUDIENCE_PORT)
