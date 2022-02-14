@@ -117,3 +117,5 @@ model_data/german.model
 
 # Ignore the development container's ~ directory
 .homedir
+
+project.mk
