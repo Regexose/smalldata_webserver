@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
+import dj_database_url
 import os
 import json
 
@@ -94,11 +95,9 @@ CHANNEL_LAYERS = {
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': dj_database_url.config(conn_max_age=os.environ.get('DATABASE_CONN_MAX_AGE'))
 }
 
 
