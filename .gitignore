@@ -119,3 +119,4 @@ model_data/german.model
 .homedir
 
 project.mk
+data/
