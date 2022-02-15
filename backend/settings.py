@@ -29,9 +29,9 @@ DEBUG = os.environ.get('DEBUG') == 'True'
 
 # Make the host config explicit
 # See https://stackoverflow.com/questions/31685688/is-allowed-hosts-needed-on-heroku#31685816
-ALLOWED_HOSTS = (os.environ.get('ALLOWED_HOSTS').split(",")
-                 if os.environ.get('ALLOWED_HOSTS') != None
-                 else ['localhost', '127.0.0.1', '[::1]'])
+ALLOWED_HOSTS = (['localhost', '127.0.0.1', '[::1]']
+                 if os.environ.get('ALLOWED_HOSTS') == None
+                 else (os.environ.get('ALLOWED_HOSTS').split(",")))
 
 
 # Application definition
@@ -142,14 +142,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'frontend', "build", "static"),  # update the STATICFILES_DIRS
 ]
-
-# we whitelist localhost:3000 because that's where frontend will be served
-CORS_ORIGIN_WHITELIST = [
-         'http://localhost:3000',
-     ]
-
-#  Manually add frontend server to ALLOWED_HOSTS and CORS_ORIGIN_WHITELIST
-ips = json.load(open(os.path.join(BASE_DIR, 'config/ip_config.json')))
-
-ALLOWED_HOSTS.append(ips['webapp'])
-CORS_ORIGIN_WHITELIST.append('http://{}:3000'.format(ips['webapp']))
+cors_whitelist = os.environ.get('CORS_ORIGIN_WHITELIST')
+CORS_ORIGIN_WHITELIST = ([] if cors_whitelist == None
+                         else cors_whitelist.strip().split(','))
