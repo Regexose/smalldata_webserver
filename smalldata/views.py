@@ -11,20 +11,21 @@ from .models import Utterance, Category, TrainingUtterance, SongState
 from .consumers import UtteranceConsumer
 
 from channels.layers import get_channel_layer
-
 from os import path
 import sys
 from asgiref.sync import async_to_sync
 
+from sound.UDPClient import MusicClient
+
 sys.path.append(path.abspath(path.dirname(__file__) + '/../..'))  # hack top make sure webserver can be imported
 sys.path.reverse()  # hack to make sure the project's config is used instead of a config from the package 'odf'
+# parent_path = path.join(path.abspath(path.dirname(__file__) + '/../..'))
+# sys.path.append(parent_path)  # hack top make sure webserver can be imported
 
-from classification import loader
-from sound.UDPClient import MusicClient
 from smalldata_webserver.config import settings
+from project2.src import deploy
 
-
-clf = loader.load_model(settings.model_config)
+clf = deploy.get_classifier(settings.model_config)
 #   Client for a simple Feedback from Ableton Live
 song_client = MusicClient(settings.ips['song_server'], settings.SONG_SERVER_PORT)
 display_client = MusicClient(settings.ips['audience'], settings.AUDIENCE_PORT)
@@ -49,7 +50,7 @@ class UtteranceView(viewsets.ModelViewSet):
         # Fetch sent data
         text = serializer.validated_data["text"]
         # send text to clf to return a category
-        cat, prob = clf.predict_proba(text, verbose=True)
+        cat = clf.predict(text)
 
         # lookup found category in database
         #  TODO: build a test during startup to make sure the db and the model reproduce the same categories!

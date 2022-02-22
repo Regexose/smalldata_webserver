@@ -6,7 +6,7 @@ BASE_DIR = path.dirname(path.dirname(path.abspath(__file__)))
 DATA_DIR = path.join(BASE_DIR, 'model_data')
 
 #  model file for classification
-model_config = 'config_train_lstm.json'
+model_config = "config_live_bert.json"  # 'config_train_lstm.json'
 
 # Song settings
 song_file = "bossa_new.json"
