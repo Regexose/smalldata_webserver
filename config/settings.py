@@ -25,7 +25,7 @@ SONG_SYNTH_RESET_ADDRESS = '/reset'
 SONG_ARP_ADDRESS = '/arp'
 SONG_BEAT_ADDRESS = '/beat'
 INTERPRETER_TARGET_ADDRESS = "/interpreter_input"
-SONG_SERVER_PORT = 5020
+SONG_SERVER_PORT = 57120
 OSCULATOR_PORT = 5010
 OSCULATOR_TARGET_ADDRESS = "/osculator_input"
 DISPLAY_UTTERANCE_ADDRESS = "/display_input"
@@ -50,3 +50,4 @@ note_to_beat = {
     127: '8',
     'first_count_in_bar': '1'
 }
+
