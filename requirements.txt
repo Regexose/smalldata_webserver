@@ -13,3 +13,7 @@ pyttsx3
 asgiref
 torch
 numpy
+tensorboard
+transformers
+matplotlib
+seaborn
