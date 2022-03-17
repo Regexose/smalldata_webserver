@@ -4,9 +4,16 @@ django-cors-headers
 djangorestframework
 django-import-export
 spacy
-gensim
+gensim>4.0
 joblib
 pandas
 sklearn
 python-osc
 pyttsx3
+asgiref
+torch
+numpy
+tensorboard
+transformers
+matplotlib
+seaborn

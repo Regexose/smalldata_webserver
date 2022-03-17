@@ -5,6 +5,9 @@ import json
 BASE_DIR = path.dirname(path.dirname(path.abspath(__file__)))
 DATA_DIR = path.join(BASE_DIR, 'model_data')
 
+#  model file for classification
+model_config = "config_live_bert.json"  # 'config_train_lstm.json'
+
 # Song settings
 song_file = "bossa_new.json"
 song_path = path.join(BASE_DIR, 'config', song_file)
@@ -22,7 +25,7 @@ SONG_SYNTH_RESET_ADDRESS = '/reset'
 SONG_ARP_ADDRESS = '/arp'
 SONG_BEAT_ADDRESS = '/beat'
 INTERPRETER_TARGET_ADDRESS = "/interpreter_input"
-SONG_SERVER_PORT = 5020
+SONG_SERVER_PORT = 57120
 OSCULATOR_PORT = 5010
 OSCULATOR_TARGET_ADDRESS = "/osculator_input"
 DISPLAY_UTTERANCE_ADDRESS = "/display_input"
@@ -47,3 +50,4 @@ note_to_beat = {
     127: '8',
     'first_count_in_bar': '1'
 }
+
