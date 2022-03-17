@@ -2,8 +2,8 @@ version: "3.9"  # optional since v1.27.0
 services:
   db:
     image: postgres:13.6-alpine
-    volumes:
-      - ./data/db:/var/lib/postgresql/data
+    #volumes:
+    #  - ./data/db:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: password
 
@@ -18,12 +18,12 @@ services:
       - SECRET_KEY=${APP_SECRET_KEY}
     ports:
       - "8000:8000"
-    volumes:
-      - .:/tmp/${PROJECT_NAME}
-      - .config:/etc/opt/${PROJECT_NAME}
-      - .homedir:${DOCKER_CONTAINER_HOME_PATH}
-      - logvolume01:/var/log
-      - .venv:/opt/venv
+    #volumes:
+    #  - .:/tmp/${PROJECT_NAME}
+    #  - .config:/etc/opt/${PROJECT_NAME}
+    #  - .homedir:${DOCKER_CONTAINER_HOME_PATH}
+    #  - logvolume01:/var/log
+    #  - .venv:/opt/venv
     depends_on:
       - db
     links:
