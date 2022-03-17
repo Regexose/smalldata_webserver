@@ -40,7 +40,7 @@ PROJECT_NAME ?= $(notdir $(realpath $(srcdir)))
 # Version of the application to build
 PROJECT_VERSION ?= $(shell $(GIT) describe --always --dirty)
 
-SYSTEM_PACKAGES ?=
+SYSTEM_PACKAGES ?= libpq-dev
 
 # Python version for the base Docker image
 # The notation of the version should match the semver notation for which there
