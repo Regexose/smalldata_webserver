@@ -10,7 +10,7 @@ services:
   app:
     # Use the build image as it should have all dependencies installed
     image: smalldata_webserver:build
-    command: python manage.py runserver 0.0.0.0:8000
+    command: "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     environment:
       - DATABASE_URL=postgres://postgres:password@db/postgres
       - HOME=${DOCKER_CONTAINER_HOME_PATH}
