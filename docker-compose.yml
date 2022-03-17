@@ -15,6 +15,7 @@ services:
       - DATABASE_URL=postgres://postgres:password@db/postgres
       - HOME=${DOCKER_CONTAINER_HOME_PATH}
       - PROJECT=${PROJECT_NAME}
+      - SECRET_KEY=${APP_SECRET_KEY}
     ports:
       - "8000:8000"
     volumes:
