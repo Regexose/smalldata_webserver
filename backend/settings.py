@@ -100,6 +100,7 @@ DATABASES = {
     'default': dj_database_url.config(conn_max_age=os.environ.get('DATABASE_CONN_MAX_AGE'))
 }
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
