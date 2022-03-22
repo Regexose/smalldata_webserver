@@ -15,7 +15,7 @@ ARG SYSTEM_PACKAGES=""
 RUN set -x; apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     curl \
-    python-dev \
+    python3-dev \
     ${SYSTEM_PACKAGES} \
     && rm -rf /var/lib/apt/lists/*
 
@@ -28,7 +28,7 @@ ARG POETRY_VERSION
 RUN set -x; curl -sSL \
   ${POETRY_ORIGIN}/${POETRY_VERSION}/get-poetry.py \
   > /tmp/get-poetry.py && \
-  python /tmp/get-poetry.py --version ${POETRY_VERSION} && \
+  python3 /tmp/get-poetry.py --version ${POETRY_VERSION} && \
   chmod -R a+x /opt/poetry/bin
 
 # TODO: Clean /var/cache /var/log var/*log /var/log/(fail,last)log
@@ -36,11 +36,11 @@ RUN set -x; curl -sSL \
 # Define environment vars for venv and initialize a venv
 ENV VIRTUAL_ENV=/opt/venv
 ENV PATH="$VIRTUAL_ENV/bin:/opt/poetry/bin:$PATH"
-RUN set -x; python -m venv $VIRTUAL_ENV
+RUN set -x; python3 -m venv $VIRTUAL_ENV
 
 ARG PIP_ORIGIN=https://pypi.org/simple
 ARG PIP_VERSION
-RUN set -x; pip install \
+RUN set -x; pip3 install \
   --index-url ${PIP_ORIGIN} \
   --upgrade pip==${PIP_VERSION}
 
