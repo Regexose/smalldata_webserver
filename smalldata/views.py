@@ -9,7 +9,7 @@ from rest_framework.decorators import api_view, action
 from .serializers import UtteranceSerializer, CategorySerializer, TrainingUtteranceSerializer, SongStateSerializer, \
     TopicSerializer
 from .models import Utterance, Category, TrainingUtterance, SongState, Topic
-from .consumers import UtteranceConsumer
+from .consumers import UtteranceConsumer, TopicConsumer
 
 from channels.layers import get_channel_layer
 from os import path
@@ -89,12 +89,24 @@ class TopicView(viewsets.ModelViewSet):
     @action(methods=['post'], detail=True)
     def set_current(self, request, pk=None):
         Topic.objects.filter(isCurrent=True).update(isCurrent=False)
-        Topic.objects.filter(pk=pk).update(isCurrent=True)
+        current_topic = Topic.objects.filter(pk=pk)
+        current_topic.update(isCurrent=True)
+
+        # inform connected channels
+        serializer = TopicSerializer(current_topic.get())
+        channel_layer = get_channel_layer()
+        async_to_sync(channel_layer.group_send)(
+            TopicConsumer.group_name, {
+                "type": "set_current",
+                "text": serializer.data
+            }
+        )
+
         return response.Response("ok")
 
     @action(methods=['get'], detail=False)
     def get_current(self, request):
-        topic = self.get_queryset().get(**{'isCurrent': 1})
+        topic = self.get_queryset().get(**{'isCurrent': True})
         serializer = TopicSerializer(topic)
         return response.Response(serializer.data)
 
