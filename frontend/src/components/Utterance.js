@@ -1,16 +1,27 @@
 // frontend/src/components/Utterance.js
 
-import React, { Component } from "react";
+import React, { Component, useState} from "react";
+import {Text, StyleSheet} from "react-native";
 import fetch from "node-fetch";
 import { Button} from 'react-bootstrap';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
+import '../App.css';
 
+
+const styles = StyleSheet.create({
+  titleText: {
+    fontSize: 20,
+    fontWeight: "bold"
+  }
+});
 
 export default class Utterance extends Component {
     constructor(props) {
         super(props);
+        this.titleText = "Kommentarvorlage";
+        this.bodyText = "Eine Art Kommentarvorlage weufnewcnwoen wef we[oifw[oeifh weoifhwe[oihf ewo[ihf[wiehf [waoncfaw[docnw[ aof awiof iej afiewjf'oiawenf'cns d'lcm iwej f wlvaeldvb lhbrlf blahblfaerbf lhbdf lhb habhr ]]]]]]]]";
         this.utteranceRef = React.createRef();
         this.state = {
             text: ''
@@ -19,6 +30,7 @@ export default class Utterance extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
 
     handleSubmit(e) {
         e.preventDefault();
@@ -76,9 +88,8 @@ export default class Utterance extends Component {
 
     render() {
         return (
-
             <div className="row ">
-                        <div>
+            <div>
                 <ToastContainer
                     position="top-center"
                     autoClose={3000}
@@ -92,17 +103,24 @@ export default class Utterance extends Component {
                     transition={Slide}
                     />
             </div>
+
+            <div className="topic-frame">
+            <Text style={styles.titleText}>{this.titleText}</Text>
+            {"\n"}
+            <Text numberOfLines={5}>{this.bodyText}</Text>
+            </div>
                 <form>
                     <label>
-                        Schreibe hier Deinen Beitrag zur Musik
+                        Schreibe hier Deinen Beitrag
                     </label>
-
-                    <textarea type="text" style={{width: 500}}
+                    <br/>
+                    <textarea className="utterance-field"
                           ref={this.utteranceRef}
                           onChange={this.handleChange}
                           value={this.state.text}
                           onKeyPress={this.handleKeypress.bind(this)}
                     />
+                    <br/>
                     <Button variant="outline-secondary"
                         onClick={this.handleSubmit}>
                         kommentieren</Button>
@@ -112,4 +130,3 @@ export default class Utterance extends Component {
         );
     }
 }
- //  onSubmit=

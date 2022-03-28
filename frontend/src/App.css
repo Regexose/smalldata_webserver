@@ -23,6 +23,16 @@
   color: #61dafb;
 }
 
+.topic-frame {
+  background-color: #EBEBEB;
+  width: 500px;
+}
+
+.utterance-field {
+  type: "text";
+  width: 500px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
