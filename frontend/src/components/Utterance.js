@@ -1,6 +1,6 @@
 // frontend/src/components/Utterance.js
 
-import React, { Component, useState} from "react";
+import React, { Component} from "react";
 import fetch from "node-fetch";
 import { Button} from 'react-bootstrap';
 import { ToastContainer, toast, Slide } from 'react-toastify';

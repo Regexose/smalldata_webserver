@@ -1,11 +1,9 @@
 // frontend/src/App.js
 
 import React, { Component } from "react";
-import P5Wrapper from 'react-p5-wrapper';
-import sketch from './components/sketch';
-import Utterance from './components/Utterance';
-import Topic from './components/Topic';
-import TriggerCategory from './components/TriggerCategory';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import Main from './components/Main';
+import TopicSelector from './components/TopicSelector';
 
 
 const ColoredLine = ({ color }) => (
@@ -18,31 +16,18 @@ const ColoredLine = ({ color }) => (
     />
 );
 
-
 class App extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            messages: [],
-        };
-    }
-
-    render() {
+  render() {
         return (
-            <main className="content">
-                <h1 className="text-black text-uppercase text-center my-4">Small Data</h1>
-                <div className="col-md-6 col-sm-10 mx-auto p-0">
-                    <div className="wrapper">
-                      <Topic/>
-                      <Utterance/>
-                    </div>
-                    <P5Wrapper sketch={sketch}></P5Wrapper>
-                 </div>
+          <Router>
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/set-topic" element={<TopicSelector />} />
 
-            </main>
+            </Routes>
+            </Router>
         );
-    }
+      }
 }
 
 export default App;
