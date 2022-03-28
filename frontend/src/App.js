@@ -4,8 +4,8 @@ import React, { Component } from "react";
 import P5Wrapper from 'react-p5-wrapper';
 import sketch from './components/sketch';
 import Utterance from './components/Utterance';
+import Topic from './components/Topic';
 import TriggerCategory from './components/TriggerCategory';
-
 
 
 const ColoredLine = ({ color }) => (
@@ -34,7 +34,8 @@ class App extends Component {
                 <h1 className="text-black text-uppercase text-center my-4">Small Data</h1>
                 <div className="col-md-6 col-sm-10 mx-auto p-0">
                     <div className="wrapper">
-                        <Utterance/>
+                      <Topic/>
+                      <Utterance/>
                     </div>
                     <P5Wrapper sketch={sketch}></P5Wrapper>
                  </div>

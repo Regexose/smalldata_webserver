@@ -1,7 +1,6 @@
 // frontend/src/components/Utterance.js
 
 import React, { Component, useState} from "react";
-import {Text, StyleSheet} from "react-native";
 import fetch from "node-fetch";
 import { Button} from 'react-bootstrap';
 import { ToastContainer, toast, Slide } from 'react-toastify';
@@ -9,19 +8,9 @@ import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../App.css';
 
-
-const styles = StyleSheet.create({
-  titleText: {
-    fontSize: 20,
-    fontWeight: "bold"
-  }
-});
-
 export default class Utterance extends Component {
     constructor(props) {
         super(props);
-        this.titleText = "Kommentarvorlage";
-        this.bodyText = "Eine Art Kommentarvorlage weufnewcnwoen wef we[oifw[oeifh weoifhwe[oihf ewo[ihf[wiehf [waoncfaw[docnw[ aof awiof iej afiewjf'oiawenf'cns d'lcm iwej f wlvaeldvb lhbrlf blahblfaerbf lhbdf lhb habhr ]]]]]]]]";
         this.utteranceRef = React.createRef();
         this.state = {
             text: ''
@@ -104,11 +93,6 @@ export default class Utterance extends Component {
                     />
             </div>
 
-            <div className="topic-frame">
-            <Text style={styles.titleText}>{this.titleText}</Text>
-            {"\n"}
-            <Text numberOfLines={5}>{this.bodyText}</Text>
-            </div>
                 <form>
                     <label>
                         Schreibe hier Deinen Beitrag
