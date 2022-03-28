@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Utterance, Category, TrainingUtterance, SongState
+from .models import Utterance, Category, TrainingUtterance, SongState, Topic
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -25,4 +25,10 @@ class SongStateSerializer(serializers.ModelSerializer):
 class TrainingUtteranceSerializer(serializers.ModelSerializer):
     class Meta:
         model = TrainingUtterance
+        fields = '__all__'
+
+
+class TopicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Topic
         fields = '__all__'

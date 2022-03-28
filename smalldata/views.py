@@ -6,8 +6,9 @@ from django.shortcuts import render
 
 from rest_framework import viewsets, response, status
 from rest_framework.decorators import api_view
-from .serializers import UtteranceSerializer, CategorySerializer, TrainingUtteranceSerializer, SongStateSerializer
-from .models import Utterance, Category, TrainingUtterance, SongState
+from .serializers import UtteranceSerializer, CategorySerializer, TrainingUtteranceSerializer, SongStateSerializer, \
+    TopicSerializer
+from .models import Utterance, Category, TrainingUtterance, SongState, Topic
 from .consumers import UtteranceConsumer
 
 from channels.layers import get_channel_layer
@@ -79,6 +80,11 @@ class CategoryView(viewsets.ModelViewSet):
 class TrainingUtteranceView(viewsets.ModelViewSet):
     serializer_class = TrainingUtteranceSerializer
     queryset = TrainingUtterance.objects.all()
+
+
+class TopicView(viewsets.ModelViewSet):
+    serializer_class = TopicSerializer
+    queryset = Topic.objects.all()
 
 
 @api_view(['GET', 'POST'])

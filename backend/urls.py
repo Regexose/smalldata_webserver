@@ -9,6 +9,7 @@ router = routers.DefaultRouter()
 router.register(r'utterances', views.UtteranceView, 'utterance')
 router.register(r'categories', views.CategoryView, 'category')
 router.register(r'training_utterances', views.TrainingUtteranceView, 'training_utterance')
+router.register(r'topics', views.TopicView, 'topic')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
