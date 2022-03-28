@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 from rest_framework import viewsets, response, status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, action
 from .serializers import UtteranceSerializer, CategorySerializer, TrainingUtteranceSerializer, SongStateSerializer, \
     TopicSerializer
 from .models import Utterance, Category, TrainingUtterance, SongState, Topic
@@ -85,6 +85,12 @@ class TrainingUtteranceView(viewsets.ModelViewSet):
 class TopicView(viewsets.ModelViewSet):
     serializer_class = TopicSerializer
     queryset = Topic.objects.all()
+
+    @action(methods=['get'], detail=False)
+    def get_current(self, request):
+        topic = self.get_queryset().get(**{'isCurrent': 1})
+        serializer = TopicSerializer(topic)
+        return response.Response(serializer.data)
 
 
 @api_view(['GET', 'POST'])

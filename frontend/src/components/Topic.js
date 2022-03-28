@@ -13,20 +13,30 @@ export default class Topic extends Component {
   constructor(props) {
       super(props);
       this.titleText = "Kommentarvorlage";
-      this.bodyText = "Eine Art Kommentarvorlage weufnewcnwoen wef we[oifw[oeifh weoifhwe[oihf ewo[ihf[wiehf [waoncfaw[docnw[ aof awiof iej afiewjf'oiawenf'cns d'lcm iwej f wlvaeldvb lhbrlf blahblfaerbf lhbdf lhb habhr ]]]]]]]]";
       this.state = {
-          text: ''
+          text: ""
       };
   }
 
-
+  componentDidMount(): void {
+      fetch("/api/topics/get_current", {
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+      }).then(response => {
+          (response.json().then(
+            data => this.setState({text: data.text})
+          ))
+      });
+  }
 
   render() {
     return (
       <div className="topic-frame">
       <Text style={styles.titleText}>{this.titleText}</Text>
       {"\n"}
-      <Text numberOfLines={5}>{this.bodyText}</Text>
+      <Text numberOfLines={5}>{this.state.text}</Text>
       </div>
     );
   }
