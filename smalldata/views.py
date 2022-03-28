@@ -86,6 +86,12 @@ class TopicView(viewsets.ModelViewSet):
     serializer_class = TopicSerializer
     queryset = Topic.objects.all()
 
+    @action(methods=['post'], detail=True)
+    def set_current(self, request, pk=None):
+        Topic.objects.filter(isCurrent=True).update(isCurrent=False)
+        Topic.objects.filter(pk=pk).update(isCurrent=True)
+        return response.Response("ok")
+
     @action(methods=['get'], detail=False)
     def get_current(self, request):
         topic = self.get_queryset().get(**{'isCurrent': 1})
