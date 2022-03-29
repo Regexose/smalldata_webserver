@@ -20,7 +20,7 @@ export default class TopicSelector extends Component {
           options: [],
           selectedOption: {text: "Nichts ausgewählt"},
           selected: false,
-          submittedOption: null,
+          submittedOption: {value: 0},
           buttonText: "Nichts ausgewählt"
       };
 
@@ -51,11 +51,20 @@ export default class TopicSelector extends Component {
   }
 
   handleChange = (selectedOption) => {
-    this.setState({
-      selectedOption: selectedOption,
-      selected: true,
-      buttonText: "Vorlage veröffentlichen"
-     });
+    if (selectedOption.value === this.state.submittedOption.value) {
+      this.setState({
+        selectedOption: selectedOption,
+        selected: false,
+        buttonText: "Ist öffentlich"
+       });
+    } else {
+      this.setState({
+        selectedOption: selectedOption,
+        selected: true,
+        buttonText: "Vorlage veröffentlichen"
+       });
+
+    }
     console.log(`Option selected:`, selectedOption.label);
   }
 
