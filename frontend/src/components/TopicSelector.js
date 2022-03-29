@@ -65,7 +65,6 @@ export default class TopicSelector extends Component {
        });
 
     }
-    console.log(`Option selected:`, selectedOption.label);
   }
 
   handleSubmit(e) {
@@ -94,6 +93,7 @@ export default class TopicSelector extends Component {
         <h1 className="text-black text-uppercase text-center my-4">Topic Select</h1>
         <div className="topic-frame mx-auto p-0">
           <Select
+          className="basic-single"
           onChange={this.handleChange}
           options={this.state.options}
           autoFocus={true}/>
