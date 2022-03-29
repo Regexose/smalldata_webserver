@@ -37,7 +37,26 @@ export default class TopicSelector extends Component {
         (response.json().then(
           data => this.populateOptions(data)
         ))
-    });
+    }).then(
+      fetch("/api/topics/get_current", {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+      }).then(response => {
+        (response.json().then(
+          data => {
+            let currentOption = {value: data.id, label: data.title, text: data.text};
+            this.setState(
+              {
+                selectedOption: currentOption,
+                submittedOption: currentOption,
+                buttonText: "Ist öffentlich"
+              });
+            }
+        ))
+      })
+    );
   }
 
   populateOptions(data) {
