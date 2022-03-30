@@ -23,9 +23,9 @@ sys.path.reverse()  # hack to make sure the project's config is used instead of 
 # sys.path.append(parent_path)  # hack top make sure webserver can be imported
 
 from smalldata_webserver.config import settings
-from project2.src import deploy
+from classification import classifier
 
-clf = deploy.get_classifier(settings.model_config)
+clf = classifier.get_classifier(settings.model_config)
 #   Client for a simple Feedback from Ableton Live
 song_client = MusicClient(settings.ips['song_server'], settings.SONG_SERVER_PORT)
 display_client = MusicClient(settings.ips['audience'], settings.AUDIENCE_PORT)
