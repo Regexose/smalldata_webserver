@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 // import ChatFeed from "react-chat-ui";/
+import {Text, StyleSheet} from "react-native";
 import { ChatFeed, ChatBubble, BubbleGroup, Message } from "react-chat-ui";
 import '../App.css';
 
@@ -23,6 +24,10 @@ const styles = {
     color: "#fff",
     backgroundColor: "#0084FF",
     borderColor: "#0084FF"
+  },
+  titleText: {
+    fontSize: 20,
+    fontWeight: "bold"
   }
 };
 
@@ -50,9 +55,27 @@ export default class Utterance extends Component {
     if (!input.value) {
       return false;
     }
-    this.pushMessage(this.state.curr_user, input.value);
-    input.value = "";
+
+    fetch("http://127.0.0.1:8000/api/utterances/", {
+      method: "POST",
+      body: JSON.stringify({text: input.value}),
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+    }).then(response => {
+      (response.json().then(data => {
+        let msg = data.text;
+        let cat = data.category;
+        this.pushMessage(this.state.curr_user, msg + " -- " + cat.name);
+      }).then(val => this.resetForm()))
+    });
+
     return true;
+  }
+
+  resetForm() {
+    this.message.value = ""
   }
 
   pushMessage(recipient, message) {
@@ -68,7 +91,10 @@ export default class Utterance extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div>
+      <div className="topic-frame">
+        <Text style={styles.titleText}>Kommentarverlauf</Text>
+      </div>
         <div className="chatfeed-wrapper">
           <ChatFeed
             maxHeight={250}
@@ -81,8 +107,6 @@ export default class Utterance extends Component {
               ref={m => {
                 this.message = m;
               }}
-              multiline
-              numberOfLines={4}
               placeholder="Bitte kommentieren..."
               className="message-input"
             />
