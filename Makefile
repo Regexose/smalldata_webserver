@@ -137,7 +137,6 @@ DOCKER_ARGS = \
 	-v $(realpath $(srcdir)):/tmp/$(PROJECT_NAME) \
 	-v $(realpath $(workdir))/.config:/etc/opt/$(PROJECT_NAME) \
 	-v $(realpath $(workdir))/.homedir:$(DOCKER_CONTAINER_HOME_PATH) \
-	-v $(realpath $(workdir))/.venv:/opt/venv \
 	-w /tmp/$(PROJECT_NAME)
 
 # Include the project.mk file if it exists to override defined parameters
