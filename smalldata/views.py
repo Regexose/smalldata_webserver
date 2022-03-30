@@ -69,6 +69,13 @@ class UtteranceView(viewsets.ModelViewSet):
 
         #  send to relevant other services
         if cat[0] != clf.UNCLASSIFIABLE:
+            channel_layer = get_channel_layer()
+            async_to_sync(channel_layer.group_send)(
+                TopicConsumer.group_name, {
+                    "type": "new_utterance",
+                    "body": serializer.data
+                }
+            )
             send_to_music_server(text.encode("utf-8"), category.name)
 
 

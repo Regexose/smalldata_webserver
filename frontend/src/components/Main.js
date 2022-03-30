@@ -12,7 +12,7 @@ export default class Main extends Component {
         <div className="col-md-6 col-sm-10 mx-auto p-0">
           <div className="wrapper">
             <Topic currentTopic={this.props.currentTopic}/>
-            <Utterance/>
+            <Utterance newUtterance={this.props.newUtterance}/>
           </div>
         </div>
       </main>

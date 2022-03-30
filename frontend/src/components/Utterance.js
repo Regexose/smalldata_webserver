@@ -68,15 +68,12 @@ export default class Utterance extends Component {
         let msg = data.text;
         let cat = data.category;
         this.pushMessage(this.state.curr_user, msg + " -- " + cat.name);
-      }).then(val => this.resetForm()))
+      }).then(val => {this.message.value = ""}))
     });
 
     return true;
   }
 
-  resetForm() {
-    this.message.value = ""
-  }
 
   pushMessage(recipient, message) {
     const prevState = this.state;
@@ -89,12 +86,20 @@ export default class Utterance extends Component {
     this.setState(this.state);
   }
 
+  componentDidUpdate(prevProps) {
+    console.log("da geht was" + this.props.newUtterance)
+    // if (prevProps.text !== this.props.text) {
+    //
+    // }
+}
+
   render() {
     return (
       <div>
       <div className="topic-frame">
-        <Text style={styles.titleText}>Kommentarverlauf</Text>
+        <Text style={styles.titleText}>Kommentarverlauf {this.props.text} </Text>
       </div>
+
         <div className="chatfeed-wrapper">
           <ChatFeed
             maxHeight={250}

@@ -49,6 +49,18 @@ class TopicConsumer(AsyncWebsocketConsumer):
                 "body": event["text"]
             }))
 
+    async def new_utterance(self, event):
+        """
+        message handler for messages transmitting set_current (called from TopicView.set_current)
+        :param event:
+        :return:
+        """
+        await self.send(
+            text_data=json.dumps({
+                "type": "utterance",
+                "body": event["body"]
+            }))
+
 
 class UtteranceConsumer(AsyncWebsocketConsumer):
     group_name = "show"

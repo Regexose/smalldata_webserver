@@ -22,7 +22,8 @@ class App extends Component {
         super(props);
         this.state = {
             ws: null,
-            currentTopic: {text: 'noch leer'}
+            currentTopic: {text: 'noch leer'},
+            newUtterance: ""
         };
     }
 
@@ -93,6 +94,8 @@ class App extends Component {
             console.log(content.body);
           } else if (content.type === 'topic') {
             this.setState({currentTopic: content.body})
+          } else if (content.type === 'utterance') {
+            this.setState({newUtterance: content.body})
           }
         };
     };
@@ -110,7 +113,8 @@ class App extends Component {
         return (
           <Router>
           <Routes>
-            <Route path="/" element={<Main currentTopic={this.state.currentTopic}/>} />
+            <Route path="/" element={
+              <Main currentTopic={this.state.currentTopic} newUtterance={this.state.newUtterance}/>} />
             <Route path="/set-topic" element={<TopicSelector />} />
 
             </Routes>
