@@ -74,7 +74,6 @@ export default class Utterance extends Component {
     return true;
   }
 
-
   pushMessage(recipient, message) {
     const prevState = this.state;
     const newMessage = new Message({
@@ -87,10 +86,13 @@ export default class Utterance extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log("da geht was" + this.props.newUtterance)
-    // if (prevProps.text !== this.props.text) {
-    //
-    // }
+    // TODO: Make sure own comments are ignored 
+    if (prevProps.newUtterance.id != this.props.newUtterance.id) {
+      let txt = this.props.newUtterance.text;
+      let cat = this.props.newUtterance.category.name;
+      this.pushMessage(1, txt + " -- " + cat)
+    }
+
 }
 
   render() {
