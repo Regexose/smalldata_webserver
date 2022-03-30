@@ -1,16 +1,9 @@
 import React, { Component } from "react";
-import {Text, StyleSheet} from "react-native";
+import {Text} from "react-native";
 import { Button } from 'react-bootstrap';
 import Select from 'react-select';
 import '../App.css';
 
-
-const styles = StyleSheet.create({
-  titleText: {
-    fontSize: 20,
-    fontWeight: "bold"
-  }
-});
 
 export default class TopicSelector extends Component {
   constructor(props) {
@@ -105,8 +98,6 @@ export default class TopicSelector extends Component {
   }
 
   render() {
-    const { selectedOption } = this.state;
-
     return (
       <main className="content">
         <h1 className="text-black text-uppercase text-center my-4">Topic Select</h1>
