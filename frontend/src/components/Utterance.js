@@ -67,9 +67,8 @@ export default class Utterance extends Component {
       },
     }).then(response => {
       (response.json().then(data => {
-        let msg = data.text;
-        let cat = data.category;
-        this.pushMessage(0, msg + " -- " + cat.name);
+        const {text, category} = data
+        this.pushMessage(0, text + " -- " + category.name);
       }).then(val => {this.message.value = ""}))
     });
 
@@ -87,15 +86,13 @@ export default class Utterance extends Component {
     this.setState(this.state);
   }
 
+  // this is used to listen to changes in props
   componentDidUpdate(prevProps) {
-    // this is used to listen to changes in props
-    if (prevProps.newUtterance.id !== this.props.newUtterance.id && this.state.ownMessageId !== this.props.newUtterance.msgId){
-      let txt = this.props.newUtterance.text;
-      let cat = this.props.newUtterance.category.name;
-      this.pushMessage(1, txt + " -- " + cat)
+    const {text, category, msgId, id} = this.props.newUtterance
+    if (prevProps.newUtterance.id !== id && this.state.ownMessageId !== msgId){
+      this.pushMessage(1, text + " -- " + category.name)
     }
-
-}
+  }
 
   render() {
     return (
