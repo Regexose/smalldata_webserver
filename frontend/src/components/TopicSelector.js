@@ -1,9 +1,16 @@
 import React, { Component } from "react";
-import {Text} from "react-native";
+import {Text, StyleSheet} from "react-native";
 import { Button } from 'react-bootstrap';
 import Select from 'react-select';
 import '../App.css';
 
+
+const styles = StyleSheet.create({
+  titleText: {
+    fontSize: 20,
+    fontWeight: "bold"
+  }
+});
 
 export default class TopicSelector extends Component {
   constructor(props) {
@@ -98,26 +105,26 @@ export default class TopicSelector extends Component {
   }
 
   render() {
+    const { selectedOption } = this.state;
+
     return (
-      <main className="content">
+      <main className="content ">
         <h1 className="text-black text-uppercase text-center my-4">Topic Select</h1>
-        <div className="topic-frame mx-auto p-0">
+        <div className="selector-frame mx-auto p-0">
           <Select
-          className="basic-single"
-          onChange={this.handleChange}
-          options={this.state.options}
-          autoFocus={true}/>
-
-            <Text numberOfLines={5}>{this.state.selectedOption.text}</Text>
-          </div>
-
-          <div className="topic-frame mx-auto p-0 text-right">
-
-          <Button variant="primary"
+            className="basic-single"
+            onChange={this.handleChange}
+            options={this.state.options}
+            autoFocus={true}/>
+          <Text numberOfLines={5}>{this.state.selectedOption.text}</Text>
+          <div className="text-right">
+            <Button variant="primary"
               onClick={this.handleSubmit}
               disabled={!this.state.selected}>
-              {this.state.buttonText}</Button>
+              {this.state.buttonText}
+            </Button>
           </div>
+        </div>
       </main>
     );
   }

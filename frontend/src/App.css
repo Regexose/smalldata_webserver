@@ -23,52 +23,33 @@
   color: #61dafb;
 }
 
+.main-frame {
+  min-width: 500px;
+  align-items: center;
+  justify-content: center;
+  overflow-y: scroll;
+}
+
 .topic-frame {
   background-color: #EBEBEB;
-  width: 500px;
 }
 
-.utterance-field {
-  type: "text";
-  width: 500px;
+.selector-frame {
+  background-color: #EBEBEB;
+  max-width: 500px
 }
 
-.container {
-  max-width: 850px;
-  margin-top: 100px;
-}
-
-.install {
-  text-align: center;
-  margin: 20px auto;
-}
-
-code {
-  margin: 20px auto;
-  background-color: #eee;
-  padding: 10px 20px;
-}
-
-input {
-  border: none;
-  border-top: 1px solid #ddd;
-  font-size: 16px;
-  padding: 10px;
-  width: 100%;
-}
-
-.chatfeed-wrapper {
+.utterance-wrapper {
   box-shadow: 0 20px 20px rgba(0, 0, 0, 0.08);
   border-radius: 4px;
-  max-width: 450px;
   margin: 0 auto;
-  border: 1px solid #ddd;
-  padding-bottom: 20px;
+  border: 2px solid #ddd;
+  margin-top: 20px;
 }
 
 .chat-history {
   display: block;
-  min-height: 250px;
+  min-height: 150px;
 }
 
 .outer {

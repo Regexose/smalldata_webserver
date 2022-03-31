@@ -99,11 +99,11 @@ export default class Utterance extends Component {
   render() {
     return (
       <div>
-        <div className="right-panel">
+        <div className="right-panel utterance-wrapper">
         <Text style={styles.titleText}>Kommentarverlauf </Text>
         <div style={styles.messageList}>
           <MessageList
-            className="message-list"
+            className="message-list chat-history"
             lockable={true}
             downButtonBadge={10}
             dataSource={this.state.messageList}
@@ -112,7 +112,7 @@ export default class Utterance extends Component {
             ref={(el) => { this.messagesEnd = el; }}>
           </div>
         </div>
-
+        <div className="utterance-input">
         <Input
           placeholder="Bitte kommentieren..."
           defaultValue=""
@@ -132,6 +132,7 @@ export default class Utterance extends Component {
           }
           // buttonsFloat='left'
           />
+          </div>
         </div>
 
       </div>
