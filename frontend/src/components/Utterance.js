@@ -43,7 +43,6 @@ export default class Utterance extends Component {
     this.state = {
       ownMessageId: 0,
       messages: [
-        new Message({ id: 1, message: "Hier stehen die Kommentare", senderName: "Das Volk" }),
       ],
     };
   }
@@ -97,11 +96,9 @@ export default class Utterance extends Component {
   render() {
     return (
       <div>
-      <div className="topic-frame">
-        <Text style={styles.titleText}>Kommentarverlauf {this.props.text} </Text>
-      </div>
 
         <div className="chatfeed-wrapper">
+        <Text style={styles.titleText}>Kommentarverlauf </Text>
           <ChatFeed
             maxHeight={250}
             messages={this.state.messages} // Boolean: list of message objects
