@@ -32,6 +32,8 @@
 
 .topic-frame {
   background-color: #EBEBEB;
+  border-radius: 4px;
+  border: 2px solid #ddd;
 }
 
 .selector-frame {
@@ -42,9 +44,10 @@
 .utterance-wrapper {
   box-shadow: 0 20px 20px rgba(0, 0, 0, 0.08);
   border-radius: 4px;
-  margin: 0 auto;
   border: 2px solid #ddd;
+  margin: 0 auto;
   margin-top: 20px;
+  background-color: #EBEBEB;
 }
 
 .chat-history {

@@ -112,7 +112,6 @@ export default class Utterance extends Component {
             ref={(el) => { this.messagesEnd = el; }}>
           </div>
         </div>
-        <div className="utterance-input">
         <Input
           placeholder="Bitte kommentieren..."
           defaultValue=""
@@ -132,7 +131,6 @@ export default class Utterance extends Component {
           }
           // buttonsFloat='left'
           />
-          </div>
         </div>
 
       </div>
