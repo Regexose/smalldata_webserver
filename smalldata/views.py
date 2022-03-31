@@ -69,14 +69,18 @@ class UtteranceView(viewsets.ModelViewSet):
 
         #  send to relevant other services
         if cat[0] != clf.UNCLASSIFIABLE:
+            send_to_music_server(text.encode("utf-8"), category.name)
+
+            # to websocket
             channel_layer = get_channel_layer()
+            data = serializer.data
+            data["msgId"] = serializer.validated_data["msg_id"]
             async_to_sync(channel_layer.group_send)(
                 TopicConsumer.group_name, {
                     "type": "new_utterance",
-                    "body": serializer.data
+                    "body": data
                 }
             )
-            send_to_music_server(text.encode("utf-8"), category.name)
 
 
 class CategoryView(viewsets.ModelViewSet):

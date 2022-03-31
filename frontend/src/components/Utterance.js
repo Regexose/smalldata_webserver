@@ -41,16 +41,18 @@ export default class Utterance extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      ownMessageId: 0,
       messages: [
         new Message({ id: 1, message: "Hier stehen die Kommentare", senderName: "Das Volk" }),
       ],
-
-      curr_user: 0
     };
   }
 
   onMessageSubmit(e) {
     const input = this.message;
+    const msgId = Date.now();
+    this.setState({ownMessageId: msgId})
+
     e.preventDefault();
     if (!input.value) {
       return false;
@@ -58,7 +60,7 @@ export default class Utterance extends Component {
 
     fetch("http://127.0.0.1:8000/api/utterances/", {
       method: "POST",
-      body: JSON.stringify({text: input.value}),
+      body: JSON.stringify({text: input.value, msg_id: msgId}),
       headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
@@ -67,7 +69,7 @@ export default class Utterance extends Component {
       (response.json().then(data => {
         let msg = data.text;
         let cat = data.category;
-        this.pushMessage(this.state.curr_user, msg + " -- " + cat.name);
+        this.pushMessage(0, msg + " -- " + cat.name);
       }).then(val => {this.message.value = ""}))
     });
 
@@ -86,8 +88,8 @@ export default class Utterance extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // TODO: Make sure own comments are ignored 
-    if (prevProps.newUtterance.id != this.props.newUtterance.id) {
+    // this is used to listen to changes in props
+    if (prevProps.newUtterance.id !== this.props.newUtterance.id && this.state.ownMessageId !== this.props.newUtterance.msgId){
       let txt = this.props.newUtterance.text;
       let cat = this.props.newUtterance.category.name;
       this.pushMessage(1, txt + " -- " + cat)
