@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import ChatFeed from "react-chat-ui";/
-import {Text, StyleSheet} from "react-native";
-import { ChatFeed, ChatBubble, BubbleGroup, Message } from "react-chat-ui";
+import { Text } from "react-native";
+import { ChatFeed, Message } from "react-chat-ui";
 import '../App.css';
 
 const styles = {
