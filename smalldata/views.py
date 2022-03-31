@@ -5,10 +5,11 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 from rest_framework import viewsets, response, status
-from rest_framework.decorators import api_view
-from .serializers import UtteranceSerializer, CategorySerializer, TrainingUtteranceSerializer, SongStateSerializer
-from .models import Utterance, Category, TrainingUtterance, SongState
-from .consumers import UtteranceConsumer
+from rest_framework.decorators import api_view, action
+from .serializers import UtteranceSerializer, CategorySerializer, TrainingUtteranceSerializer, SongStateSerializer, \
+    TopicSerializer
+from .models import Utterance, Category, TrainingUtterance, SongState, Topic
+from .consumers import UtteranceConsumer, TopicConsumer
 
 from channels.layers import get_channel_layer
 from os import path
@@ -70,6 +71,17 @@ class UtteranceView(viewsets.ModelViewSet):
         if cat[0] != clf.UNCLASSIFIABLE:
             send_to_music_server(text.encode("utf-8"), category.name)
 
+            # to websocket
+            channel_layer = get_channel_layer()
+            data = serializer.data
+            data["msgId"] = serializer.validated_data["msg_id"]
+            async_to_sync(channel_layer.group_send)(
+                TopicConsumer.group_name, {
+                    "type": "new_utterance",
+                    "body": data
+                }
+            )
+
 
 class CategoryView(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
@@ -79,6 +91,35 @@ class CategoryView(viewsets.ModelViewSet):
 class TrainingUtteranceView(viewsets.ModelViewSet):
     serializer_class = TrainingUtteranceSerializer
     queryset = TrainingUtterance.objects.all()
+
+
+class TopicView(viewsets.ModelViewSet):
+    serializer_class = TopicSerializer
+    queryset = Topic.objects.all()
+
+    @action(methods=['post'], detail=True)
+    def set_current(self, request, pk=None):
+        Topic.objects.filter(isCurrent=True).update(isCurrent=False)
+        current_topic = Topic.objects.filter(pk=pk)
+        current_topic.update(isCurrent=True)
+
+        # inform connected channels
+        serializer = TopicSerializer(current_topic.get())
+        channel_layer = get_channel_layer()
+        async_to_sync(channel_layer.group_send)(
+            TopicConsumer.group_name, {
+                "type": "set_current",
+                "text": serializer.data
+            }
+        )
+
+        return response.Response("ok")
+
+    @action(methods=['get'], detail=False)
+    def get_current(self, request):
+        topic = self.get_queryset().get(**{'isCurrent': True})
+        serializer = TopicSerializer(topic)
+        return response.Response(serializer.data)
 
 
 @api_view(['GET', 'POST'])

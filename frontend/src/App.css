@@ -23,6 +23,69 @@
   color: #61dafb;
 }
 
+.topic-frame {
+  background-color: #EBEBEB;
+  width: 500px;
+}
+
+.utterance-field {
+  type: "text";
+  width: 500px;
+}
+
+.container {
+  max-width: 850px;
+  margin-top: 100px;
+}
+
+.install {
+  text-align: center;
+  margin: 20px auto;
+}
+
+code {
+  margin: 20px auto;
+  background-color: #eee;
+  padding: 10px 20px;
+}
+
+input {
+  border: none;
+  border-top: 1px solid #ddd;
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+}
+
+.chatfeed-wrapper {
+  box-shadow: 0 20px 20px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  max-width: 450px;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  padding-bottom: 20px;
+}
+
+.chat-history {
+  display: block;
+  min-height: 250px;
+}
+
+.outer {
+  display: block;
+  height: 50%;
+  overflow-y: scroll;
+  position: relative;
+}
+
+.inner {
+  margin: 0 auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

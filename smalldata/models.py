@@ -27,6 +27,12 @@ class TrainingUtterance(models.Model):
         return self.text
 
 
+class Topic(models.Model):
+    title = models.CharField(max_length=100)
+    text = models.TextField()
+    isCurrent = models.BooleanField(default=False)
+
+
 class SongState(models.Model):
     state = models.JSONField()
 

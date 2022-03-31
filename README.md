@@ -6,9 +6,11 @@
 2. run `pip install -r requirements.txt`
 3. run `python -m spacy download de_core_news_sm`
 4. download the `german_model` and place it into the folder `model_data`
-5. run `python manage.py makemigrations && python manage.py migrate`
-6. start the api: `python manage.py runserver`
-7. open a browser & navigate to `localhost:8000/api/categories`. Create database entries:
+5. download trained models from https://1drv.ms/u/s!AmoEVYq8BVEZm75RMZ18TllnQRcxWw?e=Y30JCfand and put them in a 
+folder `trained_models` in the `model_data` - folder
+6. run `python manage.py makemigrations && python manage.py migrate`
+7. start the api: `python manage.py runserver`
+8. open a browser & navigate to `localhost:8000/api/categories`. Create database entries:
    1. `praise`
    2. `dissence`
    3. `lecture`
