@@ -65,7 +65,7 @@ export default class Utterance extends Component {
     const msgId = Date.now();
     this.setState({ownMessageId: msgId})
 
-    fetch("http://127.0.0.1:8000/api/utterances/", {
+    fetch("/api/utterances/", {
       method: "POST",
       body: JSON.stringify({text: input, msg_id: msgId}),
       headers: {

@@ -29,7 +29,7 @@ class App extends Component {
 
     componentDidMount(): void {
       this.connect();
-      fetch("http://localhost:8000/api/topics/get_current", {
+      fetch("/api/topics/get_current", {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
