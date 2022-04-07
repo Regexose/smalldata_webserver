@@ -3,6 +3,7 @@ import {Text, StyleSheet} from "react-native";
 import { Button } from 'react-bootstrap';
 import Select from 'react-select';
 import '../App.css';
+import { http_url } from '../App.js'
 
 
 const styles = StyleSheet.create({
@@ -28,7 +29,7 @@ export default class TopicSelector extends Component {
   }
 
   componentDidMount() {
-    fetch("/api/topics", {
+    fetch(http_url + "topics", {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -38,7 +39,7 @@ export default class TopicSelector extends Component {
           data => this.populateOptions(data)
         ))
     }).then(
-      fetch("/api/topics/get_current", {
+      fetch(http_url + "topics/get_current", {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -89,7 +90,7 @@ export default class TopicSelector extends Component {
   handleSubmit(e) {
     e.preventDefault()
     let pk = this.state.selectedOption.value;
-    fetch("/api/topics/" + pk + "/set_current/", {
+    fetch(http_url + "topics/" + pk + "/set_current/", {
       method: "POST",
       headers: {
           'Accept': 'application/json',

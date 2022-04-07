@@ -7,6 +7,7 @@ import {
   Button,
 } from "react-chat-elements";
 import '../App.css';
+import { http_url } from '../App.js'
 import "react-chat-elements/dist/main.css";
 
 const styles = {
@@ -65,7 +66,7 @@ export default class Utterance extends Component {
     const msgId = Date.now();
     this.setState({ownMessageId: msgId})
 
-    fetch("/api/utterances/", {
+    fetch(http_url + "utterances/", {
       method: "POST",
       body: JSON.stringify({text: input, msg_id: msgId}),
       headers: {
