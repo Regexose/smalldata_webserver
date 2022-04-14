@@ -100,7 +100,7 @@ export default class Utterance extends Component {
   render() {
     return (
       <div>
-        <div className="right-panel utterance-wrapper">
+        <div>
         <Text style={styles.titleText}>Kommentarverlauf </Text>
         <div style={styles.messageList}>
           <MessageList
@@ -113,7 +113,9 @@ export default class Utterance extends Component {
             ref={(el) => { this.messagesEnd = el; }}>
           </div>
         </div>
+        </div>
         <Input
+          className="input-field"
           placeholder="Bitte kommentieren..."
           defaultValue=""
           multiline={true}
@@ -128,12 +130,10 @@ export default class Utterance extends Component {
             }
           }}
           rightButtons={
-            <Button text="Senden" onClick={this.onMessageSubmit.bind(this)} />
+            <Button className="submit-button" text="Senden" onClick={this.onMessageSubmit.bind(this)} />
           }
           // buttonsFloat='left'
           />
-        </div>
-
       </div>
     );
   }
