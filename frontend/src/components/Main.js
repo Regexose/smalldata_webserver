@@ -10,10 +10,10 @@ export default class Main extends Component {
       <main className="content main-frame">
       <h1 className="text-black text-uppercase text-center my-4">Small Data</h1>
         <div className="mx-auto p-0">
-          <div className="wrapper">
+
             <Topic currentTopic={this.props.currentTopic}/>
             <Utterance newUtterance={this.props.newUtterance}/>
-          </div>
+          
         </div>
       </main>
     );

@@ -2,20 +2,18 @@ import React, { Component} from "react";
 import {Text, StyleSheet} from "react-native";
 import '../App.css';
 
-const styles = StyleSheet.create({
-  titleText: {
-    fontSize: 20,
-    fontWeight: "bold"
-  }
-});
 
 export default class Topic extends Component {
   render() {
     return (
-      <div>
-      <Text style={styles.titleText}>Kommentarvorlage</Text>
-      {"\n"}
-      <Text numberOfLines={5}>{this.props.currentTopic.text}</Text>
+      <div className="all-but-input">
+        <div className="topic-frame">
+          <div className="topic-header">
+          <Text style={{color: "#3237AB"}}>Kommentarvorlage</Text>
+          </div>
+          {"\n"}
+          <Text style={{fontWeight: 700}}>{this.props.currentTopic.text}</Text>
+        </div>
       </div>
     );
   }

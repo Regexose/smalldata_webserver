@@ -11,10 +11,6 @@ import { http_url } from '../App.js'
 import "react-chat-elements/dist/main.css";
 
 const styles = {
-  titleText: {
-    fontSize: 20,
-    fontWeight: "bold"
-  },
   messageList: {
     maxHeight: 300,
     overflowY: "scroll"
@@ -100,19 +96,18 @@ export default class Utterance extends Component {
   render() {
     return (
       <div>
-        <div>
-        <Text style={styles.titleText}>Kommentarverlauf </Text>
-        <div style={styles.messageList}>
-          <MessageList
-            className="message-list chat-history"
-            lockable={true}
-            downButtonBadge={10}
-            dataSource={this.state.messageList}
-          />
-          <div style={{ float:"left", clear: "both" }}
-            ref={(el) => { this.messagesEnd = el; }}>
+        <div className="all-but-input">
+          <div style={styles.messageList}>
+            <MessageList
+              className="message-list chat-history"
+              lockable={true}
+              downButtonBadge={10}
+              dataSource={this.state.messageList}
+            />
+            <div style={{ float:"left", clear: "both" }}
+              ref={(el) => { this.messagesEnd = el; }}>
+            </div>
           </div>
-        </div>
         </div>
         <Input
           className="input-field"
