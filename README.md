@@ -9,14 +9,9 @@
 5. download trained models from https://1drv.ms/u/s!AmoEVYq8BVEZm75RMZ18TllnQRcxWw?e=Y30JCfand and put them in a 
 folder `trained_models` in the `model_data` - folder
 6. run `python manage.py makemigrations && python manage.py migrate`
-7. start the api: `python manage.py runserver`
-8. open a browser & navigate to `localhost:8000/api/categories`. Create database entries:
-   1. `praise`
-   2. `dissence`
-   3. `lecture`
-   4. `insinuation`
-   5. `concession`
-   6. `unknown`
+7. Load initial data into db by `python manage.py loaddata fixtures/initial_fixture.yaml `
+8. start the api: `python manage.py runserver`
+
 
 ### Frontend
 1. cd into `frontend`, run `npm install`
