@@ -1,0 +1,41 @@
+- model: smalldata.category
+  pk: 1
+  fields:
+    name: praise
+
+- model: smalldata.category
+  pk: 2
+  fields:
+    name: insinuation
+
+- model: smalldata.category
+  pk: 3
+  fields:
+    name: dissence
+
+- model: smalldata.category
+  pk: 4
+  fields:
+    name: lecture
+
+- model: smalldata.category
+  pk: 5
+  fields:
+    name: concession
+
+- model: smalldata.category
+  pk: 6
+  fields:
+    name: unknown
+
+- model: smalldata.Topic
+  pk: 1
+  fields:
+    title: 1st test topic
+    text: Erste sdOCNAS; SA[DOCNAW [OCNWA[OC DC[OANW[C OAWNC A[WDOJCN[WDOJCNWDJCSDNCS`ON LK sorenf s;djncs  osdjocvnsd;lcvns;ldkn s;dvcn s 'odsnv'onds'v s s'fvnjs'knv;lsnv'sljn[v sv j 'sjn r'fnsvr'vms' ' jw 'erfns 'r
+
+- model: smalldata.Topic
+  pk: 2
+  fields:
+    title: 2nd test topic
+    text: Zweite sdOCNAS; SA[DOCNAW [OCNWA[OC DC[OANW[C OAWNC A[WDOJCN[WDOJCNWDJCSDNCS`ON LK sorenf s;djncs  osdjocvnsd;lcvns;ldkn s;dvcn s 'odsnv'onds'v s s'fvnjs'knv;lsnv'sljn[v sv j 'sjn r'fnsvr'vms' ' jw 'erfns 'r
