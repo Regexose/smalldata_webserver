@@ -8,9 +8,19 @@
 4. download the `german_model` and place it into the folder `model_data`
 5. download trained models from https://1drv.ms/u/s!AmoEVYq8BVEZm75RMZ18TllnQRcxWw?e=Y30JCfand and put them in a 
 folder `trained_models` in the `model_data` - folder
-6. run `python manage.py makemigrations && python manage.py migrate`
-7. Load initial data into db by `python manage.py loaddata fixtures/initial_fixture.yaml `
-8. start the api: `python manage.py runserver`
+6. install `postgres`, create a db and a user 
+7. in the projects' root directory, create a file `settings.ini` with the following content:
+```
+[settings]
+DEBUG=False
+SECRET_KEY=YOUR_DJANGO_KEY 
+DB_NAME=YOUR_DB (e.g. smalldata)
+DB_USER=YOUR_DB_USER (e.g. smalldata)
+DB_PASSWORD=YOUR_DB_USER_PASSWORD
+```
+8. run `python manage.py makemigrations && python manage.py migrate`
+9. Load initial data into db by `python manage.py loaddata fixtures/initial_fixture.yaml `
+10. start the api: `python manage.py runserver`
 
 
 ### Frontend
