@@ -148,6 +148,7 @@ AWS_LOCATION = config('AWS_LOCATION')
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),  # update the STATICFILES_DIRS
+    os.path.join(BASE_DIR, 'frontend', "build", "static"),  # include frontend build
 ]
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
