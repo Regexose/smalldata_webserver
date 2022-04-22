@@ -20,5 +20,10 @@ folder `trained_models` in the `model_data` - folder
 
 ### Frontend
 1. cd into `frontend`, run `npm install`
-2. run `npm run start
-3. open browser & navigate to `localhost:3000`
+2. inside `frontend`, create a file `.env` with content (or add urls of running server)
+   ```
+   REACT_APP_WS_URL = ws://localhost:8000/ws/
+   REACT_APP_HTTP_URL = http://localhost:8000/api/
+   ```
+3. run `npm run start`
+4. open browser & navigate to `localhost:3000`

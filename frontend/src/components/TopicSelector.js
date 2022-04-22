@@ -1,9 +1,17 @@
 import React, { Component } from "react";
-import {Text} from "react-native";
+import {Text, StyleSheet} from "react-native";
 import { Button } from 'react-bootstrap';
 import Select from 'react-select';
 import '../App.css';
+import { http_url } from '../App.js'
 
+
+const styles = StyleSheet.create({
+  titleText: {
+    fontSize: 20,
+    fontWeight: "bold"
+  }
+});
 
 export default class TopicSelector extends Component {
   constructor(props) {
@@ -21,7 +29,7 @@ export default class TopicSelector extends Component {
   }
 
   componentDidMount() {
-    fetch("/api/topics", {
+    fetch(http_url + "topics", {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -31,7 +39,7 @@ export default class TopicSelector extends Component {
           data => this.populateOptions(data)
         ))
     }).then(
-      fetch("/api/topics/get_current", {
+      fetch(http_url + "topics/get_current", {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -82,7 +90,7 @@ export default class TopicSelector extends Component {
   handleSubmit(e) {
     e.preventDefault()
     let pk = this.state.selectedOption.value;
-    fetch("/api/topics/" + pk + "/set_current/", {
+    fetch(http_url + "topics/" + pk + "/set_current/", {
       method: "POST",
       headers: {
           'Accept': 'application/json',
@@ -98,26 +106,26 @@ export default class TopicSelector extends Component {
   }
 
   render() {
+    const { selectedOption } = this.state;
+
     return (
-      <main className="content">
+      <main className="content ">
         <h1 className="text-black text-uppercase text-center my-4">Topic Select</h1>
-        <div className="topic-frame mx-auto p-0">
+        <div className="selector-frame mx-auto p-0">
           <Select
-          className="basic-single"
-          onChange={this.handleChange}
-          options={this.state.options}
-          autoFocus={true}/>
-
-            <Text numberOfLines={5}>{this.state.selectedOption.text}</Text>
-          </div>
-
-          <div className="topic-frame mx-auto p-0 text-right">
-
-          <Button variant="primary"
+            className="basic-single"
+            onChange={this.handleChange}
+            options={this.state.options}
+            autoFocus={true}/>
+          <Text numberOfLines={5}>{this.state.selectedOption.text}</Text>
+          <div className="text-right">
+            <Button variant="primary"
               onClick={this.handleSubmit}
               disabled={!this.state.selected}>
-              {this.state.buttonText}</Button>
+              {this.state.buttonText}
+            </Button>
           </div>
+        </div>
       </main>
     );
   }

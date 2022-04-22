@@ -3,6 +3,8 @@
 import React, { Component } from "react";
 import Select from 'react-select';
 import fetch from "node-fetch";
+import { http_url } from '../App.js'
+
 
 type State = {
     isDisabled: boolean,
@@ -23,7 +25,7 @@ export default class TriggerCategory extends Component<*, State> {
     }
 
     componentDidMount(): void {
-        fetch("http://localhost:8000/api/categories", {
+        fetch(http_url + "/categories", {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -38,7 +40,7 @@ export default class TriggerCategory extends Component<*, State> {
     handleSubmit(e) {
         e.preventDefault();
         let ID = this.state.categoryID;
-        fetch("http://localhost:8000/api/categories/" + ID +  "/trigger", {
+        fetch(http_url + "/categories/" + ID +  "/trigger", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

@@ -1,39 +1,24 @@
 import React, { Component } from "react";
 // import ChatFeed from "react-chat-ui";/
 import { Text } from "react-native";
-import { ChatFeed, Message } from "react-chat-ui";
+import {
+  MessageList,
+  Input,
+  Button,
+} from "react-chat-elements";
 import '../App.css';
+import { http_url } from '../App.js'
+import "react-chat-elements/dist/main.css";
 
 const styles = {
-  button: {
-    backgroundColor: "#fff",
-    borderColor: "#1D2129",
-    borderStyle: "solid",
-    borderRadius: 20,
-    borderWidth: 2,
-    color: "#1D2129",
-    fontSize: 18,
-    fontWeight: "300",
-    paddingTop: 8,
-    paddingBottom: 8,
-    paddingLeft: 16,
-    paddingRight: 16,
-    outline: "none"
-  },
-  selected: {
-    color: "#fff",
-    backgroundColor: "#0084FF",
-    borderColor: "#0084FF"
-  },
   titleText: {
     fontSize: 20,
     fontWeight: "bold"
+  },
+  messageList: {
+    maxHeight: 300,
+    overflowY: "scroll"
   }
-};
-
-const users = {
-  0: "You",
-  1: "Das Volk"
 };
 
 
@@ -44,22 +29,46 @@ export default class Utterance extends Component {
       ownMessageId: 0,
       messages: [
       ],
+      messageList: []
     };
   }
 
-  onMessageSubmit(e) {
-    const input = this.message;
-    const msgId = Date.now();
-    this.setState({ownMessageId: msgId})
+  styleMessage(senderId, text, category) {
+    return {
+      position: senderId === 0 ? "right" : "left",
+      type: "text",
+      theme: "white",
+      view: "list",
+      text: text,
+      title: category,
+      date: +new Date(),
+      notch: false
+    }
+  }
 
+  addMessage(senderId, text, category) {
+    var list = this.state.messageList;
+    const styledMsg = this.styleMessage(senderId, text, category)
+    list.push(styledMsg);
+    this.setState({
+      messageList: list
+    });
+  }
+
+  onMessageSubmit(e) {
+    const input = e.target.value;
     e.preventDefault();
-    if (!input.value) {
+    if (!input) {
       return false;
     }
 
-    fetch("http://127.0.0.1:8000/api/utterances/", {
+    e.target.value = ""; // TODO: move this to the success promise
+    const msgId = Date.now();
+    this.setState({ownMessageId: msgId})
+
+    fetch(http_url + "utterances/", {
       method: "POST",
-      body: JSON.stringify({text: input.value, msg_id: msgId}),
+      body: JSON.stringify({text: input, msg_id: msgId}),
       headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
@@ -67,54 +76,64 @@ export default class Utterance extends Component {
     }).then(response => {
       (response.json().then(data => {
         const {text, category} = data
-        this.pushMessage(0, text + " -- " + category.name);
-      }).then(val => {this.message.value = ""}))
+        this.addMessage(0, text, category.name);
+      })
+    )
     });
 
     return true;
   }
 
-  pushMessage(recipient, message) {
-    const prevState = this.state;
-    const newMessage = new Message({
-      id: recipient,
-      message,
-      senderName: users[recipient]
-    });
-    prevState.messages.push(newMessage);
-    this.setState(this.state);
+  scrollToBottom() {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   }
 
   // this is used to listen to changes in props
   componentDidUpdate(prevProps) {
     const {text, category, msgId, id} = this.props.newUtterance
     if (prevProps.newUtterance.id !== id && this.state.ownMessageId !== msgId){
-      this.pushMessage(1, text + " -- " + category.name)
+      this.addMessage(1, text, category.name)
     }
+    this.scrollToBottom();
   }
 
   render() {
     return (
       <div>
-
-        <div className="chatfeed-wrapper">
+        <div className="right-panel utterance-wrapper">
         <Text style={styles.titleText}>Kommentarverlauf </Text>
-          <ChatFeed
-            maxHeight={250}
-            messages={this.state.messages} // Boolean: list of message objects
-            showSenderName
+        <div style={styles.messageList}>
+          <MessageList
+            className="message-list chat-history"
+            lockable={true}
+            downButtonBadge={10}
+            dataSource={this.state.messageList}
           />
-
-          <form onSubmit={e => this.onMessageSubmit(e)}>
-            <input
-              ref={m => {
-                this.message = m;
-              }}
-              placeholder="Bitte kommentieren..."
-              className="message-input"
-            />
-          </form>
+          <div style={{ float:"left", clear: "both" }}
+            ref={(el) => { this.messagesEnd = el; }}>
+          </div>
         </div>
+        <Input
+          placeholder="Bitte kommentieren..."
+          defaultValue=""
+          multiline={true}
+          onKeyPress={e => {
+            if (e.shiftKey && e.charCode === 13) {
+              return true;
+            }
+            if (e.charCode === 13) {
+              // this.refs.input.clear();
+              this.onMessageSubmit(e);
+              return false;
+            }
+          }}
+          rightButtons={
+            <Button text="Senden" onClick={this.onMessageSubmit.bind(this)} />
+          }
+          // buttonsFloat='left'
+          />
+        </div>
+
       </div>
     );
   }
