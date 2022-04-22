@@ -113,5 +113,8 @@ venv.bak/
 model_data/german.model
 model_data/trained_models
 
+# settings files
+settings.ini
+
 # preliminary xlsx-Files
 *.xlsx#
