@@ -18,3 +18,8 @@ transformers
 matplotlib
 seaborn
 python-decouple
+
+gunicorn
+psycopg2-binary
+django-storages
+boto3
