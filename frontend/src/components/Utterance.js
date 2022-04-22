@@ -101,7 +101,6 @@ export default class Utterance extends Component {
             <MessageList
               className="message-list chat-history"
               lockable={true}
-              downButtonBadge={10}
               dataSource={this.state.messageList}
             />
             <div style={{ float:"left", clear: "both" }}
