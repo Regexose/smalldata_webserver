@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ["167.99.139.249"]
+ALLOWED_HOSTS = [config('HOSTNAME')]
 
 ROOT_URLCONF = f'{config("PROJECT_NAME")}.urls'
 WSGI_APPLICATION = f'{config("PROJECT_NAME")}.wsgi.application'
@@ -143,28 +143,37 @@ AWS_S3_OBJECT_PARAMETERS = {
 AWS_LOCATION = config('AWS_LOCATION')
 
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),  # update the STATICFILES_DIRS
-    os.path.join(BASE_DIR, 'frontend', "build", "static"),  # include frontend build
-]
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
-TEMP = os.path.join(BASE_DIR, 'temp')
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-BASE_URL = "http://167.99.139.249"
 
+if config("HOSTNAME") in ["localhost", "127.0.0.1"]:  # check for development mode
+    STATIC_URL = '/static/'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    STATICFILES_DIRS = [
+       os.path.join(BASE_DIR, 'frontend', "build", "static"),  # include frontend build
+    ]
+    CORS_ORIGIN_WHITELIST = [
+        'http://%s:3000' % config('HOSTNAME'),
+    ]
+else:
+    STATIC_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, "static"),  # update the STATICFILES_DIRS
+        os.path.join(BASE_DIR, 'frontend', "build", "static"),  # include frontend build
+    ]
 
+    TEMP = os.path.join(BASE_DIR, 'temp')
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+BASE_URL = 'http://%s' % config('HOSTNAME'),
 # we whitelist localhost:3000 because that's where frontend will be served
-CORS_ORIGIN_WHITELIST = [
-         'http://localhost:3000',
-     ]
+
 
 #  Manually add frontend server to ALLOWED_HOSTS and CORS_ORIGIN_WHITELIST
 ips = json.load(open(os.path.join(BASE_DIR, 'config/ip_config.json')))
 
 # ALLOWED_HOSTS.append(ips['webapp'])
 # CORS_ORIGIN_WHITELIST.append('http://{}:3000'.format(ips['webapp']))
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
