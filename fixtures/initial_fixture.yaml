@@ -33,6 +33,7 @@
   fields:
     title: 1st test topic
     text: Erste sdOCNAS; SA[DOCNAW [OCNWA[OC DC[OANW[C OAWNC A[WDOJCN[WDOJCNWDJCSDNCS`ON LK sorenf s;djncs  osdjocvnsd;lcvns;ldkn s;dvcn s 'odsnv'onds'v s s'fvnjs'knv;lsnv'sljn[v sv j 'sjn r'fnsvr'vms' ' jw 'erfns 'r
+    is_current: 1
 
 - model: smalldata.Topic
   pk: 2

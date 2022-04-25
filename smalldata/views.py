@@ -59,11 +59,13 @@ class UtteranceView(viewsets.ModelViewSet):
         categories = Category.objects.all().filter(name=str(cat))
         if not categories:
             print('WARNING: category {} not in db! Fix your db setup!'.format(cat))
-
         category = categories[0]
-
         #  save result in db
         serializer.validated_data["category"] = category
+
+        topics = Topic.objects.all().filter(is_current=1)
+        serializer.validated_data["topic"] = topics[0]
+
         super(UtteranceView, self).perform_create(serializer)
         print('cat: {}\ntext {}'.format(category.name, text))
 
@@ -99,9 +101,9 @@ class TopicView(viewsets.ModelViewSet):
 
     @action(methods=['post'], detail=True)
     def set_current(self, request, pk=None):
-        Topic.objects.filter(isCurrent=True).update(isCurrent=False)
+        Topic.objects.filter(is_current=True).update(is_current=False)
         current_topic = Topic.objects.filter(pk=pk)
-        current_topic.update(isCurrent=True)
+        current_topic.update(is_current=True)
 
         # inform connected channels
         serializer = TopicSerializer(current_topic.get())
@@ -117,7 +119,7 @@ class TopicView(viewsets.ModelViewSet):
 
     @action(methods=['get'], detail=False)
     def get_current(self, request):
-        topic = self.get_queryset().get(**{'isCurrent': True})
+        topic = self.get_queryset().get(**{'is_current': True})
         serializer = TopicSerializer(topic)
         return response.Response(serializer.data)
 
