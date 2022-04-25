@@ -1,8 +1,8 @@
-django>=3.2.8
+django==4.0.4
 channels
 django-cors-headers
 djangorestframework
-django-import-export
+django-import-export==2.8.0
 spacy
 gensim>4.0
 joblib
