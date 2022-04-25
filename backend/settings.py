@@ -146,7 +146,7 @@ AWS_LOCATION = config('AWS_LOCATION')
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-if config("HOSTNAME") in ["localhost", "127.0.0.1"]:  # check for development mode
+if config("HOSTNAME") in ["localhost", "127.0.0.1", "h2970654.stratoserver.net"]:  # check for development mode
     STATIC_URL = '/static/'
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
     STATICFILES_DIRS = [
@@ -155,7 +155,7 @@ if config("HOSTNAME") in ["localhost", "127.0.0.1"]:  # check for development mo
     CORS_ORIGIN_WHITELIST = [
         'http://%s:3000' % config('HOSTNAME'),
     ]
-else:
+else:  # Digital ocean option
     STATIC_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, "static"),  # update the STATICFILES_DIRS
