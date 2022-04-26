@@ -52,6 +52,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -64,7 +65,7 @@ MIDDLEWARE = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'frontend')],
+        'DIRS': [os.path.join(BASE_DIR, 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -148,13 +149,13 @@ AWS_LOCATION = config('AWS_LOCATION')
 
 if config("HOSTNAME") in ["localhost", "127.0.0.1", "h2970654.stratoserver.net"]:  # check for development mode
     STATIC_URL = '/static/'
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_DIRS = [
-       os.path.join(BASE_DIR, 'frontend', "build", "static"),  # include frontend build
+        os.path.join(BASE_DIR, "build/static"),  # include frontend build
+        os.path.join(BASE_DIR, "static"),  # include static files for Djangos api-views
     ]
-    CORS_ORIGIN_WHITELIST = [
-        'http://%s:3000' % config('HOSTNAME'),
-    ]
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 else:  # Digital ocean option
     STATIC_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
     STATICFILES_DIRS = [

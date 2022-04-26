@@ -16,5 +16,5 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/categories/<int:pk>/trigger', csrf_exempt(views.trigger_category)),
     path('api/song_state/', views.song_state),
-    path("", views.index, name="index")
+    path("", views.render_react, name="index"),
 ]

@@ -156,5 +156,5 @@ def trigger_category(request, pk):
         return JsonResponse(data={'status': 'true', 'message': 'ok'})
 
 
-def index(request):
-    return render(request, "build/index.html")
+def render_react(request):
+    return render(request, "index.html")
