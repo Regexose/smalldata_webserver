@@ -147,7 +147,7 @@ AWS_LOCATION = config('AWS_LOCATION')
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-if config("HOSTNAME") in ["localhost", "127.0.0.1", "h2970654.stratoserver.net"]:  # check for development mode
+if config("HOSTNAME") in ["localhost", "127.0.0.1", "h2970654.stratoserver.net", '81.169.142.241']:  # check for development mode
     STATIC_URL = '/static/'
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_DIRS = [
