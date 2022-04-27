@@ -97,6 +97,7 @@ class App extends Component {
         } else if (content.type === 'topic') {
           this.setState({currentTopic: content.body})
         } else if (content.type === 'utterance') {
+          console.log('new utterance received')
           this.setState({newUtterance: content.body})
         }
       };
