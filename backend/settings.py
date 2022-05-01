@@ -147,16 +147,8 @@ AWS_LOCATION = config('AWS_LOCATION')
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-if config("HOSTNAME") in ["localhost", "127.0.0.1", "h2970654.stratoserver.net", '81.169.142.241']:  # check for development mode
-    STATIC_URL = '/static/'
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, "build/static"),  # include frontend build
-        os.path.join(BASE_DIR, "static"),  # include static files for Djangos api-views
-    ]
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-else:  # Digital ocean option
+USE_DO = False
+if USE_DO:
     STATIC_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, "static"),  # update the STATICFILES_DIRS
@@ -166,6 +158,15 @@ else:  # Digital ocean option
     TEMP = os.path.join(BASE_DIR, 'temp')
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+else:
+    STATIC_URL = '/static/'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, "build/static"),  # include frontend build
+        os.path.join(BASE_DIR, "static"),  # include static files for Djangos api-views
+    ]
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 BASE_URL = 'http://%s' % config('HOSTNAME'),
 # we whitelist localhost:3000 because that's where frontend will be served
