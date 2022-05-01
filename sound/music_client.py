@@ -20,13 +20,10 @@ class MusicClient(SimpleUDPClient):
     def __repr__(self):
         return '(Client Port {})'.format(self.port)
 
-    def msg_send(self, note, velo, trig):
-        self.send_message(INTERPRETER_TARGET_ADDRESS, [note, velo, trig])
-
 
 class HTTPClient:
     def __init__(self, ip, port):
-        self.__target = ip + ':' + port + '{}'
+        self.__target = ip + ':' + str(port) + '{}'
 
     def send_message(self, route, body):
         response = requests.post(self.__target.format(route), body)

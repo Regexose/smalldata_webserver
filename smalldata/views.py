@@ -20,8 +20,6 @@ from sound import music_client
 
 sys.path.append(path.abspath(path.dirname(__file__) + '/../..'))  # hack top make sure webserver can be imported
 sys.path.reverse()  # hack to make sure the project's config is used instead of a config from the package 'odf'
-# parent_path = path.join(path.abspath(path.dirname(__file__) + '/../..'))
-# sys.path.append(parent_path)  # hack top make sure webserver can be imported
 
 from smalldata_webserver.config import settings
 from classification import classifier
@@ -29,19 +27,13 @@ from classification import classifier
 clf = classifier.get_classifier(settings.model_config)
 #   Client for a simple Feedback from Ableton Live
 song_client = music_client.get(settings.ips['song_server'], settings.SONG_SERVER_PORT)
-display_client = MusicClient(settings.ips['audience'], settings.AUDIENCE_PORT)
-category_counter = Counter({"concession": 0, "praise":0, "dissent": 0, "lecture":0, "insinuation":0})
+category_counter = Counter({"concession": 0, "praise": 0, "dissent": 0, "lecture": 0, "insinuation": 0})
+
 
 def send_to_music_server(utterance, category):
-    osc_dict = {
-        'text': utterance,
-        'cat': category,
-    }
     category_counter.update({category: 1})
     print(category_counter)
-    # osc_map = pickle.dumps(osc_dict)
     song_client.send_message(settings.INTERPRETER_TARGET_ADDRESS, [category, category_counter[category]])
-    # display_client.send_message(settings.DISPLAY_UTTERANCE_ADDRESS, [utterance, category])
 
 
 class UtteranceView(viewsets.ModelViewSet):
