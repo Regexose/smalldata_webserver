@@ -59,7 +59,7 @@ class UtteranceView(viewsets.ModelViewSet):
         serializer.validated_data["topic"] = topics[0]
 
         super(UtteranceView, self).perform_create(serializer)
-        print('cat: {}\ntext {}'.format(category.name, text))
+        print('cat: {}\ntext {}'.format(category.german_name, text))
 
         #  send to relevant other services
         if cat[0] != clf.UNCLASSIFIABLE:

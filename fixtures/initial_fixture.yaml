@@ -2,31 +2,37 @@
   pk: 1
   fields:
     name: praise
+    german_name: Lob
 
 - model: smalldata.category
   pk: 2
   fields:
     name: insinuation
+    german_name: Unterstellung
 
 - model: smalldata.category
   pk: 3
   fields:
     name: dissence
+    german_name: Widerspruch
 
 - model: smalldata.category
   pk: 4
   fields:
     name: lecture
+    german_name: Belehrung
 
 - model: smalldata.category
   pk: 5
   fields:
     name: concession
+    german_name: Zugeständnis
 
 - model: smalldata.category
   pk: 6
   fields:
     name: unknown
+    german_name: Unbekannt
 
 - model: smalldata.Topic
   pk: 1

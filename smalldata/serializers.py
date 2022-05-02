@@ -5,7 +5,7 @@ from .models import Utterance, Category, TrainingUtterance, SongState, Topic
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('id', 'name', 'description')
+        fields = ('id', 'name', 'description', 'german_name')
 
 
 class UtteranceSerializer(serializers.ModelSerializer):

@@ -4,6 +4,7 @@ from django.db import models
 class Category(models.Model):
     name = models.CharField(max_length=25, unique=True)
     description = models.CharField(max_length=250, blank=True, null=True)
+    german_name = models.CharField(max_length=25, unique=True)
 
     def _str_(self):
         return self.name
