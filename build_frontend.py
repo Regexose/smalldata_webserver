@@ -9,7 +9,7 @@ env_file = os.path.join(base_dir, 'frontend', '.env')
 
 def create_env_file():
     hostname = config('HOSTNAME')
-    port = '80' if config('PORT') == '' else config('PORT')
+    port = config('PORT', '80')
 
     if hostname[0:5] == 'https':
         # use encrypted urls
