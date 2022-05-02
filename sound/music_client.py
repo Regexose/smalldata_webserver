@@ -6,7 +6,7 @@ def get(address, port):
     if address[0:4] == 'http':  # use http client
         client = HTTPClient(address, port)
     else:  # use OSC client
-        client = MusicClient(address, port)
+        client = SimpleUDPClient(address, port)
     return client
 
 
