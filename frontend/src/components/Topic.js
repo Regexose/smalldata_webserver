@@ -13,8 +13,6 @@ export default class Topic extends Component {
   render() {
     return (
       <div className="topic-frame">
-      <Text style={styles.titleText}>Kommentarvorlage</Text>
-      {"\n"}
       <Text numberOfLines={5}>{this.props.currentTopic.text}</Text>
       </div>
     );

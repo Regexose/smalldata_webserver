@@ -101,7 +101,6 @@ export default class Utterance extends Component {
     return (
       <div>
         <div className="right-panel utterance-wrapper">
-        <Text style={styles.titleText}>Kommentarverlauf </Text>
         <div style={styles.messageList}>
           <MessageList
             className="message-list chat-history"
