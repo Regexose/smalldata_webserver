@@ -6,6 +6,7 @@ import Main from './components/Main';
 import TopicSelector from './components/TopicSelector';
 
 export const http_url = process.env.REACT_APP_HTTP_URL;
+export const ws_url = process.env.REACT_APP_WS_URL;
 
 const ColoredLine = ({ color }) => (
     <hr
@@ -49,7 +50,6 @@ class App extends Component {
      * This function establishes the connect with the websocket and also ensures constant reconnection if connection closes
      */
     connect = () => {
-      let ws_url = process.env.REACT_APP_WS_URL
       var ws = new WebSocket(ws_url);
       let that = this; // cache the this
       var connectInterval;
