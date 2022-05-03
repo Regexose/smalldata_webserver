@@ -80,10 +80,10 @@ TEMPLATES = [
 
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND":  "channels.layers.InMemoryChannelLayer",  # ""channels_redis.core.RedisChannelLayer"
-        # "CONFIG": {
-        #     "hosts": [('localhost', 6379)],  # [os.environ.get("REDIS_URL")]
-        # },
+        "BACKEND":  "channels_redis.core.RedisChannelLayer",  # ""channels.layers.InMemoryChannelLayer"
+        "CONFIG": {
+            "hosts": [('localhost', 6379)],  # [os.environ.get("REDIS_URL")]
+        },
     },
 }
 
