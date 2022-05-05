@@ -60,6 +60,7 @@ class TopicConsumer(AsyncWebsocketConsumer):
                 "type": "utterance",
                 "body": event["body"]
             }))
+        print('sending out new utterance:', event["body"])
 
 
 class UtteranceConsumer(AsyncWebsocketConsumer):

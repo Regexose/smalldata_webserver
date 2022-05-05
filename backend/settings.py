@@ -27,7 +27,11 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ["localhost"]
+ALLOWED_HOSTS = [config('HOSTNAME')]
+
+ROOT_URLCONF = f'{config("PROJECT_NAME")}.urls'
+WSGI_APPLICATION = f'{config("PROJECT_NAME")}.wsgi.application'
+ASGI_APPLICATION = f'{config("PROJECT_NAME")}.asgi.application'
 
 
 # Application definition
@@ -48,6 +52,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -57,12 +62,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'backend.urls'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'frontend')],
+        'DIRS': [os.path.join(BASE_DIR, 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,31 +78,13 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'backend.wsgi.application'
-ASGI_APPLICATION = 'backend.asgi.application'
-
-
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND":  "channels.layers.InMemoryChannelLayer",  # ""channels_redis.core.RedisChannelLayer"
-        # "CONFIG": {
-        #     "hosts": [('localhost', 6379)],  # [os.environ.get("REDIS_URL")]
-        # },
+        "BACKEND":  "channels_redis.core.RedisChannelLayer",  # ""channels.layers.InMemoryChannelLayer"
+        "CONFIG": {
+            "hosts": [('localhost', 6379)],  # [os.environ.get("REDIS_URL")]
+        },
     },
-}
-
-# Database
-# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config("DB_NAME"),
-        'USER': config("DB_USER"),
-        'PASSWORD': config("DB_PASSWORD"),
-        'HOST': 'localhost',
-        'PORT': ''
-    }
 }
 
 
@@ -127,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'CET'
 
 USE_I18N = True
 
@@ -136,22 +121,65 @@ USE_L10N = True
 USE_TZ = True
 
 
+# Database
+# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': config("DB_NAME"),
+        'USER': config("DB_USER"),
+        'PASSWORD': config("DB_PASSWORD"),
+        'HOST': 'localhost',
+        'PORT': ''
+    }
+}
+
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_ENDPOINT_URL = config('AWS_S3_ENDPOINT_URL')
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = config('AWS_LOCATION')
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'frontend', "build", "static"),  # update the STATICFILES_DIRS
-]
+USE_DO = False
+if USE_DO:
+    STATIC_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, "static"),  # update the STATICFILES_DIRS
+        os.path.join(BASE_DIR, 'frontend', "build", "static"),  # include frontend build
+    ]
 
-# we whitelist localhost:3000 because that's where frontend will be served
-CORS_ORIGIN_WHITELIST = [
-         'http://localhost:3000',
-     ]
+    TEMP = os.path.join(BASE_DIR, 'temp')
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+else:
+    STATIC_URL = '/static/'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, "build/static"),  # include frontend build
+        os.path.join(BASE_DIR, "static"),  # include static files for Djangos api-views
+    ]
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+    # Allow requests from port 3000 when frontend served via REACT
+    CORS_ALLOWED_ORIGINS = [
+        'http://localhost:3000',
+    ]
+
+BASE_URL = 'http://%s' % config('HOSTNAME'),
+
 
 #  Manually add frontend server to ALLOWED_HOSTS and CORS_ORIGIN_WHITELIST
 ips = json.load(open(os.path.join(BASE_DIR, 'config/ip_config.json')))
 
-ALLOWED_HOSTS.append(ips['webapp'])
-CORS_ORIGIN_WHITELIST.append('http://{}:3000'.format(ips['webapp']))
+# ALLOWED_HOSTS.append(ips['webapp'])
+# CORS_ORIGIN_WHITELIST.append('http://{}:3000'.format(ips['webapp']))
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

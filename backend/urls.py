@@ -1,7 +1,9 @@
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
+from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
+from django.conf.urls.static import static
 from smalldata import views
 
 
@@ -16,5 +18,6 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/categories/<int:pk>/trigger', csrf_exempt(views.trigger_category)),
     path('api/song_state/', views.song_state),
-    path("", views.index, name="index")
-]
+    path("", views.render_react, name="index"),
+    path("set-topic/", views.render_react, name="index"),
+]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

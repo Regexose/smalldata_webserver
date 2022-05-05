@@ -72,7 +72,7 @@ export default class Utterance extends Component {
     }).then(response => {
       (response.json().then(data => {
         const {text, category} = data
-        this.addMessage(0, text, category.name);
+        this.addMessage(0, text, category.german_name);
       })
     )
     });
@@ -88,7 +88,7 @@ export default class Utterance extends Component {
   componentDidUpdate(prevProps) {
     const {text, category, msgId, id} = this.props.newUtterance
     if (prevProps.newUtterance.id !== id && this.state.ownMessageId !== msgId){
-      this.addMessage(1, text, category.name)
+      this.addMessage(1, text, category.german_name)
     }
     this.scrollToBottom();
   }
