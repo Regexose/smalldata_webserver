@@ -4,6 +4,7 @@ from django.db import models
 class Category(models.Model):
     name = models.CharField(max_length=25, unique=True)
     description = models.CharField(max_length=250, blank=True, null=True)
+    german_name = models.CharField(max_length=25, unique=True)
 
     def _str_(self):
         return self.name
@@ -13,6 +14,7 @@ class Utterance(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE, null=True)
     text = models.CharField(max_length=500)
     created = models.DateTimeField(auto_now_add=True)
+    topic = models.ForeignKey('Topic', null=True, on_delete=models.CASCADE)
 
     def _str_(self):
         return self.text
@@ -30,7 +32,7 @@ class TrainingUtterance(models.Model):
 class Topic(models.Model):
     title = models.CharField(max_length=100)
     text = models.TextField()
-    isCurrent = models.BooleanField(default=False)
+    is_current = models.BooleanField(default=False)
 
 
 class SongState(models.Model):

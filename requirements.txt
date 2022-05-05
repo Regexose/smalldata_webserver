@@ -1,9 +1,9 @@
-django>=3.2.8
-channels
+django==4.0.4
+channels==3.0.4
 django-cors-headers
 djangorestframework
-django-import-export
-spacy
+django-import-export==2.8.0
+spacy==2.2.3
 gensim>4.0
 joblib
 pandas
@@ -18,3 +18,9 @@ transformers
 matplotlib
 seaborn
 python-decouple
+gunicorn
+psycopg2-binary
+django-storages
+boto3
+whitenoise==5.2.0
+channels_redis==3.3.1

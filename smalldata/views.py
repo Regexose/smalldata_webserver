@@ -16,32 +16,24 @@ from os import path
 import sys
 from asgiref.sync import async_to_sync
 
-from sound.UDPClient import MusicClient
+from sound import music_client
 
 sys.path.append(path.abspath(path.dirname(__file__) + '/../..'))  # hack top make sure webserver can be imported
 sys.path.reverse()  # hack to make sure the project's config is used instead of a config from the package 'odf'
-# parent_path = path.join(path.abspath(path.dirname(__file__) + '/../..'))
-# sys.path.append(parent_path)  # hack top make sure webserver can be imported
 
 from smalldata_webserver.config import settings
 from classification import classifier
 
 clf = classifier.get_classifier(settings.model_config)
 #   Client for a simple Feedback from Ableton Live
-song_client = MusicClient(settings.ips['song_server'], settings.SONG_SERVER_PORT)
-display_client = MusicClient(settings.ips['audience'], settings.AUDIENCE_PORT)
-category_counter = Counter({"concession": 0, "praise":0, "dissent": 0, "lecture":0, "insinuation":0})
+song_client = music_client.get(settings.ips['song_server'], settings.SONG_SERVER_PORT)
+category_counter = Counter({"concession": 0, "praise": 0, "dissent": 0, "lecture": 0, "insinuation": 0})
+
 
 def send_to_music_server(utterance, category):
-    osc_dict = {
-        'text': utterance,
-        'cat': category,
-    }
     category_counter.update({category: 1})
     print(category_counter)
-    # osc_map = pickle.dumps(osc_dict)
     song_client.send_message(settings.INTERPRETER_TARGET_ADDRESS, [category, category_counter[category]])
-    # display_client.send_message(settings.DISPLAY_UTTERANCE_ADDRESS, [utterance, category])
 
 
 class UtteranceView(viewsets.ModelViewSet):
@@ -59,13 +51,15 @@ class UtteranceView(viewsets.ModelViewSet):
         categories = Category.objects.all().filter(name=str(cat))
         if not categories:
             print('WARNING: category {} not in db! Fix your db setup!'.format(cat))
-
         category = categories[0]
-
         #  save result in db
         serializer.validated_data["category"] = category
+
+        topics = Topic.objects.all().filter(is_current=1)
+        serializer.validated_data["topic"] = topics[0]
+
         super(UtteranceView, self).perform_create(serializer)
-        print('cat: {}\ntext {}'.format(category.name, text))
+        print('cat: {}\ntext {}'.format(category.german_name, text))
 
         #  send to relevant other services
         if cat[0] != clf.UNCLASSIFIABLE:
@@ -99,9 +93,9 @@ class TopicView(viewsets.ModelViewSet):
 
     @action(methods=['post'], detail=True)
     def set_current(self, request, pk=None):
-        Topic.objects.filter(isCurrent=True).update(isCurrent=False)
+        Topic.objects.filter(is_current=True).update(is_current=False)
         current_topic = Topic.objects.filter(pk=pk)
-        current_topic.update(isCurrent=True)
+        current_topic.update(is_current=True)
 
         # inform connected channels
         serializer = TopicSerializer(current_topic.get())
@@ -117,7 +111,7 @@ class TopicView(viewsets.ModelViewSet):
 
     @action(methods=['get'], detail=False)
     def get_current(self, request):
-        topic = self.get_queryset().get(**{'isCurrent': True})
+        topic = self.get_queryset().get(**{'is_current': True})
         serializer = TopicSerializer(topic)
         return response.Response(serializer.data)
 
@@ -154,5 +148,5 @@ def trigger_category(request, pk):
         return JsonResponse(data={'status': 'true', 'message': 'ok'})
 
 
-def index(request):
-    return render(request, "build/index.html")
+def render_react(request):
+    return render(request, "index.html")
