@@ -23,8 +23,12 @@ class MusicClient(SimpleUDPClient):
 
 
 class HTTPClient:
-    def __init__(self, ip, port):
-        self.__target = ip + ':' + str(port) + '{}'
+    def __init__(self, url , port):
+        #  Dont use https due to bug in urllib (https://stackoverflow.com/questions/65516325)
+        if url.startswith('https'):
+            url.replace('https', 'http')
+            
+        self.__target = url + ':' + str(port) + '{}'
 
     def send_message(self, route, body):
         try:
