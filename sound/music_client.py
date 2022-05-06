@@ -1,9 +1,12 @@
 from pythonosc.udp_client import SimpleUDPClient
 import requests
 import json
+from decouple import config
 
 
-def get(address, port):
+def get():
+    address = config('SUPERCOLLIDER_URL')
+    port = config('SUPERCOLLIDER_PORT')
     if address[0:4] == 'http':  # use http client
         client = HTTPClient(address, port)
     else:  # use OSC client
@@ -27,8 +30,9 @@ class HTTPClient:
         #  Dont use https due to bug in urllib (https://stackoverflow.com/questions/65516325)
         if url.startswith('https'):
             url.replace('https', 'http')
-            
-        self.__target = url + ':' + str(port) + '{}'
+            self.__target = url + '{}'
+        else:
+            self.__target = url + ':' + str(port) + '{}'
 
     def send_message(self, route, body):
         try:

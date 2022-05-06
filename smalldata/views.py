@@ -26,7 +26,7 @@ from classification import classifier
 
 clf = classifier.get_classifier(settings.model_config)
 #   Client for a simple Feedback from Ableton Live
-song_client = music_client.get(settings.ips['song_server'], settings.SONG_SERVER_PORT)
+song_client = music_client.get()
 category_counter = Counter({"concession": 0, "praise": 0, "dissent": 0, "lecture": 0, "insinuation": 0})
 
 
