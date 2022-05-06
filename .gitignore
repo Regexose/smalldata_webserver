@@ -120,4 +120,4 @@ settings.ini
 *.xlsx#
 
 # redis-server files
-.dump.rdb
+dump.rdb
