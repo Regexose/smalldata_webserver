@@ -118,3 +118,6 @@ settings.ini
 
 # preliminary xlsx-Files
 *.xlsx#
+
+# redis-server files
+.dump.rdb
