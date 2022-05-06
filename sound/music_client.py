@@ -1,5 +1,6 @@
 from pythonosc.udp_client import SimpleUDPClient
 import requests
+import json
 
 
 def get(address, port):
@@ -26,6 +27,10 @@ class HTTPClient:
         self.__target = ip + ':' + str(port) + '{}'
 
     def send_message(self, route, body):
-        response = requests.post(self.__target.format(route), body)
-        print("Sending to music server status: ", response.status_code)
+        try:
+            response = requests.post(self.__target.format(route), json.dumps(body))
+            print("Sending to music server status: ", response.status_code)
+        except requests.exceptions.ConnectionError as e:
+            print("Message not sent, ", e)
+
 
