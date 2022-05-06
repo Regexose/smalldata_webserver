@@ -1,8 +1,12 @@
 from pythonosc.udp_client import SimpleUDPClient
 import requests
+import json
+from decouple import config
 
 
-def get(address, port):
+def get():
+    address = config('SUPERCOLLIDER_URL')
+    port = config('SUPERCOLLIDER_PORT')
     if address[0:4] == 'http':  # use http client
         client = HTTPClient(address, port)
     else:  # use OSC client
@@ -22,10 +26,19 @@ class MusicClient(SimpleUDPClient):
 
 
 class HTTPClient:
-    def __init__(self, ip, port):
-        self.__target = ip + ':' + str(port) + '{}'
+    def __init__(self, url , port):
+        #  Dont use https due to bug in urllib (https://stackoverflow.com/questions/65516325)
+        if url.startswith('https'):
+            url.replace('https', 'http')
+            self.__target = url + '{}'
+        else:
+            self.__target = url + ':' + str(port) + '{}'
 
     def send_message(self, route, body):
-        response = requests.post(self.__target.format(route), body)
-        print("Sending to music server status: ", response.status_code)
+        try:
+            response = requests.post(self.__target.format(route), json.dumps(body))
+            print("Sending to music server status: ", response.status_code)
+        except requests.exceptions.ConnectionError as e:
+            print("Message not sent, ", e)
+
 
