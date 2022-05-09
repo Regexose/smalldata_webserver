@@ -4,8 +4,5 @@
 .config
 .venv
 
-# Ignore the language model (just like .gitignore)
-model_data/german.model
-
 # TEMPORARILY Ignore frontend
 frontend
