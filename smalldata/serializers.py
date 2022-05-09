@@ -1,5 +1,20 @@
+from os import path
 from rest_framework import serializers
 from .models import Utterance, Category, TrainingUtterance, SongState, Topic
+import gensim
+
+path_to_model = path.join(path.dirname(__file__), "../model_data/german.model")
+german_model = gensim.models.KeyedVectors.load_word2vec_format(path_to_model, binary=True)
+
+
+def is_german_text(sentence):
+    """
+    return True if any word in the sentence is known to german.model
+    """
+    for word in sentence.split(" "):
+        if word in german_model.index_to_key or word.capitalize() in german_model.index_to_key:
+            return sentence
+    raise serializers.ValidationError("Utterance has no german words")
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -11,6 +26,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class UtteranceSerializer(serializers.ModelSerializer):
     category = CategorySerializer(many=False, read_only=True)
     msg_id = serializers.CharField(read_only=True)
+    text = serializers.CharField(validators=[is_german_text])
 
     class Meta:
         model = Utterance

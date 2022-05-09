@@ -11,6 +11,7 @@ import { http_url } from '../App.js'
 import "react-chat-elements/dist/main.css";
 
 
+
 export default class Utterance extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +20,8 @@ export default class Utterance extends Component {
       ownMessageId: 0,
       messages: [
       ],
-      messageList: []
+      messageList: [],
+      textError: ""
     };
   }
 
@@ -63,13 +65,23 @@ export default class Utterance extends Component {
           'Content-Type': 'application/json'
       },
     }).then(response => {
-      (response.json().then(data => {
+      // check if received an OK response, throw error if not
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(response.statusText);
+    }).then(data => {
         const {text, category} = data
         this.addMessage(0, text, category.german_name);
         this.inputRef.current.value = "";
-      })
-    )
-    });
+    }).catch(error => {
+      this.setState({textError: "Bitte benutzen Sie deutsche Sprache"})
+      setTimeout(() => {
+        this.setState({
+          textError: ""
+        });
+      }, 2000);
+    })
 
     return true;
   }
@@ -100,6 +112,7 @@ export default class Utterance extends Component {
               ref={(el) => { this.messagesEnd = el; }}>
             </div>
         </div>
+        <div className='error-msg'>{this.state.textError}</div>
         <Input
           className="input-field"
           placeholder="Bitte kommentieren..."
