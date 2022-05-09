@@ -10,13 +10,6 @@ import '../App.css';
 import { http_url } from '../App.js'
 import "react-chat-elements/dist/main.css";
 
-const styles = {
-  messageList: {
-    maxHeight: 300,
-    overflowY: "scroll"
-  }
-};
-
 
 export default class Utterance extends Component {
   constructor(props) {
@@ -97,8 +90,7 @@ export default class Utterance extends Component {
   render() {
     return (
       <div>
-        <div className="all-but-input">
-          <div style={styles.messageList}>
+        <div className="history-scroll-wrapper">
             <MessageList
               className="message-list chat-history"
               lockable={true}
@@ -107,7 +99,6 @@ export default class Utterance extends Component {
             <div style={{ float:"left", clear: "both" }}
               ref={(el) => { this.messagesEnd = el; }}>
             </div>
-          </div>
         </div>
         <Input
           className="input-field"

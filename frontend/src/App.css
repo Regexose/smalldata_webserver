@@ -30,7 +30,6 @@
   background-color: #F7F8FF;
 }
 
-
 .topic-frame {
   display: flex;
   flex-direction: column;
@@ -57,10 +56,12 @@
   max-width: 500px
 }
 
-.all-but-input {
+.history-scroll-wrapper {
   min-width: 300px;
   margin: auto;
   width: 50%;
+  overflow-y: scroll;
+  max-height: 500px;
 }
 
 .chat-history {
