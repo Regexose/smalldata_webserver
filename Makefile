@@ -201,7 +201,7 @@ endif
 
 # Write .env for use by docker-compose
 .env:
-	echo "# Updated on $(shell date "+%Y-%m-%d Z %H:%M")" > .env
+	echo "# Generated on $(shell date "+%Y-%m-%d Z %H:%M")" > .env
 	echo "DOCKER_CONTAINER_HOME_PATH=$(DOCKER_CONTAINER_HOME_PATH)" >> .env
 	echo "PROJECT_NAME=$(PROJECT_NAME)" >>  .env
 	echo "APP_SECRET_KEY=FFFFFFFFFFFFFFFF" >>  .env
