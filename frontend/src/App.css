@@ -9,7 +9,6 @@
 }
 
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -46,6 +45,8 @@
 .topic-frame {
   display: flex;
   flex-direction: column;
+  flex: none;
+  flex-grow: 0;
   align-items: flex-start;
   padding: 16px;
 
@@ -55,18 +56,9 @@
 
   background: #D9D9EF;
   border-radius: 20px;
-  flex: none;
+
   order: 0;
   align-self: stretch;
-  flex-grow: 0;
-}
-
-.topic-header {
-  background: rgba(50, 55, 171, 0.1);
-  border-radius: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-bottom: 5px;
 }
 
 .selector-frame {
@@ -108,6 +100,7 @@
 .text-center {
   text-align: center;
 }
+
 
 @keyframes App-logo-spin {
   from {

@@ -8,20 +8,20 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #282c34;
+  background-color: #F7F8FF;
 }
 .todo-title {
   cursor: pointer;
 }
 .tab-list > span {
   padding: 5px 8px;
-  border: 1px solid #282c34;
+  border: 1px solid #E5E5E5;
   border-radius: 10px;
   margin-right: 5px;
   cursor: pointer;
 }
 .tab-list > span.active {
-  background-color: #282c34;
+  background-color: #F7F8FF;
   color: #ffffff;
 }
 

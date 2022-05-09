@@ -13,7 +13,7 @@ export default class Main extends Component {
 
             <Topic currentTopic={this.props.currentTopic}/>
             <Utterance newUtterance={this.props.newUtterance}/>
-          
+
         </div>
       </main>
     );
