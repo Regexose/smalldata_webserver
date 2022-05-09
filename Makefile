@@ -1,6 +1,7 @@
 SHELL = /bin/sh
 
 DOCKER ?= docker
+DOCKER_COMPOSE ?= docker-compose
 GIT ?= git
 MKDIR ?= mkdir -p
 RM ?= rm -f
@@ -149,19 +150,10 @@ bash: $(srcdir) $(workdir)
 		$(workdir)/.config \
 		$(workdir)/.homedir \
 		$(workdir)/.venv
-ifeq ($(strip $(stage)),production)
-	$(DOCKER) run \
-		$(DOCKER_ARGS) \
-		--rm -it \
-		--entrypoint=bash \
-		$(DOCKER_IMAGE_NAME):$(DOCKER_IMAGE_TAG)
-else
-	$(DOCKER) run \
-		$(DOCKER_ARGS) \
-		--rm -it \
-		--entrypoint=bash \
-		$(DOCKER_IMAGE_NAME):$(stage)
-endif
+	$(DOCKER_COMPOSE) run \
+		$(DOCKER_CONTAINER_PORT_MAPPING) \
+		--rm \
+		app
 
 # Clear local cache and venv directories
 .PHONY: clean
