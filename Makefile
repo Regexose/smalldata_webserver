@@ -153,6 +153,18 @@ bash: $(srcdir) $(workdir)
 	$(DOCKER_COMPOSE) run \
 		$(DOCKER_CONTAINER_PORT_MAPPING) \
 		--rm \
+		app bash
+
+# Spawn the app
+.PHONY: app
+app: $(srcdir) $(workdir)
+	$(MKDIR) \
+		$(workdir)/.config \
+		$(workdir)/.homedir \
+		$(workdir)/.venv
+	$(DOCKER_COMPOSE) run \
+		$(DOCKER_CONTAINER_PORT_MAPPING) \
+		--rm \
 		app
 
 # Clear local cache and venv directories
