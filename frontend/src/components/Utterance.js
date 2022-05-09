@@ -21,6 +21,7 @@ const styles = {
 export default class Utterance extends Component {
   constructor(props) {
     super(props);
+    this.inputRef = React.createRef();
     this.state = {
       ownMessageId: 0,
       messages: [
@@ -52,13 +53,12 @@ export default class Utterance extends Component {
   }
 
   onMessageSubmit(e) {
-    const input = e.target.value;
     e.preventDefault();
+    const input = this.inputRef.current.value;
     if (!input) {
       return false;
     }
 
-    e.target.value = ""; // TODO: move this to the success promise
     const msgId = Date.now();
     this.setState({ownMessageId: msgId})
 
@@ -73,6 +73,7 @@ export default class Utterance extends Component {
       (response.json().then(data => {
         const {text, category} = data
         this.addMessage(0, text, category.german_name);
+        this.inputRef.current.value = "";
       })
     )
     });
@@ -111,6 +112,7 @@ export default class Utterance extends Component {
         <Input
           className="input-field"
           placeholder="Bitte kommentieren..."
+          referance={this.inputRef}
           defaultValue=""
           multiline={true}
           onKeyPress={e => {
@@ -118,7 +120,6 @@ export default class Utterance extends Component {
               return true;
             }
             if (e.charCode === 13) {
-              // this.refs.input.clear();
               this.onMessageSubmit(e);
               return false;
             }
@@ -126,7 +127,6 @@ export default class Utterance extends Component {
           rightButtons={
             <Button className="submit-button" text="Senden" onClick={this.onMessageSubmit.bind(this)} />
           }
-          // buttonsFloat='left'
           />
       </div>
     );
