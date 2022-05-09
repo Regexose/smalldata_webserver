@@ -7,7 +7,7 @@ export default class Topic extends Component {
   render() {
     return (
         <div className="topic-frame">
-          <Text style={{fontWeight: 700}}>{this.props.currentTopic.text}</Text>
+          <Text style={{fontWeight: 700, textFont: 'DM Sans', fontSize: "18px", letterSpacing: "0.03em", fontStyle: "normal"}}>{this.props.currentTopic.text}</Text>
       </div>
     );
   }

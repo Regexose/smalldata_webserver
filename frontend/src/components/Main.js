@@ -7,7 +7,7 @@ import '../App.css';
 export default class Main extends Component {
   render() {
     return (
-      <main className="content main-frame">
+      <main className="main-frame">
       <h1 className="text-black text-uppercase text-center my-4">Small Data</h1>
         <div className="mx-auto p-0">
 
