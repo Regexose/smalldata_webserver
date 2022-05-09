@@ -11,11 +11,10 @@ Usage steps:
 2. **run `make image`** to invoke the `docker build` command which walks through all the motions needed to install the dependencies needed for this project into a nicely isolated container
   - ⚠️ remember to re-run this command when requirements-dev.txt or `SYSTEM_PACKAGES` inside the Makefile are changed in order to rebuild your environment
 3. **run `make bash`** to enter a development shell in a docker-compose configuration
-  1. run `python -m spacy download de_core_news_sm`
-  2. download the `german_model` and place it into the folder `model_data`
-  3. run `python manage.py makemigrations && python manage.py migrate`
-  4. start the api: `python manage.py runserver 0.0.0.0:8000`
-  5. open a browser & navigate to `localhost:8000/api/categories`. Create database entries:
+  1. download the `german_model` and place it into the folder `model_data`
+  2. run `python manage.py makemigrations && python manage.py migrate`
+  3. start the api: `python manage.py runserver 0.0.0.0:8000`
+  4. open a browser & navigate to `localhost:8000/api/categories`. Create database entries:
      1. `praise`
      2. `dissence`
      3. `lecture`
@@ -29,8 +28,7 @@ Usage steps:
 
 #### Future Work
 
-1. Bake the spaCy setup into the Dockerfile
-1. Utilise Django [initial_data or fixtures](https://docs.djangoproject.com/en/3.2/howto/initial-data/) facility for the database population (i.e.: step 3.5)
+1. Utilise Django [initial_data or fixtures](https://docs.djangoproject.com/en/3.2/howto/initial-data/) facility for the database population (i.e.: step 3.4)
 1. Remove the Poetry references in Makefile (these are remnants of our template since we use Poetry as a default package manager for Python projects)
 1. Merge requirements-dev.txt into requirements.txt
 1. Parameterize `POSTGRES_PASSWORD` and `DATABASE_URL` in docker-compose.yml perhaps through .env (since the hardcoded setup was just a quick-fix to expedite configuration testing)
