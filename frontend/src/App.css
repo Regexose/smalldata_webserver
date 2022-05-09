@@ -26,6 +26,7 @@
   align-items: center;
   justify-content: center;
   overflow-y: scroll;
+  height: 100%;
   background-color: #F7F8FF;
 }
 
@@ -39,7 +40,6 @@
   min-width: 300px;
   margin: auto;
   width: 50%;
-  height: auto;
 }
 
 .topic-frame {
@@ -49,6 +49,8 @@
   flex-grow: 0;
   align-items: flex-start;
   padding: 16px;
+  margin-bottom: 20px;
+
 
   position: static;
   left: 0px;
@@ -84,6 +86,7 @@
 .chat-history {
   display: block;
   min-height: 150px;
+  margin: 20px;
 }
 
 .outer {
