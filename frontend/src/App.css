@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=DM+Sans');
+
+body {
+  font-family: 'DM Sans', sans-serif;
+}
 .App {
   text-align: center;
 }
@@ -82,6 +87,9 @@
   justify-content: center;
   align-items: center;
   padding: 11px 16px;
+  font-weight: bold;
+  font-size: 16px !important;
+  letter-spacing: 0.06em;
 
   position: relative;
   width: 150px;
