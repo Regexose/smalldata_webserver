@@ -62,6 +62,10 @@
   position: relative;
 }
 
+.error-msg {
+  color: red;
+}
+
 .inner {
   margin: 0 auto;
 }
