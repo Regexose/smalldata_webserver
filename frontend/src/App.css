@@ -30,17 +30,6 @@
   background-color: #F7F8FF;
 }
 
-.input-field {
-  width: auto;
-  position: absolute;
-  bottom: 0px;
-}
-
-.all-but-input {
-  min-width: 300px;
-  margin: auto;
-  width: 50%;
-}
 
 .topic-frame {
   display: flex;
@@ -49,7 +38,7 @@
   flex-grow: 0;
   align-items: flex-start;
   padding: 16px;
-  margin-bottom: 20px;
+  margin: 20px;
 
 
   position: static;
@@ -68,6 +57,24 @@
   max-width: 500px
 }
 
+.all-but-input {
+  min-width: 300px;
+  margin: auto;
+  width: 50%;
+}
+
+.chat-history {
+  display: block;
+  min-height: 150px;
+  margin: 20px;
+}
+
+.input-field {
+  width: auto;
+  position: absolute;
+  bottom: 0px;
+}
+
 .submit-button {
   display: flex;
   flex-direction: row;
@@ -81,12 +88,6 @@
 
   background: #3237AB!important;
   border-radius: 4px;
-}
-
-.chat-history {
-  display: block;
-  min-height: 150px;
-  margin: 20px;
 }
 
 .outer {
