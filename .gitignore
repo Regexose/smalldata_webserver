@@ -121,3 +121,9 @@ settings.ini
 
 # redis-server files
 dump.rdb
+
+# Ignore the development container's ~ directory
+.homedir
+
+project.mk
+data/
