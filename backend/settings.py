@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
+import dj_database_url
 import os
 import json
 from decouple import config
@@ -32,6 +33,9 @@ ALLOWED_HOSTS = [config('HOSTNAME')]
 ROOT_URLCONF = f'{config("PROJECT_NAME")}.urls'
 WSGI_APPLICATION = f'{config("PROJECT_NAME")}.wsgi.application'
 ASGI_APPLICATION = f'{config("PROJECT_NAME")}.asgi.application'
+
+# TODO: Update docker configuration to work with config
+# Was only tested with os.environ.get instead of config
 
 
 # Application definition
@@ -87,6 +91,15 @@ CHANNEL_LAYERS = {
     },
 }
 
+# Database
+# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+
+
+DATABASES = {
+    'default': dj_database_url.config(conn_max_age=os.environ.get('DATABASE_CONN_MAX_AGE'))
+}
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -182,3 +195,7 @@ ips = json.load(open(os.path.join(BASE_DIR, 'config/ip_config.json')))
 # CORS_ORIGIN_WHITELIST.append('http://{}:3000'.format(ips['webapp']))
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+# TODO: Test that config works in docker-compose setup
+# docker-compose setup was tested with locally-served static assets and a
+# env-var source CORS and hostname config

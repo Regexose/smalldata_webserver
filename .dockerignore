@@ -1,0 +1,8 @@
+# Ignore development directories
+.git
+.homedir
+.config
+.venv
+
+# TEMPORARILY Ignore frontend
+frontend
