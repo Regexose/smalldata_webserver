@@ -8,7 +8,7 @@ import {
 } from "react-chat-elements";
 import '../App.css';
 import { http_url } from '../App.js'
-import "react-chat-elements/dist/main.css";
+import "../react-chat-elements.css";
 
 
 
