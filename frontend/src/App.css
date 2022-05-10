@@ -14,12 +14,11 @@ body {
 }
 
 .App-header {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: 20px;
   color: white;
 }
 
@@ -28,23 +27,18 @@ body {
 }
 
 .main-frame {
-  align-items: center;
-  justify-content: center;
-  overflow-y: scroll;
-  height: 100%;
   background-color: #F7F8FF;
 }
 
-.topic-frame {
+.content-frame {
   display: flex;
   flex-direction: column;
-  flex: none;
-  flex-grow: 0;
-  align-items: flex-start;
+}
+
+.topic-frame {
   padding: 16px;
   margin: 20px;
 
-  position: static;
   left: 0px;
   top: 0px;
 
@@ -52,7 +46,6 @@ body {
   border-radius: 20px;
 
   order: 0;
-  align-self: stretch;
 }
 
 .selector-frame {
@@ -60,24 +53,29 @@ body {
   max-width: 500px
 }
 
+.history-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 .history-scroll-wrapper {
+  width: 50%;
   min-width: 300px;
   margin: auto;
-  width: 50%;
   overflow-y: scroll;
-  max-height: 500px;
+  height: calc(100vh - 250px);
 }
 
 .chat-history {
-  display: block;
-  min-height: 150px;
   margin: 20px;
+  display: flex;
+  flex: 1;
 }
 
-.input-field {
-  width: auto;
-  position: absolute;
-  bottom: 0px;
+.input-area{
+  height: 50px;
+  width: 100vw;
 }
 
 .submit-button {
@@ -92,7 +90,6 @@ body {
 
   position: relative;
   width: 150px;
-  height: 50px;
 
   background: #3237AB!important;
   border-radius: 4px;

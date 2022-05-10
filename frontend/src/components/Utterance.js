@@ -101,10 +101,10 @@ export default class Utterance extends Component {
 
   render() {
     return (
-      <div>
+      <div className="history-input-wrapper">
         <div className="history-scroll-wrapper">
             <MessageList
-              className="message-list chat-history"
+              className="chat-history"
               lockable={true}
               dataSource={this.state.messageList}
             />
@@ -113,8 +113,8 @@ export default class Utterance extends Component {
             </div>
         </div>
         <div className='error-msg'>{this.state.textError}</div>
+        <div className="input-area">
         <Input
-          className="input-field"
           placeholder="Bitte kommentieren..."
           referance={this.inputRef}
           defaultValue=""
@@ -132,6 +132,7 @@ export default class Utterance extends Component {
             <Button className="submit-button" text="Senden" onClick={this.onMessageSubmit.bind(this)} />
           }
           />
+        </div>
       </div>
     );
   }
