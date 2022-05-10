@@ -1,20 +1,23 @@
-from os import path
 from rest_framework import serializers
 from .models import Utterance, Category, TrainingUtterance, SongState, Topic
-import gensim
+import enchant
 
-path_to_model = path.join(path.dirname(__file__), "../model_data/german.model")
-german_model = gensim.models.KeyedVectors.load_word2vec_format(path_to_model, binary=True)
+d = enchant.Dict("de_DE")
 
 
 def is_german_text(sentence):
+    accept_ratio = 0.5  # accept_ratio percent of the words need to known by the used enchant library
     """
     return True if any word in the sentence is known to german.model
     """
-    for word in sentence.split(" "):
-        if word in german_model.index_to_key or word.capitalize() in german_model.index_to_key:
-            return sentence
-    raise serializers.ValidationError("Utterance has no german words")
+    words = sentence.split(" ")
+    n_german = 0.
+    for word in words:
+        if d.check(word) or d.check(word.capitalize()) or d.check(word.lower()):
+            n_german += 1
+
+    if n_german / len(words) < accept_ratio:
+        raise serializers.ValidationError("Utterance has no german words")
 
 
 class CategorySerializer(serializers.ModelSerializer):
