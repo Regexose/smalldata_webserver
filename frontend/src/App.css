@@ -76,7 +76,7 @@ body {
   min-width: 300px;
   margin: auto;
   overflow-y: scroll;
-  height: calc(100vh - 250px);
+  height: calc(100vh - 300px);
 }
 
 .chat-history {
@@ -112,10 +112,6 @@ body {
   height: 50%;
   overflow-y: scroll;
   position: relative;
-}
-
-.error-msg {
-  color: red;
 }
 
 .inner {

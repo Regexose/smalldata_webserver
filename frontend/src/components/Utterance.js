@@ -21,7 +21,7 @@ export default class Utterance extends Component {
       messages: [
       ],
       messageList: [],
-      textError: ""
+      warningVisibility: "hidden"
     };
   }
 
@@ -75,10 +75,10 @@ export default class Utterance extends Component {
         this.addMessage(0, text, category.german_name);
         this.inputRef.current.value = "";
     }).catch(error => {
-      this.setState({textError: "Bitte benutzen Sie deutsche Sprache"})
+      this.setState({warningVisibility: "visible"})
       setTimeout(() => {
         this.setState({
-          textError: ""
+          warningVisibility: "hidden"
         });
       }, 2000);
     })
@@ -112,7 +112,9 @@ export default class Utterance extends Component {
               ref={(el) => { this.messagesEnd = el; }}>
             </div>
         </div>
-        <div className='error-msg'>{this.state.textError}</div>
+        <div style={{color: "red", visibility: this.state.warningVisibility}}>
+          Bitte benutzen Sie deutsche Sprache
+        </div>
         <div className="input-area">
         <Input
           placeholder="Bitte kommentieren..."
