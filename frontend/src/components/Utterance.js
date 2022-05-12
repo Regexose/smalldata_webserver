@@ -8,18 +8,8 @@ import {
 } from "react-chat-elements";
 import '../App.css';
 import { http_url } from '../App.js'
-import "react-chat-elements/dist/main.css";
+import "../react-chat-elements.css";
 
-const styles = {
-  titleText: {
-    fontSize: 20,
-    fontWeight: "bold"
-  },
-  messageList: {
-    maxHeight: 300,
-    overflowY: "scroll"
-  }
-};
 
 
 export default class Utterance extends Component {
@@ -31,9 +21,8 @@ export default class Utterance extends Component {
       messages: [
       ],
       messageList: [],
-      textError: ""
+      warningVisibility: "hidden"
     };
-    this.onMessageSubmit = this.onMessageSubmit.bind(this);
   }
 
   styleMessage(senderId, text, category) {
@@ -60,7 +49,6 @@ export default class Utterance extends Component {
 
   onMessageSubmit(e) {
     e.preventDefault();
-
     const input = this.inputRef.current.value;
     if (!input) {
       return false;
@@ -87,10 +75,10 @@ export default class Utterance extends Component {
         this.addMessage(0, text, category.german_name);
         this.inputRef.current.value = "";
     }).catch(error => {
-      this.setState({textError: "Bitte benutzen Sie deutsche Sprache"})
+      this.setState({warningVisibility: "visible"})
       setTimeout(() => {
         this.setState({
-          textError: ""
+          warningVisibility: "hidden"
         });
       }, 2000);
     })
@@ -113,20 +101,21 @@ export default class Utterance extends Component {
 
   render() {
     return (
-      <div>
-        <div className="right-panel utterance-wrapper">
-        <div style={styles.messageList}>
-          <MessageList
-            className="message-list chat-history"
-            lockable={true}
-            downButtonBadge={10}
-            dataSource={this.state.messageList}
-          />
-          <div style={{ float:"left", clear: "both" }}
-            ref={(el) => { this.messagesEnd = el; }}>
-          </div>
+      <div className="history-input-wrapper">
+        <div className="history-scroll-wrapper">
+            <MessageList
+              className="chat-history"
+              lockable={true}
+              dataSource={this.state.messageList}
+            />
+            <div style={{ float:"left", clear: "both" }}
+              ref={(el) => { this.messagesEnd = el; }}>
+            </div>
         </div>
-        <div className='error-msg'>{this.state.textError}</div>
+        <div style={{color: "red", visibility: this.state.warningVisibility}}>
+          Bitte benutzen Sie deutsche Sprache
+        </div>
+        <div className="input-area">
         <Input
           placeholder="Bitte kommentieren..."
           referance={this.inputRef}
@@ -142,11 +131,10 @@ export default class Utterance extends Component {
             }
           }}
           rightButtons={
-            <Button text="Senden" onClick={this.onMessageSubmit} />
+            <Button className="submit-button" text="Senden" onClick={this.onMessageSubmit.bind(this)} />
           }
           />
         </div>
-
       </div>
     );
   }

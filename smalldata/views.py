@@ -33,7 +33,7 @@ category_counter = Counter({"concession": 0, "praise": 0, "dissent": 0, "lecture
 def send_to_music_server(utterance, category):
     category_counter.update({category: 1})
     print(category_counter)
-    song_client.send_message(settings.INTERPRETER_TARGET_ADDRESS, [category, category_counter[category]])
+    song_client.send_message(settings.INTERPRETER_TARGET_ADDRESS, [utterance, category, category_counter[category]])
 
 
 class UtteranceView(viewsets.ModelViewSet):
@@ -63,7 +63,7 @@ class UtteranceView(viewsets.ModelViewSet):
 
         #  send to relevant other services
         if cat[0] != clf.UNCLASSIFIABLE:
-            send_to_music_server(text.encode("utf-8"), category.name)
+            send_to_music_server(text, category.name)
 
             # to websocket
             channel_layer = get_channel_layer()

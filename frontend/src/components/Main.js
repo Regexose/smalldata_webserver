@@ -7,13 +7,13 @@ import '../App.css';
 export default class Main extends Component {
   render() {
     return (
-      <main className="content main-frame">
-      <h1 className="text-black text-uppercase text-center my-4">Small Data</h1>
-        <div className="col-md-6 col-sm-10 mx-auto p-0">
-          <div className="wrapper">
+      <main className="main-frame">
+      <h1 className="title text-center my-4">MeinungsOrgel</h1>
+        <div className="content-frame">
+
             <Topic currentTopic={this.props.currentTopic}/>
             <Utterance newUtterance={this.props.newUtterance}/>
-          </div>
+
         </div>
       </main>
     );
