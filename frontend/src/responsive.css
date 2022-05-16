@@ -1,5 +1,11 @@
-@media only screen and (width: 400px) {
+@media only screen and (width < 400px) {
   .topic-frame {
     padding: 8px 8px 16px;
+  }
+
+
+  .submit-button {
+    width: 80px;
+    left: 8px;
   }
 }
