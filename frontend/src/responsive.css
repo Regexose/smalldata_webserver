@@ -1,11 +1,33 @@
 @media only screen and (width < 400px) {
   .topic-frame {
-    padding: 8px 8px 16px;
+    padding: 12px;
+    width: 95vw;
   }
-
 
   .submit-button {
     width: 80px;
     left: 8px;
   }
+
+  .title {
+    margin: 27px 0 16px 0;
+    text-align: left !important;
+  }
+
+  .history-scroll-wrapper {
+    width: 100%;
+  }
+
+  .chat-history {
+    margin: 0px;
+  }
+
+  .rce-mbox {
+    margin-left: 5px !important;
+  }
+
+  .rce-mbox.rce-mbox-right {
+    margin-right: 5px !important;
+  }
+
 }

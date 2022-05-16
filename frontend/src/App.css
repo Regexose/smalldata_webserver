@@ -33,6 +33,7 @@ body {
 
   text-align: center;
   letter-spacing: -0.07em;
+  margin: 27px;
 
   color: #3237AB;
 
@@ -49,7 +50,10 @@ body {
 
 .topic-frame {
   padding: 16px;
-  margin: 20px;
+  width: 70vw;
+
+  margin: auto;
+  margin-bottom: 20px;
 
   left: 0px;
   top: 0px;

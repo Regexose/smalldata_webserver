@@ -6,10 +6,10 @@ import {
   Input,
   Button,
 } from "react-chat-elements";
+import '../responsive.css';
 import '../App.css';
 import { http_url } from '../App.js'
 import "../react-chat-elements.css";
-
 
 
 export default class Utterance extends Component {
