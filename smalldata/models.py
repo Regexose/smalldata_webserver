@@ -34,6 +34,9 @@ class Topic(models.Model):
     text = models.TextField()
     is_current = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ('title',)
+
 
 class SongState(models.Model):
     state = models.JSONField()
