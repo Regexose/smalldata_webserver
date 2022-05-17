@@ -9,12 +9,10 @@ export default class Main extends Component {
     return (
       <main className="main-frame">
       <h1 className="title text-center">MeinungsOrgel</h1>
-        <div className="content-frame">
 
             <Topic currentTopic={this.props.currentTopic}/>
             <Utterance newUtterance={this.props.newUtterance}/>
 
-        </div>
       </main>
     );
   }

@@ -101,10 +101,9 @@ export default class Utterance extends Component {
 
   render() {
     return (
-      <div className="history-input-wrapper">
+      <>
         <div className="history-scroll-wrapper">
             <MessageList
-              className="chat-history"
               lockable={true}
               dataSource={this.state.messageList}
             />
@@ -135,7 +134,7 @@ export default class Utterance extends Component {
           }
           />
         </div>
-      </div>
+        </>
     );
   }
 }

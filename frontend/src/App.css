@@ -40,10 +40,8 @@ body {
 }
 
 .main-frame {
+  height: 100vh;
   background-color: #F7F8FF;
-}
-
-.content-frame {
   display: flex;
   flex-direction: column;
 }
@@ -55,13 +53,8 @@ body {
   margin: auto;
   margin-bottom: 20px;
 
-  left: 0px;
-  top: 0px;
-
   background: #D9D9EF;
   border-radius: 20px;
-
-  order: 0;
 }
 
 .selector-frame {
@@ -69,24 +62,12 @@ body {
   max-width: 500px
 }
 
-.history-input-wrapper {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
 .history-scroll-wrapper {
-  width: 50%;
-  min-width: 300px;
-  margin: auto;
-  overflow-y: scroll;
-  height: calc(100vh - 300px);
-}
-
-.chat-history {
-  margin: 20px;
-  display: flex;
   flex: 1;
+  overflow-y: scroll;
+  width: 70vw;
+  justify-content: center;
+  margin: auto;
 }
 
 .input-area{
