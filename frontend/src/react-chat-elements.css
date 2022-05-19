@@ -1576,14 +1576,16 @@ audio:focus {
 .rce-container-mlist {
     position: relative;
     display: flex;
+    height: 100%;
 }
 
 .rce-mlist {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     overflow: auto;
     position: relative;
     flex: 1;
+    margin-top: auto;
 }
 
 .rce-mlist-down-button {
