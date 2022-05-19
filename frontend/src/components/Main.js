@@ -8,13 +8,11 @@ export default class Main extends Component {
   render() {
     return (
       <main className="main-frame">
-      <h1 className="title text-center my-4">MeinungsOrgel</h1>
-        <div className="content-frame">
+      <h1 className="title text-center">MeinungsOrgel</h1>
 
             <Topic currentTopic={this.props.currentTopic}/>
             <Utterance newUtterance={this.props.newUtterance}/>
 
-        </div>
       </main>
     );
   }

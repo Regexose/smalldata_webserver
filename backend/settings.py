@@ -168,10 +168,9 @@ else:
     ]
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-    # Allow requests from port 3000 when frontend served via REACT
-    CORS_ALLOWED_ORIGINS = [
-        'http://localhost:3000',
-    ]
+# Allow requests other hosts during development (i.e. localhost:3000 etc...)
+if DEBUG:
+    CORS_ORIGIN_ALLOW_ALL = True
 
 BASE_URL = 'http://%s' % config('HOSTNAME'),
 
