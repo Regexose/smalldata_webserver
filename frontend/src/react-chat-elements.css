@@ -1579,7 +1579,8 @@ audio:focus {
 }
 
 .rce-mlist {
-    display: block;
+    display: flex;
+    flex-direction: column-reverse;
     overflow: auto;
     position: relative;
     flex: 1;
