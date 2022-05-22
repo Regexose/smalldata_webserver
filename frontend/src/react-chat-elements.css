@@ -294,6 +294,10 @@
     cursor: pointer;
     display: flex;
     align-items: center;
+    background: rgba(50, 55, 171, 0.1);
+    width: fit-content;
+    border-radius: 5px;
+    padding: 2px 4px;
 }
 
 .rce-mbox-title:hover {
