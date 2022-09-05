@@ -8,9 +8,6 @@ DATA_DIR = path.join(BASE_DIR, 'model_data')
 #  model file for classification
 model_config = "config_live_bert.json" # "config_live_bert.json"  # 'config_train_lstm.json'
 
-# Song settings
-song_file = "bossa_new.json"
-song_path = path.join(BASE_DIR, 'config', song_file)
 ips = json.load(open(path.join(BASE_DIR, 'config', 'ip_config.json')))
 
 note_intro = 0
