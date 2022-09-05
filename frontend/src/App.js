@@ -119,9 +119,8 @@ class App extends Component {
             <Route path="/" element={
               <Main currentTopic={this.state.currentTopic} newUtterance={this.state.newUtterance}/>} />
             <Route path="/set-topic" element={<TopicSelector />} />
-
-            </Routes>
-            </Router>
+          </Routes>
+          </Router>
         );
       }
 }

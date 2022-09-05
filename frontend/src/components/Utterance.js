@@ -6,20 +6,10 @@ import {
   Input,
   Button,
 } from "react-chat-elements";
+import '../responsive.css';
 import '../App.css';
 import { http_url } from '../App.js'
-import "react-chat-elements/dist/main.css";
-
-const styles = {
-  titleText: {
-    fontSize: 20,
-    fontWeight: "bold"
-  },
-  messageList: {
-    maxHeight: 300,
-    overflowY: "scroll"
-  }
-};
+import "../react-chat-elements.css";
 
 
 export default class Utterance extends Component {
@@ -31,9 +21,8 @@ export default class Utterance extends Component {
       messages: [
       ],
       messageList: [],
-      textError: ""
+      warningVisibility: "hidden"
     };
-    this.onMessageSubmit = this.onMessageSubmit.bind(this);
   }
 
   styleMessage(senderId, text, category) {
@@ -53,6 +42,17 @@ export default class Utterance extends Component {
     var list = this.state.messageList;
     const styledMsg = this.styleMessage(senderId, text, category)
     list.push(styledMsg);
+    // REMOVE FIRST ELEMENT IN LIST TO FIX SCXROLLING BUG
+    // when ading new utterances to messageList, the messagesEnd-Div is being
+    // moved upwards. Once the messagesEnd-Div reaches the top of the
+    // messageListContainer, the scrollToBottm does not have the desired effect.
+    // Therefore, I remove old comments from the list if adding one more item
+    // (which has the height of 80) would move the messagesEnd-div above the
+    // messageListContainer
+    if (this.messageListContainer.getBoundingClientRect().top + 80 >
+        this.messagesEnd.getBoundingClientRect().top) {
+       list.shift();
+    }
     this.setState({
       messageList: list
     });
@@ -60,7 +60,6 @@ export default class Utterance extends Component {
 
   onMessageSubmit(e) {
     e.preventDefault();
-
     const input = this.inputRef.current.value;
     if (!input) {
       return false;
@@ -87,10 +86,10 @@ export default class Utterance extends Component {
         this.addMessage(0, text, category.german_name);
         this.inputRef.current.value = "";
     }).catch(error => {
-      this.setState({textError: "Bitte benutzen Sie deutsche Sprache"})
+      this.setState({warningVisibility: "visible"})
       setTimeout(() => {
         this.setState({
-          textError: ""
+          warningVisibility: "hidden"
         });
       }, 2000);
     })
@@ -113,20 +112,21 @@ export default class Utterance extends Component {
 
   render() {
     return (
-      <div>
-        <div className="right-panel utterance-wrapper">
-        <div style={styles.messageList}>
-          <MessageList
-            className="message-list chat-history"
-            lockable={true}
-            downButtonBadge={10}
-            dataSource={this.state.messageList}
-          />
-          <div style={{ float:"left", clear: "both" }}
-            ref={(el) => { this.messagesEnd = el; }}>
-          </div>
+      <>
+        <div className="history-scroll-wrapper"
+            ref={(el) => { this.messageListContainer = el; }}>
+            <MessageList
+              lockable={true}
+              dataSource={this.state.messageList}
+            />
+            <div style={{ float:"left", clear: "both" }}
+              ref={(el) => { this.messagesEnd = el; }}>
+            </div>
         </div>
-        <div className='error-msg'>{this.state.textError}</div>
+        <div style={{color: "red", visibility: this.state.warningVisibility}}>
+          Bitte benutzen Sie deutsche Sprache
+        </div>
+        <div className="input-area">
         <Input
           placeholder="Bitte kommentieren..."
           referance={this.inputRef}
@@ -142,12 +142,11 @@ export default class Utterance extends Component {
             }
           }}
           rightButtons={
-            <Button text="Senden" onClick={this.onMessageSubmit} />
+            <Button className="submit-button" text="Senden" onClick={this.onMessageSubmit.bind(this)} />
           }
           />
         </div>
-
-      </div>
+        </>
     );
   }
 }

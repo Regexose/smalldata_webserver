@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=DM+Sans');
+
+body {
+  font-family: 'DM Sans', sans-serif;
+}
 .App {
   text-align: center;
 }
@@ -9,13 +14,11 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: 20px;
   color: white;
 }
 
@@ -23,17 +26,35 @@
   color: #61dafb;
 }
 
+.title {
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 29px;
+
+  text-align: center;
+  letter-spacing: -0.07em;
+  margin: 27px;
+
+  color: #3237AB;
+
+}
+
 .main-frame {
-  min-width: 500px;
-  align-items: center;
-  justify-content: center;
-  overflow-y: scroll;
+  height: 100vh;
+  background-color: #F7F8FF;
+  display: flex;
+  flex-direction: column;
 }
 
 .topic-frame {
-  background-color: #EBEBEB;
-  border-radius: 4px;
-  border: 2px solid #ddd;
+  padding: 16px;
+  width: 70vw;
+
+  margin: auto;
+  margin-bottom: 20px;
+
+  background: #D9D9EF;
+  border-radius: 20px;
 }
 
 .selector-frame {
@@ -41,18 +62,34 @@
   max-width: 500px
 }
 
-.utterance-wrapper {
-  box-shadow: 0 20px 20px rgba(0, 0, 0, 0.08);
-  border-radius: 4px;
-  border: 2px solid #ddd;
-  margin: 0 auto;
-  margin-top: 20px;
-  background-color: #EBEBEB;
+.history-scroll-wrapper {
+  flex: 1;
+  overflow-y: scroll;
+  width: 70vw;
+  justify-content: center;
+  margin: auto;
 }
 
-.chat-history {
-  display: block;
-  min-height: 150px;
+.input-area{
+  height: 50px;
+  width: 100vw;
+}
+
+.submit-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 11px 16px;
+  font-weight: bold;
+  font-size: 16px !important;
+  letter-spacing: 0.06em;
+
+  position: relative;
+  width: 150px;
+
+  background: #3237AB!important;
+  border-radius: 4px;
 }
 
 .outer {
@@ -62,10 +99,6 @@
   position: relative;
 }
 
-.error-msg {
-  color: red;
-}
-
 .inner {
   margin: 0 auto;
 }
@@ -73,6 +106,7 @@
 .text-center {
   text-align: center;
 }
+
 
 @keyframes App-logo-spin {
   from {

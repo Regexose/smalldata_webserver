@@ -112,6 +112,7 @@ venv.bak/
 # ignore model files
 model_data/german.model
 model_data/trained_models
+model_data/db_dumps/*.csv
 
 # settings files
 settings.ini
