@@ -42,6 +42,17 @@ export default class Utterance extends Component {
     var list = this.state.messageList;
     const styledMsg = this.styleMessage(senderId, text, category)
     list.push(styledMsg);
+    // REMOVE FIRST ELEMENT IN LIST TO FIX SCXROLLING BUG
+    // when ading new utterances to messageList, the messagesEnd-Div is being
+    // moved upwards. Once the messagesEnd-Div reaches the top of the
+    // messageListContainer, the scrollToBottm does not have the desired effect.
+    // Therefore, I remove old comments from the list if adding one more item
+    // (which has the height of 80) would move the messagesEnd-div above the
+    // messageListContainer
+    if (this.messageListContainer.getBoundingClientRect().top + 80 >
+        this.messagesEnd.getBoundingClientRect().top) {
+       list.shift();
+    }
     this.setState({
       messageList: list
     });
@@ -102,7 +113,8 @@ export default class Utterance extends Component {
   render() {
     return (
       <>
-        <div className="history-scroll-wrapper">
+        <div className="history-scroll-wrapper"
+            ref={(el) => { this.messageListContainer = el; }}>
             <MessageList
               lockable={true}
               dataSource={this.state.messageList}
