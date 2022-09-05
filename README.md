@@ -1,3 +1,15 @@
+# Meinungsorgel
+This is the repository for the webserver of the 'Meinungsorgel'.
+If you want to run the entire Meinungsorgel, you will need access to the following repositories:
+
+1. [smalldata_webserver](https://github.com/Regexose/smalldata_webserver): this one
+2. [smalldata_classification](https://github.com/staudamm/smalldata_classification): model training
+3. [smalldata_proxy](https://github.com/staudamm/smalldata_proxy): a simple http-to-osc translater
+4. [SmallData](https://github.com/Regexose/SmallData): scripts for audio (SuperCollider) and visual (Processing) representation
+
+
+
+
 ## Installation
 
 ### Backend
