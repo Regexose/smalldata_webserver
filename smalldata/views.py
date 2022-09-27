@@ -7,8 +7,8 @@ from django.shortcuts import render
 from rest_framework import viewsets, response, status
 from rest_framework.decorators import api_view, action
 from .serializers import UtteranceSerializer, CategorySerializer, TrainingUtteranceSerializer, SongStateSerializer, \
-    TopicSerializer
-from .models import Utterance, Category, TrainingUtterance, SongState, Topic
+    TopicSerializer, ShowSerializer
+from .models import Utterance, Category, TrainingUtterance, SongState, Topic, Show
 from .consumers import UtteranceConsumer, TopicConsumer
 
 from channels.layers import get_channel_layer
@@ -113,6 +113,33 @@ class TopicView(viewsets.ModelViewSet):
     def get_current(self, request):
         topic = self.get_queryset().get(**{'is_current': True})
         serializer = TopicSerializer(topic)
+        return response.Response(serializer.data)
+
+    @action(methods=['get'], detail=False)
+    def get_current_show(self, request):
+        current_show_set = Show.objects.filter(is_current=True)
+        current_show = None if len(current_show_set) == 0 else current_show_set[0]
+        topics = Topic.objects.filter(show=current_show)
+        serializer = TopicSerializer(topics, many=True)
+        return response.Response(serializer.data)
+
+
+class ShowView(viewsets.ModelViewSet):
+    serializer_class = ShowSerializer
+    queryset = Show.objects.all()
+
+    @action(methods=['post'], detail=True)
+    def set_current(self, request, pk=None):
+        Show.objects.filter(is_current=True).update(is_current=False)
+        if pk is not None:
+            current_show = Show.objects.filter(pk=pk)
+            current_show.update(is_current=True)
+        return response.Response("ok")
+
+    @action(methods=['get'], detail=False)
+    def get_current(self, request):
+        show = self.get_queryset().get(**{'is_current': True})
+        serializer = ShowSerializer(show)
         return response.Response(serializer.data)
 
 

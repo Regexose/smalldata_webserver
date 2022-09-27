@@ -12,6 +12,7 @@ router.register(r'utterances', views.UtteranceView, 'utterance')
 router.register(r'categories', views.CategoryView, 'category')
 router.register(r'training_utterances', views.TrainingUtteranceView, 'training_utterance')
 router.register(r'topics', views.TopicView, 'topic')
+router.register(r'shows', views.ShowView, 'show')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

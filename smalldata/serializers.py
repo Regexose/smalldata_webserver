@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Utterance, Category, TrainingUtterance, SongState, Topic
+from .models import Utterance, Category, TrainingUtterance, SongState, Topic, Show
 import enchant
 
 d = enchant.Dict("de_DE")
@@ -66,4 +66,10 @@ class TrainingUtteranceSerializer(serializers.ModelSerializer):
 class TopicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Topic
+        fields = '__all__'
+
+
+class ShowSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Show
         fields = '__all__'
