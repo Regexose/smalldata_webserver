@@ -13,7 +13,7 @@
 - model: smalldata.category
   pk: 3
   fields:
-    name: dissence
+    name: dissent
     german_name: Widerspruch
 
 - model: smalldata.category

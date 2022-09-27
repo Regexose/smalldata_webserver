@@ -1,5 +1,5 @@
 {
     "MODEL": "Bert",
-    "CLASSES": ["lecture", "praise", "insinuation", "dissence", "concession"],
+    "CLASSES": ["lecture", "praise", "insinuation", "dissent", "concession"],
     "CHECKPOINT PATH": "./trained_models/Bert/checkpoint"
 }
