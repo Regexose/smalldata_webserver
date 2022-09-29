@@ -4,9 +4,7 @@ django-cors-headers
 djangorestframework
 django-import-export==2.8.0
 django_extensions==3.1.5
-spacy==2.2.3
-gensim>4.0
-joblib
+django-storages
 pandas
 sklearn
 python-osc
@@ -21,8 +19,6 @@ seaborn
 python-decouple
 gunicorn
 psycopg2-binary
-django-storages
 boto3
 whitenoise==5.2.0
 channels_redis==3.3.1
-pyenchant==3.2.2
