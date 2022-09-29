@@ -1,7 +1,14 @@
 import os
 import json
+import sys
+import torch
 from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification
+from decouple import config
 
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/../..'))  # hack top make sure webserver can be imported
+sys.path.reverse()  # hack to make sure the project's config is used instead of a config from the package 'odf'
+
+from smalldata_webserver.config import settings
 
 project_path = os.path.join(os.path.abspath(__file__), '../..')
 
@@ -26,25 +33,20 @@ def load_json(path):
         return json.load(file)
 
 
-def get_classifier(config_file):
-    config = load_json(os.path.join(project_path, "model_data", config_file))
-    config = check_cuda(config)
-    if config_file == 'config_live_bert.json':
-        checkpoint_path = os.path.abspath(
-            os.path.join(project_path, "model_data", config["CHECKPOINT PATH"])
-        )
-
-        # Load model and tokenizer from checkpoint.
-        tokenizer = AutoTokenizer.from_pretrained(checkpoint_path, local_files_only=True)
-        model = AutoModelForSequenceClassification.from_pretrained(checkpoint_path, local_files_only=True)
-
-        # Define the classifier used to classify the output data.
-        classifier = pipeline('sentiment-analysis', model=model, tokenizer=tokenizer)
-
-        return DeployableBert(classifier)
-    else:
-        print("Unknown config `{}`, using Mock".format(config_file))
+def get_classifier():
+    if config("LANGUAGE") == 'mock':
+        print("Using mock classifier")
         return DeployableMock()
+
+    checkpoint_path = os.path.join(settings.DATA_DIR, "trained_models", config("LANGUAGE"), "checkpoint")
+    # Load model and tokenizer from checkpoint.
+    tokenizer = AutoTokenizer.from_pretrained(checkpoint_path, local_files_only=True)
+    model = AutoModelForSequenceClassification.from_pretrained(checkpoint_path, local_files_only=True)
+
+    # Define the classifier used to classify the output data.
+    classifier = pipeline('sentiment-analysis', model=model, tokenizer=tokenizer)
+
+    return DeployableBert(classifier)
 
 
 class DeployableMock(object):

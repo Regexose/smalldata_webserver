@@ -1,3 +1,8 @@
+from os import path
+import sys
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+
 from collections import Counter
 
 from django.http import JsonResponse
@@ -9,11 +14,7 @@ from .serializers import UtteranceSerializer, CategorySerializer, TrainingUttera
     TopicSerializer
 from .models import Utterance, Category, TrainingUtterance, SongState, Topic
 from .consumers import UtteranceConsumer, TopicConsumer
-
-from channels.layers import get_channel_layer
-from os import path
-import sys
-from asgiref.sync import async_to_sync
+from . import classifier
 
 from sound import music_client
 
@@ -21,9 +22,9 @@ sys.path.append(path.abspath(path.dirname(__file__) + '/../..'))  # hack top mak
 sys.path.reverse()  # hack to make sure the project's config is used instead of a config from the package 'odf'
 
 from smalldata_webserver.config import settings
-from . import classifier
 
-clf = classifier.get_classifier(settings.model_config)
+
+clf = classifier.get_classifier()
 #   Client for a simple Feedback from Ableton Live
 song_client = music_client.get()
 category_counter = Counter({"concession": 0, "praise": 0, "dissent": 0, "lecture": 0, "insinuation": 0})
