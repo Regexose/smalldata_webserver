@@ -40,10 +40,8 @@ def get_classifier(config_file):
 
         # Define the classifier used to classify the output data.
         classifier = pipeline('sentiment-analysis', model=model, tokenizer=tokenizer)
-        # Define mapping for used classes.
-        mapping = {i: config["CLASSES"][i] for i in range(len(config["CLASSES"]))}
 
-        return DeployableBert(classifier, mapping)
+        return DeployableBert(classifier)
     else:
         print("Unknown config `{}`, using Mock".format(config_file))
         return DeployableMock()
@@ -58,10 +56,10 @@ class DeployableMock(object):
 
 class DeployableBert:
     UNCLASSIFIABLE = 'unknown'
+    classes = ["lecture", "praise", "insinuation", "dissent", "concession"]
 
-    def __init__(self, classifier, mapping):
+    def __init__(self, classifier):
         self.classifier = classifier
-        self.mapping = mapping
 
     def is_in_vocab(self, word):
         return word in self.classifier.tokenizer.vocab or word.capitalize() in self.classifier.tokenizer.vocab or \
@@ -70,4 +68,4 @@ class DeployableBert:
     def predict(self, text):
         prediction = self.classifier(text)
         category_id = int(prediction[0]["label"][6:])
-        return self.mapping[category_id]
+        return self.classes[category_id]
