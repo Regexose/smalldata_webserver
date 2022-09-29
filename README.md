@@ -21,12 +21,10 @@ If you want to run the entire Meinungsorgel, you will need access to the followi
 5. download trained models from https://1drv.ms/u/s!AmoEVYq8BVEZm75RMZ18TllnQRcxWw?e=Y30JCfand and put them in a 
 folder `trained_models` in the `model_data` - folder
 6. install `postgres`, create a db and a user 
-7. install `apt install enchant myspell-de-de` 
-8. in the projects' root directory, create a copy of `settings.ini.template`, call it `settings.ini`. and edit with the correct values
-
-9. run `python manage.py makemigrations && python manage.py migrate`
-10. Load initial data into db by `python manage.py loaddata fixtures/initial_fixture.yaml `
-11. start the api: `python manage.py runserver`
+7. in the projects' root directory, create a copy of `settings.ini.template`, call it `settings.ini`. and edit with the correct values
+8. run `python manage.py makemigrations && python manage.py migrate`
+9. Load initial data into db by `python manage.py loaddata fixtures/initial_fixture.yaml `
+10. start the api: `python manage.py runserver`
 
 
 ### Frontend
