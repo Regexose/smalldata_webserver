@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import ChatFeed from "react-chat-ui";/
 import { Text } from "react-native";
 import {
   MessageList,
