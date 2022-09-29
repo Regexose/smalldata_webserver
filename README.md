@@ -22,6 +22,7 @@ If you want to run the entire Meinungsorgel, you will need access to the followi
 folder `trained_models` in the `model_data` - folder
 6. install `postgres`, create a db and a user 
 7. install `apt install enchant myspell-de-de` 
+WARNING: on Apple Silicone architectures, you need to use this workaround: https://pyenchant.github.io/pyenchant/install.html#apple-silicon-related-errors 
 8. in the projects' root directory, create a copy of `settings.ini.template`, call it `settings.ini`. and edit with the correct values
 
 9. run `python manage.py makemigrations && python manage.py migrate`
