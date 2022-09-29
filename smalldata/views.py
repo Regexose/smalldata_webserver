@@ -1,4 +1,3 @@
-import pickle
 from collections import Counter
 
 from django.http import JsonResponse
@@ -22,7 +21,7 @@ sys.path.append(path.abspath(path.dirname(__file__) + '/../..'))  # hack top mak
 sys.path.reverse()  # hack to make sure the project's config is used instead of a config from the package 'odf'
 
 from smalldata_webserver.config import settings
-from classification import classifier
+from . import classifier
 
 clf = classifier.get_classifier(settings.model_config)
 #   Client for a simple Feedback from Ableton Live
