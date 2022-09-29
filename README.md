@@ -24,7 +24,8 @@ folder `trained_models` in the `model_data` - folder
 7. in the projects' root directory, create a copy of `settings.ini.template`, call it `settings.ini`. and edit with the correct values
 8. run `python manage.py makemigrations && python manage.py migrate`
 9. Load initial data into db by `python manage.py loaddata fixtures/initial_fixture.yaml `
-10. start the api: `python manage.py runserver`
+10. install and start redis (`brew install redis && brew services start redis`)
+11. start the api: `python manage.py runserver`
 
 
 ### Frontend
