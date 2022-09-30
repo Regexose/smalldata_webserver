@@ -9,9 +9,9 @@ import '../responsive.css';
 import '../App.css';
 import { http_url } from '../App.js'
 import "../react-chat-elements.css";
+import { injectIntl } from 'react-intl';
 
-
-export default class Utterance extends Component {
+class Utterance extends Component {
   constructor(props) {
     super(props);
     this.inputRef = React.createRef();
@@ -110,6 +110,7 @@ export default class Utterance extends Component {
   }
 
   render() {
+  const {intl} = this.props;
     return (
       <>
         <div className="history-scroll-wrapper"
@@ -127,7 +128,8 @@ export default class Utterance extends Component {
         </div>
         <div className="input-area">
         <Input
-          placeholder="Bitte kommentieren..."
+
+          placeholder={intl.formatMessage({ id: "app.please_comment", defaultMessage: 'send'})}
           referance={this.inputRef}
           defaultValue=""
           multiline={true}
@@ -141,7 +143,9 @@ export default class Utterance extends Component {
             }
           }}
           rightButtons={
-            <Button className="submit-button" text="Senden" onClick={this.onMessageSubmit.bind(this)} />
+            <Button className="submit-button"
+                text={intl.formatMessage({ id: "app.send", defaultMessage: 'send'})}
+                onClick={this.onMessageSubmit.bind(this)} />
           }
           />
         </div>
@@ -149,3 +153,5 @@ export default class Utterance extends Component {
     );
   }
 }
+
+export default injectIntl(Utterance);
