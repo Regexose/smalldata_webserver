@@ -1,14 +1,8 @@
 from rest_framework import serializers
 from .models import Utterance, Category, TrainingUtterance, SongState, Topic
+from . import classifier
 
-from os import path
-import sys
-sys.path.append(path.abspath(path.dirname(__file__) + '/../..'))  # hack top make sure webserver can be imported
-sys.path.reverse()  # hack to make sure the project's config is used instead of a config from the package 'odf'
-from smalldata_webserver.config import settings
-from classification import classifier
-
-clf = classifier.get_classifier(settings.model_config)
+clf = classifier.get_classifier()
 
 
 def is_known_text(sentence, accept_ratio=0.5):
