@@ -17,7 +17,6 @@ su -c smalldata sed -i -E "$sed_str" ../settings.ini
 # remove existing .env-file
 rm ../frontend/.env
 
-su smalldata -c /home/smalldata/venv/bin/python /home/smalldata/smalldata_webserver/build_frontend.py
+su smalldata -c "/home/smalldata/venv/bin/python /home/smalldata/smalldata_webserver/build_frontend.py"
 
-servicectl gunicorn restart
-1
+systemctl restart gunicorn
