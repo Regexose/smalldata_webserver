@@ -9,7 +9,7 @@
  - `CREATE USER smalldata WITH PASSWORD 'password'`;
  - `ALTER ROLE smalldata SET client_encoding TO 'utf8'`;
  - `ALTER ROLE smalldata SET default_transaction_isolation TO 'read committed'`;
- - `ALTER ROLE smalldata SET timezone TO ‘CET’`;
+ - `ALTER ROLE smalldata SET timezone TO CET`;
  - `GRANT ALL PRIVILEGES ON DATABASE smalldata TO smalldata`;
  - `\q`
 

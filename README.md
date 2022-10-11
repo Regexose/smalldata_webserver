@@ -7,6 +7,8 @@ If you want to run the entire Meinungsorgel, you will need access to the followi
 3. [smalldata_proxy](https://github.com/staudamm/smalldata_proxy): a simple http-to-osc translater
 4. [SmallData](https://github.com/Regexose/SmallData): scripts for audio (SuperCollider) and visual (Processing) representation
 
+## Running & managing
+The folder `./doc/` contains three scripts that    
 
 
 
@@ -34,6 +36,7 @@ folder `trained_models` in the `model_data` - folder
    ```
    REACT_APP_WS_URL = ws://localhost:8000/ws/
    REACT_APP_HTTP_URL = http://localhost:8000/api/
+   APP_LANGUAGE = de
    ```
 3. run `npm run start`
 4. open browser & navigate to `localhost:3000`
@@ -47,7 +50,7 @@ folder `trained_models` in the `model_data` - folder
 * place `german.model` in `webserver/model_data`
 * install language model for spacey `python -m spacy download de`
 * Setup backend:
-   * Change into `backend` directory and run `python manage.py makemigrations` and `python manage.py migrate`
+   * Run `python manage.py makemigrations` and `python manage.py migrate`
    * Start server by running `python manage.py runserver`
    * Create categories via `localhost:8000/api/categories` in your browser
 * Setup frontend:
