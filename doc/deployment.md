@@ -4,7 +4,7 @@
  - `sudo apt install python3-pip python3-dev git-all gunicorn libpq-dev postgresql postgresql-contrib nginx curl git-all daphne redis-server`
 
 ## Setup postgres
- - `sudo -u postgres psql`
+ - `sudo -u postgres psql` (on OSX, use `psql postgres`)
  - `CREATE DATABASE smalldata;`
  - `CREATE USER smalldata WITH PASSWORD 'password'`;
  - `ALTER ROLE smalldata SET client_encoding TO 'utf8'`;
