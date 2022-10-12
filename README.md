@@ -49,7 +49,7 @@ You can start/stop the webservice of meinungsorgel.de by navigating to `/home/ro
 ### Change language
 #### Development
 The operating language of the backend-application (i.e. the classification) is set by the parameter `APP_LANGUAGE` in
-`settings.ini` (either `de` or `en`). To change the language of the frontend, set `APP_LANGUAGE` in
+`settings.ini` (either `de` or `en`). To change the language of the frontend, set `REACT_APP_LANGUAGE` in
 the `.env` - file in the `frontend` - folder
 
 #### Production

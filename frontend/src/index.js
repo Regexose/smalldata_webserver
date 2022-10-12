@@ -12,16 +12,16 @@ import German from './lang/de.json';
 import English from './lang/en.json';
 
 const locale = navigator.language;
-let lang = German;
+let messages = German;
 if (process.env.REACT_APP_LANGUAGE === "en") {
-    lang = English
+    messages = English
 } else if (process.env.REACT_APP_LANGUAGE !== "de") {
   console.log("Unknown language, using DE")
 }
 
 
 ReactDOM.render(
-    <IntlProvider locale={locale} messages={lang}>
+    <IntlProvider locale={locale} messages={messages}>
        <App />
    </IntlProvider>,
     document.getElementById('root')

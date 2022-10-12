@@ -1,5 +1,10 @@
 {
  "app.please_comment" : "Bitte kommentieren..." ,
  "app.send" : "senden" ,
- "app.wrong_language": "Bitte benutzen Sie die deutsche Sprache"
+ "app.wrong_language": "Bitte benutzen Sie die deutsche Sprache",
+ "concession": "Zugeständnis",
+ "praise": "Lob",
+ "dissent": "Widerspruch",
+ "insinuation": "Unterstellung",
+ "lecture": "Belehrung"
 }
