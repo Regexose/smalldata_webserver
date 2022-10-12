@@ -59,6 +59,7 @@ In production, the langauge is changed by running the `set_langauge.sh` - script
 Warnings: 
  1. You need to add a language code as an argument to the script, i.e. type `set_langauge.sh en` (or de)
  2. The script must be run as user `smalldata`, i.e. type `su smalldata` before
+ 3. You have to restart `gunicorn` and `nginx` afterwards, or simply run `/home/root/start_meinungsorgel.sh` (as `root`)
 
 
 
