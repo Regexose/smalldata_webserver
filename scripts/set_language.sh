@@ -24,7 +24,7 @@ cd ~/smalldata_webserver || exit
 sed -i -E s/APP_LANGUAGE=[a-z][a-z]/APP_LANGUAGE=$lang/g ~/smalldata_webserver/settings.ini
 
 # write new .env-file
-~/venv/bin/python ~/smalldata_webserver/create_env_file.py
+~/venv/bin/python ~/smalldata_webserver/scripts/create_env_file.py
 
 
 # build frontend files

@@ -2,7 +2,7 @@ import os
 from decouple import config
 
 base_dir = os.path.dirname(__file__)
-env_file = os.path.join(base_dir, 'frontend', '.env')
+env_file = os.path.join(base_dir, '../frontend', '.env')
 
 
 def create_env_file():
