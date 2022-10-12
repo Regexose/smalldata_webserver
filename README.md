@@ -57,8 +57,8 @@ In production, the langauge is changed by running the `set_langauge.sh` - script
 `/home/smalldata/smalldata_webserver/scripts/`
  
 Warnings: 
- 1. you need to add a language code, i.e. type `set_langauge.sh en` (or de)
- 2. the script must be run as `smalldata`!
+ 1. You need to add a language code as an argument to the script, i.e. type `set_langauge.sh en` (or de)
+ 2. The script must be run as user `smalldata`, i.e. type `su smalldata` before
 
 
 
