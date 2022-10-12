@@ -27,7 +27,7 @@
  - Pull code into smalldata_webserver
  - run installation instructions from README.md
  - create directory `staticfiles` in applications base-dir
- - run `python build_frontend.py` to 
+ - run `doc/set_language.sh de` to 
    - write `frontend/.env` that contains the urls for the REACT-APP 
    - build the frontend code
    - collect the static files

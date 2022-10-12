@@ -1,7 +1,5 @@
 import os
-import sys
 from decouple import config
-import subprocess
 
 base_dir = os.path.dirname(__file__)
 env_file = os.path.join(base_dir, 'frontend', '.env')
@@ -28,13 +26,4 @@ def create_env_file():
 
 
 if __name__ == '__main__':
-    if os.path.isfile(env_file):
-        print('env-file exists, ignoring settings.ini')
-    else:
-        create_env_file()
-
-    os.chdir('frontend')
-    subprocess.run(['npm', 'run', 'relocate'])
-    os.chdir('..')
-
-    subprocess.run(['python', 'manage.py', 'collectstatic', '--noinput'])
+    create_env_file()

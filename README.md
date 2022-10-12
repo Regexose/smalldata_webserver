@@ -54,8 +54,8 @@ the `.env` - file in the `frontend` - folder
 
 #### Production
 In production, the langauge is changed by running
-```commandline
-./switch_langauge.sh de (or en)
+```
+./set_langauge.sh de (or en)
 ```
 from `/home/root/`
 
