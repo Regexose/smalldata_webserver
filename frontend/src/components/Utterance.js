@@ -82,7 +82,8 @@ class Utterance extends Component {
       throw new Error(response.statusText);
     }).then(data => {
         const {text, category} = data
-        this.addMessage(0, text, category.german_name);
+        let cat = this.props.intl.formatMessage({ id: category.name})
+        this.addMessage(0, text, cat);
         this.inputRef.current.value = "";
     }).catch(error => {
       this.setState({warningVisibility: "visible"})
@@ -124,7 +125,7 @@ class Utterance extends Component {
             </div>
         </div>
         <div style={{color: "red", visibility: this.state.warningVisibility}}>
-          Bitte benutzen Sie deutsche Sprache
+          {intl.formatMessage({ id: "app.wrong_language"})}
         </div>
         <div className="input-area">
         <Input

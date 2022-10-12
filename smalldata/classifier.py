@@ -34,11 +34,11 @@ def load_json(path):
 
 
 def get_classifier():
-    if config("LANGUAGE") == 'mock':
+    if config("APP_LANGUAGE") == 'mock':
         print("Using mock classifier")
         return DeployableMock()
 
-    checkpoint_path = os.path.join(settings.DATA_DIR, "trained_models", config("LANGUAGE"), "checkpoint")
+    checkpoint_path = os.path.join(settings.DATA_DIR, "trained_models", config("APP_LANGUAGE"), "checkpoint")
     # Load model and tokenizer from checkpoint.
     tokenizer = AutoTokenizer.from_pretrained(checkpoint_path, local_files_only=True)
     model = AutoModelForSequenceClassification.from_pretrained(checkpoint_path, local_files_only=True)

@@ -1,5 +1,10 @@
 {
  "app.please_comment" : "Type comment here..." ,
  "app.send" : "send" ,
- "app.wrong_language": "Please use English language"
+ "app.wrong_language": "Please use English language",
+ "concession": "Concession",
+ "praise": "Praise",
+ "dissent": "Dissent",
+ "insinuation": "Insinuation",
+ "lecture": "Lecture"
 }

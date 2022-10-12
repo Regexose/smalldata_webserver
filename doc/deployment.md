@@ -4,12 +4,12 @@
  - `sudo apt install python3-pip python3-dev git-all gunicorn libpq-dev postgresql postgresql-contrib nginx curl git-all daphne redis-server`
 
 ## Setup postgres
- - `sudo -u postgres psql`
+ - `sudo -u postgres psql` (on OSX, use `psql postgres`)
  - `CREATE DATABASE smalldata;`
  - `CREATE USER smalldata WITH PASSWORD 'password'`;
  - `ALTER ROLE smalldata SET client_encoding TO 'utf8'`;
  - `ALTER ROLE smalldata SET default_transaction_isolation TO 'read committed'`;
- - `ALTER ROLE smalldata SET timezone TO ‘CET’`;
+ - `ALTER ROLE smalldata SET timezone TO CET`;
  - `GRANT ALL PRIVILEGES ON DATABASE smalldata TO smalldata`;
  - `\q`
 
@@ -27,7 +27,7 @@
  - Pull code into smalldata_webserver
  - run installation instructions from README.md
  - create directory `staticfiles` in applications base-dir
- - run `python build_frontend.py` to 
+ - As user `smalldata` run `scripts/set_language.sh de` to 
    - write `frontend/.env` that contains the urls for the REACT-APP 
    - build the frontend code
    - collect the static files
