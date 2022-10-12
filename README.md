@@ -53,11 +53,12 @@ The operating language of the backend-application (i.e. the classification) is s
 the `.env` - file in the `frontend` - folder
 
 #### Production
-In production, the langauge is changed by running
-```
-su - smalldata -c "./set_langauge.sh de" (or en)
-```
-from `/home/root/`
+In production, the langauge is changed by running the `set_langauge.sh` - script in
+`/home/smalldata/smalldata_webserver/scripts/`
+ 
+Warnings: 
+ 1. you need to add a language code, i.e. type `set_langauge.sh en` (or de)
+ 2. the script must be run as `smalldata`!
 
 
 
