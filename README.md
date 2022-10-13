@@ -52,9 +52,18 @@ The operating language of the backend-application (i.e. the classification) is s
 `settings.ini` (either `de` or `en`). To change the language of the frontend, set `REACT_APP_LANGUAGE` in
 the `.env` - file in the `frontend` - folder
 
-#### Production
+#### Production (meinungsorgel.de)
 In production, the langauge is changed by running the `set_langauge.sh` - script in
-`/home/smalldata/smalldata_webserver/scripts/`
+`/home/smalldata/smalldata_webserver/scripts/` as `smalldata`:
+
+```
+ssh root@meinungsorgel.de
+su smalldata
+cd /home/smalldata/smalldata_webserver/scripts/
+./set_language.sh de (bzw en)
+exit (ctrl+d)
+~/start_meinungsorgel.de
+```
  
 Warnings: 
  1. You need to add a language code as an argument to the script, i.e. type `set_langauge.sh en` (or de)
