@@ -62,7 +62,7 @@ su smalldata
 cd /home/smalldata/smalldata_webserver/scripts/
 ./set_language.sh de (bzw en)
 exit (ctrl+d)
-~/start_meinungsorgel.de
+~/start_meinungsorgel.sh
 ```
  
 Warnings: 
