@@ -41,7 +41,7 @@ correct values
 
 ### Forwarding of messages to SuperCollider
 cd to smalldata_proxy
-python proxy.py
+```python proxy.py```
 
 ### Start / stop webservice in production
 You can start/stop the webservice of meinungsorgel.de by navigating to `/home/root/` (where you start after 
