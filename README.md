@@ -64,6 +64,12 @@ Save the file with Ctrl-O and exit with Ctrl -X.
 Exit su session with "exit"
 
 
+### Forwarding of messages to SuperCollider
+cd to smalldata_proxy
+```
+python proxy.py
+```
+
 ### Start / stop webservice in production
 Start backend & frontend
 ```
