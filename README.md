@@ -8,22 +8,22 @@ If you want to run the entire Meinungsorgel, you will need access to the followi
 4. [SmallData](https://github.com/Regexose/SmallData): scripts for audio (SuperCollider) and visual (Processing) representation
 
 
-## Installation (development mode)
+## Installation (development)
 
 ### Backend
-0. run `git clone git@github.com:Regexose/SmallData.git`
-1. install python >= 3.8.0 (I recommend pyenv or virtualenv)
-2. run `pip install -r requirements.txt`
-3. download trained models (ideally from meinungsorgel.de) and put them in a 
+1. run `git clone git@github.com:Regexose/SmallData.git`
+2. install python >= 3.8.0 (I recommend pyenv or virtualenv)
+3. run `pip install -r requirements.txt`
+4. download trained models (ideally from meinungsorgel.de) and put them in a 
 folder `trained_models` in the `model_data` - folder
-4. install `postgres`, create a db and a user (see __Setup postgres__-section in `/doc/deployment.md`). When using OSX, 
+5. install `postgres`, create a db and a user (see __Setup postgres__-section in `/doc/deployment.md`). When using OSX, 
 I suggest to use the PostGRes.app instead of homebrew installation
-5. In the projects' root directory, create a copy of `settings.ini.template`, call it `settings.ini`. and edit with the 
+6. In the projects' root directory, create a copy of `settings.ini.template`, call it `settings.ini`. and edit with the 
 correct values
-6. run `python manage.py makemigrations && python manage.py migrate`
-7. Load initial data into db by `python manage.py loaddata fixtures/initial_fixture.yaml `
-8. install and start redis (`brew install redis && brew services start redis`)
-9. start the api: `python manage.py runserver`
+7. run `python manage.py makemigrations && python manage.py migrate`
+8. Load initial data into db by `python manage.py loaddata fixtures/initial_fixture.yaml `
+9. install and start redis (`brew install redis && brew services start redis`)
+10. start the api: `python manage.py runserver`
 
 
 ### Frontend
@@ -37,14 +37,39 @@ correct values
 3. run `npm run start`
 4. open browser & navigate to `localhost:3000`
 
+## Installation (production)
+See `doc/deployment.md`
+
 ## Management
+### Preperation (locally)
+1. create a virtual url with ngrok. In Terminal (no cd required)
+```
+ngrok http 8080
+```
+2. activate python proxy - translates http messages to osc messages. cd /Meinungsorgel_Git/smalldata_proxy 
+```
+python proxy.py
+```
+3. In a new Terminal Tab, use ssh to login into meinungsorgel.de (ssh password required)
+```
+ssh root@meinungsorgel.de
+```
+4. Write the virtual url from the ngrok window into "settings.ini"
+```
+su smalldata
+nano /home/smalldata/smalldata_webserver/settings.ini
+```
+Navigate to the line SUPERCOLLIDER_URL and paste the virtual url behind the "=". 
+Save the file with Ctrl-O and exit with Ctrl -X.
+Exit su session with "exit"
+
 
 ### Start / stop webservice in production
-You can start/stop the webservice of meinungsorgel.de by navigating to `/home/root/` (where you start after 
-`ssh root@meinungsorgel.de`) and typing 
+Start backend & frontend
 ```
-./start_meinungsorgel.sh  (stop_meinungsorgel.sh)
+`~/start_meinungsorgel.sh`
 ```
+To stop, use `~/stop_meinungsorgel.sh`
 
 ### Change language
 #### Development
