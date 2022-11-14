@@ -13,9 +13,9 @@ import English from './lang/en.json';
 
 const locale = navigator.language;
 let messages = German;
-if (process.env.REACT_APP_LANGUAGE === "en") {
+if (locale.substring(0,2) === "en") {
     messages = English
-} else if (process.env.REACT_APP_LANGUAGE !== "de") {
+} else if (locale.substring(0,2) !== "de") {
   console.log("Unknown language, using DE")
 }
 
