@@ -7,6 +7,8 @@ DATA_DIR = path.join(BASE_DIR, 'model_data')
 
 ips = json.load(open(path.join(BASE_DIR, 'config', 'ip_config.json')))
 
+LANGUAGES = ["de", "en"]
+
 note_intro = 0
 note_end = 12
 

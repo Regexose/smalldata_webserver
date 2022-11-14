@@ -69,7 +69,7 @@ class Utterance extends Component {
 
     fetch(http_url + "utterances/", {
       method: "POST",
-      body: JSON.stringify({text: input, msg_id: msgId}),
+      body: JSON.stringify({text: input, msg_id: msgId, language: "en"}),
       headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'

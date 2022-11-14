@@ -14,7 +14,7 @@ from .serializers import UtteranceSerializer, CategorySerializer, TrainingUttera
     TopicSerializer
 from .models import Utterance, Category, TrainingUtterance, SongState, Topic
 from .consumers import UtteranceConsumer, TopicConsumer
-from . import classifier
+from .classifier import classifier as clf
 
 from sound import music_client
 
@@ -24,7 +24,6 @@ sys.path.reverse()  # hack to make sure the project's config is used instead of 
 from smalldata_webserver.config import settings
 
 
-clf = classifier.get_classifier()
 #   Client for a simple Feedback from Ableton Live
 song_client = music_client.get()
 category_counter = Counter({"concession": 0, "praise": 0, "dissent": 0, "lecture": 0, "insinuation": 0})
@@ -43,8 +42,9 @@ class UtteranceView(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         # Fetch sent data
         text = serializer.validated_data["text"]
+        language = serializer.validated_data["language"]
         # send text to clf to return a category
-        cat = clf.predict(text)
+        cat = clf[language].predict(text)
 
         # lookup found category in database
         #  TODO: build a test during startup to make sure the db and the model reproduce the same categories!
@@ -62,7 +62,7 @@ class UtteranceView(viewsets.ModelViewSet):
         print('cat: {}\ntext {}'.format(category.german_name, text))
 
         #  send to relevant other services
-        if cat[0] != clf.UNCLASSIFIABLE:
+        if cat[0] != clf[language].UNCLASSIFIABLE:
             send_to_music_server(text, category.name)
 
             # to websocket
