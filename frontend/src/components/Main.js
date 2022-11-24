@@ -8,7 +8,7 @@ export default class Main extends Component {
   render() {
     return (
       <main className="main-frame">
-      <h1 className="title text-center">A SOFT TONGUE BREAKS THE BONE</h1>
+      <h1 className="title text-center">{`A SOFT TONGUE \n BREAKS THE BONE`}</h1>
 
             <Topic currentTopic={this.props.currentTopic}/>
             <Utterance newUtterance={this.props.newUtterance}/>
