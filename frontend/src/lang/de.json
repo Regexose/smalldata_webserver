@@ -2,9 +2,9 @@
  "app.please_comment" : "Bitte kommentieren..." ,
  "app.send" : "senden" ,
  "app.wrong_language": "Bitte benutzen Sie die deutsche Sprache",
- "concession": "Concession / Zugeständnis",
- "praise": "Praise / Lob",
- "dissent": "Dissent / Widerspruch",
- "insinuation": "Insinuation / Unterstellung",
- "lecture": "Lecture / Belehrung"
+ "concession": "Zugeständnis",
+ "praise": "Lob",
+ "dissent": "Widerspruch",
+ "insinuation": "Unterstellung",
+ "lecture": "Belehrung"
 }

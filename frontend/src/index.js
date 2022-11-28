@@ -10,17 +10,20 @@ import * as serviceWorker from './serviceWorker';
 import {IntlProvider} from 'react-intl';
 import German from './lang/de.json';
 import English from './lang/en.json';
+import Auto from './lang/auto.json';
 
-const locale = navigator.language;
-let messages = English;
-if (locale.substring(0,2) === "de") {
-    messages = German;
-} else if (locale.substring(0,2) == "en") {
-  console.log("using EN");
-} else {
-  console.log("Unknown language, using EN");
+let locale = process.env.REACT_APP_LANGUAGE;
+if (locale === "auto") {
+    locale = navigator.language.substring(0,2);
 }
-
+let messages = English;
+if (locale === "de") {
+    messages = German;
+} else if (locale == "en") {
+    console.log("using EN");
+} else {
+    console.log("Unknown language, using EN");
+}
 
 ReactDOM.render(
     <IntlProvider locale={locale} messages={messages}>

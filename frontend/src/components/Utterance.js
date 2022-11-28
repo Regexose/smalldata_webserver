@@ -69,7 +69,7 @@ class Utterance extends Component {
 
     fetch(http_url + "utterances/", {
       method: "POST",
-      body: JSON.stringify({text: input, msg_id: msgId, language: navigator.language.substring(0,2)}),
+      body: JSON.stringify({text: input, msg_id: msgId, language: this.props.intl.locale}),
       headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
@@ -105,7 +105,7 @@ class Utterance extends Component {
   componentDidUpdate(prevProps) {
     const {text, category, msgId, id} = this.props.newUtterance
     if (prevProps.newUtterance.id !== id && this.state.ownMessageId !== msgId){
-      this.addMessage(1, text, category.german_name)
+      this.addMessage(1, text, this.props.intl.formatMessage({ id: category.name}))
     }
     this.scrollToBottom();
   }
