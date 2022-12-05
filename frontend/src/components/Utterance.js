@@ -20,7 +20,8 @@ class Utterance extends Component {
       messages: [
       ],
       messageList: [],
-      warningVisibility: "hidden"
+      errorVisibility: "hidden",
+      errorMessage: ""
     };
   }
 
@@ -86,12 +87,15 @@ class Utterance extends Component {
         this.addMessage(0, text, cat);
         this.inputRef.current.value = "";
     }).catch(error => {
-      this.setState({warningVisibility: "visible"})
-      setTimeout(() => {
-        this.setState({
-          warningVisibility: "hidden"
-        });
-      }, 2000);
+        if (error.message === "Bad Request") {
+          this.setState({errorMessage: this.props.intl.formatMessage({ id: "app.wrong_language"})});
+        } else {
+           this.setState({errorMessage: error.message});
+        }
+        this.setState({errorVisibility: "visible"});
+        setTimeout(() => {
+         this.setState({errorVisibility: "hidden"});
+        }, 2000);
     })
 
     return true;
@@ -124,9 +128,10 @@ class Utterance extends Component {
               ref={(el) => { this.messagesEnd = el; }}>
             </div>
         </div>
-        <div style={{color: "red", visibility: this.state.warningVisibility}}>
-          {intl.formatMessage({ id: "app.wrong_language"})}
+        <div style={{color: "red", visibility: this.state.errorVisibility}}>
+          {this.state.errorMessage}
         </div>
+
         <div className="input-area">
         <Input
 

@@ -26,7 +26,8 @@ class UtteranceSerializer(serializers.ModelSerializer):
                 n_known += 1
 
         if n_known / len(words) < accept_ratio:
-            raise serializers.ValidationError("Utterance has no german words")
+            raise serializers.ValidationError(
+                "Utterance has not enough words in language `{}`".format(self.initial_data["language"]))
 
         return text
 

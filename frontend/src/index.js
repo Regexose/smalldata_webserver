@@ -10,7 +10,6 @@ import * as serviceWorker from './serviceWorker';
 import {IntlProvider} from 'react-intl';
 import German from './lang/de.json';
 import English from './lang/en.json';
-import Auto from './lang/auto.json';
 
 let locale = process.env.REACT_APP_LANGUAGE;
 if (locale === "auto") {
@@ -19,7 +18,7 @@ if (locale === "auto") {
 let messages = English;
 if (locale === "de") {
     messages = German;
-} else if (locale == "en") {
+} else if (locale === "en") {
     console.log("using EN");
 } else {
     console.log("Unknown language, using EN");
