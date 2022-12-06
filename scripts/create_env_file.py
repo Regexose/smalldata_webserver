@@ -21,7 +21,7 @@ def create_env_file():
         file.writelines([
             'REACT_APP_WS_URL = ' + ws_url + '\n',
             'REACT_APP_HTTP_URL = ' + http_url + '\n'
-            'REACT_APP_LANGUAGE = ' + config("APP_LANGUAGE") + '\n'
+            'REACT_APP_LANGUAGE = auto \n'
         ])
 
 
