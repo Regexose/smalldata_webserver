@@ -19,7 +19,6 @@ fi
 
 # replace language in .env-file
 sed -i -E s/REACT_APP_LANGUAGE\ =\ .*/REACT_APP_LANGUAGE\ =\ "$lang"/g ~/smalldata_webserver/frontend/.env
-rm ~/smalldata_webserver/frontend/.env-E || exit
 
 # build frontend files
 cd ~/smalldata_webserver/frontend || exit
