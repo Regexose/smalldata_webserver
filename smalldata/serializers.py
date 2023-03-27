@@ -1,22 +1,6 @@
 from rest_framework import serializers
 from .models import Utterance, Category, TrainingUtterance, SongState, Topic
-from . import classifier
-
-clf = classifier.get_classifier()
-
-
-def is_known_text(sentence, accept_ratio=0.5):
-    """
-    return True if accept_ratio of the words are known to the langauge model of the classifier
-    """
-    words = sentence.split(" ")
-    n_known = 0.
-    for word in words:
-        if clf.is_in_vocab(word):
-            n_known += 1
-
-    if n_known / len(words) < accept_ratio:
-        raise serializers.ValidationError("Utterance has no german words")
+from .classifier import classifier as clf
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -28,7 +12,24 @@ class CategorySerializer(serializers.ModelSerializer):
 class UtteranceSerializer(serializers.ModelSerializer):
     category = CategorySerializer(many=False, read_only=True)
     msg_id = serializers.CharField(read_only=True)
-    text = serializers.CharField(validators=[is_known_text])
+    text = serializers.CharField()
+    language = serializers.CharField()
+
+    def validate_text(self, text: str, accept_ratio=0.5) -> str:
+        """
+        return True if accept_ratio of the words are known to the langauge model of the classifier
+        """
+        words = text.split(" ")
+        n_known = 0.
+        for word in words:
+            if clf[self.initial_data["language"]].is_in_vocab(word):
+                n_known += 1
+
+        if n_known / len(words) < accept_ratio:
+            raise serializers.ValidationError(
+                "Utterance has not enough words in language `{}`".format(self.initial_data["language"]))
+
+        return text
 
     class Meta:
         model = Utterance

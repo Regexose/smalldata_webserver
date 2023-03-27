@@ -32,7 +32,7 @@ correct values
    ```
    REACT_APP_WS_URL = ws://localhost:8000/ws/
    REACT_APP_HTTP_URL = http://localhost:8000/api/
-   APP_LANGUAGE = de
+   REACT_APP_LANGUAGE = de
    ```
 3. run `npm run start`
 4. open browser & navigate to `localhost:3000`
@@ -79,9 +79,12 @@ To stop, use `~/stop_meinungsorgel.sh`
 
 ### Change language
 #### Development
-The operating language of the backend-application (i.e. the classification) is set by the parameter `APP_LANGUAGE` in
-`settings.ini` (either `de` or `en`). To change the language of the frontend, set `REACT_APP_LANGUAGE` in
-the `.env` - file in the `frontend` - folder
+The language that the backend (API) uses to classify the incoming utterances is provided by the frontend: Each request 
+to `POST:/utterances` provides a langauge code (currently `de` or `en`), that the backend uses to chose the correct model.
+This language code, in turn, is provided by the `REACT_APP_LANGUAGE` directive in  the `.env`-file of the `frontend`-folder:
+ - `en`: use English language for classification
+ - `de`: use Germanlanguage for classification
+ - `auto`: use the Browsers' language setting for classification (English if the browser language is not implemented)
 
 #### Production (meinungsorgel.de)
 In production, the langauge is changed by running the `set_langauge.sh` - script in
@@ -91,7 +94,7 @@ In production, the langauge is changed by running the `set_langauge.sh` - script
 ssh root@meinungsorgel.de
 su smalldata
 cd /home/smalldata/smalldata_webserver/scripts/
-./set_language.sh de (bzw en)
+./set_language.sh de (bzw en / auto)
 exit (ctrl+d)
 ~/start_meinungsorgel.sh
 ```

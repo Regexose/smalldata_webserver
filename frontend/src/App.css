@@ -32,10 +32,11 @@ body {
   line-height: 29px;
 
   text-align: center;
-  letter-spacing: -0.07em;
+  letter-spacing: 0.07em;
   margin: 27px;
 
   color: #3237AB;
+  white-space: pre-line;
 
 }
 

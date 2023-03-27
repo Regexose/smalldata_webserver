@@ -20,7 +20,8 @@ class Utterance extends Component {
       messages: [
       ],
       messageList: [],
-      warningVisibility: "hidden"
+      errorVisibility: "hidden",
+      errorMessage: ""
     };
   }
 
@@ -69,7 +70,7 @@ class Utterance extends Component {
 
     fetch(http_url + "utterances/", {
       method: "POST",
-      body: JSON.stringify({text: input, msg_id: msgId}),
+      body: JSON.stringify({text: input, msg_id: msgId, language: this.props.intl.locale}),
       headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
@@ -86,12 +87,15 @@ class Utterance extends Component {
         this.addMessage(0, text, cat);
         this.inputRef.current.value = "";
     }).catch(error => {
-      this.setState({warningVisibility: "visible"})
-      setTimeout(() => {
-        this.setState({
-          warningVisibility: "hidden"
-        });
-      }, 2000);
+        if (error.message === "Bad Request") {
+          this.setState({errorMessage: this.props.intl.formatMessage({ id: "app.wrong_language"})});
+        } else {
+           this.setState({errorMessage: error.message});
+        }
+        this.setState({errorVisibility: "visible"});
+        setTimeout(() => {
+         this.setState({errorVisibility: "hidden"});
+        }, 2000);
     })
 
     return true;
@@ -105,7 +109,7 @@ class Utterance extends Component {
   componentDidUpdate(prevProps) {
     const {text, category, msgId, id} = this.props.newUtterance
     if (prevProps.newUtterance.id !== id && this.state.ownMessageId !== msgId){
-      this.addMessage(1, text, category.german_name)
+      this.addMessage(1, text, this.props.intl.formatMessage({ id: category.name}))
     }
     this.scrollToBottom();
   }
@@ -124,9 +128,10 @@ class Utterance extends Component {
               ref={(el) => { this.messagesEnd = el; }}>
             </div>
         </div>
-        <div style={{color: "red", visibility: this.state.warningVisibility}}>
-          {intl.formatMessage({ id: "app.wrong_language"})}
+        <div style={{color: "red", visibility: this.state.errorVisibility}}>
+          {this.state.errorMessage}
         </div>
+
         <div className="input-area">
         <Input
 

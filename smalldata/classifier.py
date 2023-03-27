@@ -7,10 +7,7 @@ from decouple import config
 
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/../..'))  # hack top make sure webserver can be imported
 sys.path.reverse()  # hack to make sure the project's config is used instead of a config from the package 'odf'
-
 from smalldata_webserver.config import settings
-
-project_path = os.path.join(os.path.abspath(__file__), '../..')
 
 
 # Checks whether CUDA is available and loads corresponding modules if neccessary.
@@ -33,12 +30,8 @@ def load_json(path):
         return json.load(file)
 
 
-def get_classifier():
-    if config("APP_LANGUAGE") == 'mock':
-        print("Using mock classifier")
-        return DeployableMock()
-
-    checkpoint_path = os.path.join(settings.DATA_DIR, "trained_models", config("APP_LANGUAGE"), "checkpoint")
+def get_classifier(language="de"):
+    checkpoint_path = os.path.join(settings.DATA_DIR, "trained_models", language, "checkpoint")
     # Load model and tokenizer from checkpoint.
     tokenizer = AutoTokenizer.from_pretrained(checkpoint_path, local_files_only=True)
     model = AutoModelForSequenceClassification.from_pretrained(checkpoint_path, local_files_only=True)
@@ -71,3 +64,6 @@ class DeployableBert:
         prediction = self.classifier(text)
         category_id = int(prediction[0]["label"][6:])
         return self.classes[category_id]
+
+
+classifier = {lang: get_classifier(lang) for lang in settings.LANGUAGES}

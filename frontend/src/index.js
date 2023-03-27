@@ -11,14 +11,18 @@ import {IntlProvider} from 'react-intl';
 import German from './lang/de.json';
 import English from './lang/en.json';
 
-const locale = navigator.language;
-let messages = German;
-if (process.env.REACT_APP_LANGUAGE === "en") {
-    messages = English
-} else if (process.env.REACT_APP_LANGUAGE !== "de") {
-  console.log("Unknown language, using DE")
+let locale = process.env.REACT_APP_LANGUAGE;
+if (locale === "auto") {
+    locale = navigator.language.substring(0,2);
 }
-
+let messages = English;
+if (locale === "de") {
+    messages = German;
+} else if (locale === "en") {
+    console.log("using EN");
+} else {
+    console.log("Unknown language, using EN");
+}
 
 ReactDOM.render(
     <IntlProvider locale={locale} messages={messages}>

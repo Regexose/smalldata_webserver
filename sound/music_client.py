@@ -36,7 +36,7 @@ class HTTPClient:
 
     def send_message(self, route, body):
         try:
-            response = requests.post(self.__target.format(route), json.dumps(body))
+            response = requests.post(self.__target.format(route), json.dumps(body, ensure_ascii=False).encode('utf8'))
             print("Sending to music server status: ", response.status_code)
         except requests.exceptions.ConnectionError as e:
             print("Message not sent, ", e)

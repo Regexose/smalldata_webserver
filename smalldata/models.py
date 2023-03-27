@@ -15,6 +15,7 @@ class Utterance(models.Model):
     text = models.CharField(max_length=500)
     created = models.DateTimeField(auto_now_add=True)
     topic = models.ForeignKey('Topic', null=True, on_delete=models.CASCADE)
+    language = models.CharField(max_length=2, default="de")
 
     def _str_(self):
         return self.text

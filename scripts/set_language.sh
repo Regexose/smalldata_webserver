@@ -1,34 +1,27 @@
 #!/bin/bash
 
+languages="de en auto";
+
 # handle input
-if [ "$1" = 'en' ]; then
-  lang='en';
-elif [ "$1" = "de" ]; then
-  lang='de';
-else
-  echo "argument must be 'en' or 'de'!";
+lang="$1";
+echo "$languages" | grep -w -q "$lang";
+if [ $? = 1 ]; then
+  echo "Provided language not implemented! PLease use one of the following:"
+  echo "$languages"
   exit
 fi
 
-
+# Make sure script is run as smalldata
 if [ `whoami` != 'smalldata' ]; then
   echo "This command must be run as user 'smalldata'! Exiting";
   exit
 fi
 
-
-cd ~/smalldata_webserver || exit
-
-
-# replace language in settings.ini
-sed -i -E s/APP_LANGUAGE=[a-z][a-z]/APP_LANGUAGE=$lang/g ~/smalldata_webserver/settings.ini
-
-# write new .env-file
-~/venv/bin/python ~/smalldata_webserver/scripts/create_env_file.py
-
+# replace language in .env-file
+sed -i -E s/REACT_APP_LANGUAGE\ =\ .*/REACT_APP_LANGUAGE\ =\ "$lang"/g ~/smalldata_webserver/frontend/.env
 
 # build frontend files
-cd frontend
+cd ~/smalldata_webserver/frontend || exit
 npm run relocate
 cd ..
 
