@@ -29,8 +29,8 @@
  - create directory `staticfiles` in applications base-dir
  - As user `smalldata` run `scripts/set_language.sh de` to 
    - write `frontend/.env` that contains the urls for the REACT-APP 
-   - build the frontend code
-   - collect the static files
+   - build the frontend code: `npm run relocate`
+   - collect the static files: `python manage.py collectstatic`
 
 ### Open Firewall and test application
  - `su root`
