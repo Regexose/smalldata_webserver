@@ -39,5 +39,5 @@ class Command(BaseCommand):
             for utterance in utterances:
                 writer.writerow([utterance.text, utterance.category.name, utterance.topic.text,
                                  utterance.created.strftime('%d.%m.%Y'),
-                                 utterance.created.strftime('%H:%M:%S'),
+                                 utterance.created.strftime('%H:%M:%S:%f'),
                                  ])
