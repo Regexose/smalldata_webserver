@@ -9,11 +9,12 @@ import pytz
 target_dir = 'model_data/db_dumps'
 header = ['Utterance', 'Category', 'Topic', 'Date', 'Time']
 dateformat = "%d.%m.%y-%H:%M"
+timezone = pytz.timezone('Europe/Berlin')
 
 
 def valid_date(s):
     try:
-        return pytz.UTC.localize(datetime.strptime(s, dateformat))
+        return timezone.localize(datetime.strptime(s, dateformat))
     except ValueError:
         msg = "not a valid date: {0!r}".format(s)
         raise argparse.ArgumentTypeError(msg)
