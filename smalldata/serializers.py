@@ -11,7 +11,8 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class UtteranceSerializer(serializers.ModelSerializer):
     category = CategorySerializer(many=False, read_only=True)
-    msg_id = serializers.CharField(read_only=True)
+    msg_id = serializers.CharField(read_only=True, default="")
+    path_to_file = serializers.CharField(read_only=True)
     text = serializers.CharField()
     language = serializers.CharField()
 
@@ -39,15 +40,15 @@ class UtteranceSerializer(serializers.ModelSerializer):
     #  to Model.create()
     def to_internal_value(self, data):
         internal_value = super(UtteranceSerializer, self).to_internal_value(data)
-        msg_id_value = data.get("msg_id")
-        my_non_model_field_value = msg_id_value
         internal_value.update({
-            "msg_id": my_non_model_field_value
+            "msg_id": data.get("msg_id"),
+            "path_to_file": data.get("path_to_file")
         })
         return internal_value
 
     def create(self, validated_data):
         validated_data.pop('msg_id', None)
+        validated_data.pop('path_to_file', None)
         return super().create(validated_data)
 
 
