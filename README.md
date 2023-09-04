@@ -32,7 +32,6 @@ correct values
    ```
    REACT_APP_WS_URL = ws://localhost:8000/ws/
    REACT_APP_HTTP_URL = http://localhost:8000/api/
-   REACT_APP_LANGUAGE = de
    ```
 3. run `npm run start`
 4. open browser & navigate to `localhost:3000`
@@ -42,32 +41,13 @@ See `doc/deployment.md`
 
 ## Management
 ### Preperation (locally)
-1. create a virtual url with ngrok. In Terminal (no cd required)
-```
-ngrok http 8080
-```
-2. activate python proxy - translates http messages to osc messages. cd /Meinungsorgel_Git/smalldata_proxy 
+1. activate the python proxy - , i.e. websocket connection to forward incomming utterances to supercollider. Its located in the `smalldata_utilities` repo under `proxy`. Start it with
 ```
 python proxy.py
 ```
-3. In a new Terminal Tab, use ssh to login into meinungsorgel.de (ssh password required)
+If you have the felling something doesnt work with the communication,, try 
 ```
-ssh root@meinungsorgel.de
-```
-4. Write the virtual url from the ngrok window into "settings.ini"
-```
-su smalldata
-nano /home/smalldata/smalldata_webserver/settings.ini
-```
-Navigate to the line SUPERCOLLIDER_URL and paste the virtual url behind the "=". 
-Save the file with Ctrl-O and exit with Ctrl -X.
-Exit su session with "exit"
-
-
-### Forwarding of messages to SuperCollider
-cd to smalldata_proxy
-```
-python proxy.py
+python proxy.py --enable-trace
 ```
 
 ### Start / stop webservice in production
