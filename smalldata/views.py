@@ -71,6 +71,7 @@ class UtteranceView(viewsets.ModelViewSet):
             channel_layer = get_channel_layer()
             data = serializer.data
             data["msgId"] = serializer.validated_data["msg_id"]
+            data["path_to_file"] = serializer.validated_data["path_to_file"]
             async_to_sync(channel_layer.group_send)(
                 TopicConsumer.group_name, {
                     "type": "new_utterance",
