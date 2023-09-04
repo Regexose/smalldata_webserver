@@ -16,8 +16,6 @@ from .models import Utterance, Category, TrainingUtterance, SongState, Topic
 from .consumers import UtteranceConsumer, TopicConsumer
 from .classifier import classifier as clf
 
-from sound import music_client
-
 sys.path.append(path.abspath(path.dirname(__file__) + '/../..'))  # hack top make sure webserver can be imported
 sys.path.reverse()  # hack to make sure the project's config is used instead of a config from the package 'odf'
 
@@ -25,16 +23,7 @@ from smalldata_webserver.config import settings
 
 
 #   Client for a simple Feedback from Ableton Live
-song_client = music_client.get()
 category_counter = Counter({"concession": 0, "praise": 0, "dissent": 0, "lecture": 0, "insinuation": 0})
-
-
-def send_to_music_server(utterance, category, path_to_file):
-    category_counter.update({category: 1})
-    print(category_counter)
-    song_client.send_message(settings.INTERPRETER_TARGET_ADDRESS,
-                             [utterance, category, category_counter[category], path_to_file]
-                             )
 
 
 class UtteranceView(viewsets.ModelViewSet):
@@ -65,8 +54,6 @@ class UtteranceView(viewsets.ModelViewSet):
 
         #  send to relevant other services
         if cat[0] != clf[language].UNCLASSIFIABLE:
-            send_to_music_server(text, category.name, serializer.validated_data["path_to_file"])
-
             # to websocket
             channel_layer = get_channel_layer()
             data = serializer.data
@@ -146,7 +133,6 @@ def trigger_category(request, pk):
     if request.method == 'POST':
         category = Category.objects.get(pk=pk)
         text = 'test text, um eine Kategorie zu starten!'
-        send_to_music_server(text, category.name)
 
         return JsonResponse(data={'status': 'true', 'message': 'ok'})
 
