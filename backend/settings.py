@@ -154,12 +154,4 @@ if DEBUG:
     CORS_ORIGIN_ALLOW_ALL = True
 
 BASE_URL = 'http://%s' % config('HOSTNAME'),
-
-
-#  Manually add frontend server to ALLOWED_HOSTS and CORS_ORIGIN_WHITELIST
-ips = json.load(open(os.path.join(BASE_DIR, 'config/ip_config.json')))
-
-# ALLOWED_HOSTS.append(ips['webapp'])
-# CORS_ORIGIN_WHITELIST.append('http://{}:3000'.format(ips['webapp']))
-
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
