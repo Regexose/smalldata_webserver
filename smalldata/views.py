@@ -1,5 +1,3 @@
-from os import path
-import sys
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 
@@ -13,16 +11,10 @@ from rest_framework.decorators import api_view, action
 from .serializers import UtteranceSerializer, CategorySerializer, TrainingUtteranceSerializer, SongStateSerializer, \
     TopicSerializer
 from .models import Utterance, Category, TrainingUtterance, SongState, Topic
-from .consumers import UtteranceConsumer, TopicConsumer
+from .consumers import BrowserConsumer, ProxyConsumer
 from .classifier import classifier as clf
 
-sys.path.append(path.abspath(path.dirname(__file__) + '/../..'))  # hack top make sure webserver can be imported
-sys.path.reverse()  # hack to make sure the project's config is used instead of a config from the package 'odf'
 
-from smalldata_webserver.config import settings
-
-
-#   Client for a simple Feedback from Ableton Live
 category_counter = Counter({"concession": 0, "praise": 0, "dissent": 0, "lecture": 0, "insinuation": 0})
 
 
@@ -58,9 +50,15 @@ class UtteranceView(viewsets.ModelViewSet):
             channel_layer = get_channel_layer()
             data = serializer.data
             data["msgId"] = serializer.validated_data["msg_id"]
+            async_to_sync(channel_layer.group_send)(
+                BrowserConsumer.group_name, {
+                    "type": "new_utterance",
+                    "body": data
+                }
+            )
             data["path_to_file"] = serializer.validated_data["path_to_file"]
             async_to_sync(channel_layer.group_send)(
-                TopicConsumer.group_name, {
+                ProxyConsumer.group_name, {
                     "type": "new_utterance",
                     "body": data
                 }
@@ -91,8 +89,8 @@ class TopicView(viewsets.ModelViewSet):
         serializer = TopicSerializer(current_topic.get())
         channel_layer = get_channel_layer()
         async_to_sync(channel_layer.group_send)(
-            TopicConsumer.group_name, {
-                "type": "set_current",
+            BrowserConsumer.group_name, {
+                "type": "set_topic",
                 "text": serializer.data
             }
         )
@@ -116,7 +114,7 @@ def song_state(request):
             #  inform connected channels
             channel_layer = get_channel_layer()
             async_to_sync(channel_layer.group_send)(
-                UtteranceConsumer.group_name, {
+                BrowserConsumer.group_name, {
                     "type": "category_counter",
                     "text": request.data['state']
                 }
