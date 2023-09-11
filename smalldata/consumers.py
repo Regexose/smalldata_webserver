@@ -2,8 +2,8 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 import json
 
 
-class TopicConsumer(AsyncWebsocketConsumer):
-    group_name = "show"
+class BaseConsumer(AsyncWebsocketConsumer):
+    group_name = "NEED TO OVERWRITE"
 
     async def connect(self):
         print("connecting")
@@ -18,11 +18,11 @@ class TopicConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_send(
             self.group_name, {
                 "type": "confirmation",
-                "text": "Websocket connection successfull"
+                "text": "Websocket connection successful"
             })
 
     async def disconnect(self, close_code):
-        print("disconect")
+        print("disconected")
 
     async def confirmation(self, event):
         """
@@ -37,7 +37,11 @@ class TopicConsumer(AsyncWebsocketConsumer):
             }))
         print('In confirmation callback:', event["text"])
 
-    async def set_current(self, event):
+
+class BrowserConsumer(BaseConsumer):
+    group_name = "browser"
+
+    async def set_topic(self, event):
         """
         message handler for messages transmitting set_current (called from TopicView.set_current)
         :param event:
@@ -51,7 +55,8 @@ class TopicConsumer(AsyncWebsocketConsumer):
 
     async def new_utterance(self, event):
         """
-        message handler for messages transmitting set_current (called from TopicView.set_current)
+        message handler for messages transmitting new utterances to Browser-Clients
+         (called from UtteranceView.perform_create)
         :param event:
         :return:
         """
@@ -60,51 +65,11 @@ class TopicConsumer(AsyncWebsocketConsumer):
                 "type": "utterance",
                 "body": event["body"]
             }))
-        print('sending out new utterance:', event["body"])
 
 
-class UtteranceConsumer(AsyncWebsocketConsumer):
-    group_name = "show"
-
-    async def connect(self):
-        print("connecting")
-
-        await self.channel_layer.group_add(
-            self.group_name, self.channel_name
-        )
-
-        await self.accept()
-        #  TODO send current cat_counter after socket is connected
-        await self.channel_layer.group_send(
-            self.group_name, {
-                "type": "confirmation",
-                "text": "Websocket connection successfull"
-            })
-
-    async def disconnect(self, close_code):
-        print("disconect")
-
-    async def confirmation(self, event):
-        """
-        message handler for confirmation messages (called in self.connect)
-        :param event:
-        :return:
-        """
-        await self.send(
-            text_data=json.dumps({
-                "type": "confirmation",
-                "body": event["text"]
-            }))
-        print('In confirmation callback:', event["text"])
-
-    async def category_counter(self, event):
-        """
-        message handler for messages transmitting cat_counter (called from CategoryCounterView.post)
-        :param event:
-        :return:
-        """
-        await self.send(
-            text_data=json.dumps({
-                "type": "category_counter",
-                "body": event["text"]
-            }))
+class ProxyConsumer(BrowserConsumer):
+    """
+    message handler for transmitting messages to ProxyClient
+    (called from UtteranceView.perform_create)
+    """
+    group_name = "proxy"

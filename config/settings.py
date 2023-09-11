@@ -5,8 +5,6 @@ import json
 BASE_DIR = path.dirname(path.dirname(path.abspath(__file__)))
 DATA_DIR = path.join(BASE_DIR, 'model_data')
 
-ips = json.load(open(path.join(BASE_DIR, 'config', 'ip_config.json')))
-
 LANGUAGES = ["de", "en"]
 
 note_intro = 0
@@ -20,7 +18,6 @@ SONG_MIDICC_ADDRESS = '/control'
 SONG_SYNTH_RESET_ADDRESS = '/reset'
 SONG_ARP_ADDRESS = '/arp'
 SONG_BEAT_ADDRESS = '/beat'
-INTERPRETER_TARGET_ADDRESS = "/interpreter_input"
 SONG_SERVER_PORT = 57120
 OSCULATOR_PORT = 5010
 OSCULATOR_TARGET_ADDRESS = "/osculator_input"

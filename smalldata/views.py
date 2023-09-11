@@ -1,5 +1,3 @@
-from os import path
-import sys
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 
@@ -13,28 +11,11 @@ from rest_framework.decorators import api_view, action
 from .serializers import UtteranceSerializer, CategorySerializer, TrainingUtteranceSerializer, SongStateSerializer, \
     TopicSerializer
 from .models import Utterance, Category, TrainingUtterance, SongState, Topic
-from .consumers import UtteranceConsumer, TopicConsumer
+from .consumers import BrowserConsumer, ProxyConsumer
 from .classifier import classifier as clf
 
-from sound import music_client
 
-sys.path.append(path.abspath(path.dirname(__file__) + '/../..'))  # hack top make sure webserver can be imported
-sys.path.reverse()  # hack to make sure the project's config is used instead of a config from the package 'odf'
-
-from smalldata_webserver.config import settings
-
-
-#   Client for a simple Feedback from Ableton Live
-song_client = music_client.get()
 category_counter = Counter({"concession": 0, "praise": 0, "dissent": 0, "lecture": 0, "insinuation": 0})
-
-
-def send_to_music_server(utterance, category, path_to_file):
-    category_counter.update({category: 1})
-    print(category_counter)
-    song_client.send_message(settings.INTERPRETER_TARGET_ADDRESS,
-                             [utterance, category, category_counter[category], path_to_file]
-                             )
 
 
 class UtteranceView(viewsets.ModelViewSet):
@@ -65,14 +46,19 @@ class UtteranceView(viewsets.ModelViewSet):
 
         #  send to relevant other services
         if cat[0] != clf[language].UNCLASSIFIABLE:
-            send_to_music_server(text, category.name, serializer.validated_data["path_to_file"])
-
             # to websocket
             channel_layer = get_channel_layer()
             data = serializer.data
             data["msgId"] = serializer.validated_data["msg_id"]
             async_to_sync(channel_layer.group_send)(
-                TopicConsumer.group_name, {
+                BrowserConsumer.group_name, {
+                    "type": "new_utterance",
+                    "body": data
+                }
+            )
+            data["path_to_file"] = serializer.validated_data["path_to_file"]
+            async_to_sync(channel_layer.group_send)(
+                ProxyConsumer.group_name, {
                     "type": "new_utterance",
                     "body": data
                 }
@@ -103,8 +89,8 @@ class TopicView(viewsets.ModelViewSet):
         serializer = TopicSerializer(current_topic.get())
         channel_layer = get_channel_layer()
         async_to_sync(channel_layer.group_send)(
-            TopicConsumer.group_name, {
-                "type": "set_current",
+            BrowserConsumer.group_name, {
+                "type": "set_topic",
                 "text": serializer.data
             }
         )
@@ -128,7 +114,7 @@ def song_state(request):
             #  inform connected channels
             channel_layer = get_channel_layer()
             async_to_sync(channel_layer.group_send)(
-                UtteranceConsumer.group_name, {
+                BrowserConsumer.group_name, {
                     "type": "category_counter",
                     "text": request.data['state']
                 }
@@ -145,7 +131,6 @@ def trigger_category(request, pk):
     if request.method == 'POST':
         category = Category.objects.get(pk=pk)
         text = 'test text, um eine Kategorie zu starten!'
-        send_to_music_server(text, category.name)
 
         return JsonResponse(data={'status': 'true', 'message': 'ok'})
 
