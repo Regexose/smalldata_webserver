@@ -84,6 +84,16 @@ Warnings:
  2. The script must be run as user `smalldata`, i.e. type `su smalldata` before
  3. You have to restart `gunicorn` and `nginx` afterwards, or simply run `/home/root/start_meinungsorgel.sh` (as `root`)
 
+### Export Utterances
+Export Utterances
+
+Funktionier als Teil von manage.py auf dem Server
+1. ‚ssh root@meinungsorgel.de‘
+2. pW ‚buebb‘
+3. Cd /home/smalldata/smalldata_webserver/
+4. Source Vene/bin/activate
+5. /home/smalldata/smalldata_webserver# python manage.py export_utterances "TanzInDieMeinung.csv" "03.05.25-19:00" "03.05.25-23:00" Die Uhrzeiten auf dem cdv sind 2 Stunden früher aus irgendeinem Grund
+6. Vom Macbook im Terminal: scp root@meinungsorgel.de:/home/smalldata/smalldata_webserver/model_data/db_dumps/TanzInDieMeinung.csv /Users/borisjoens/Desktop
 
 
 
